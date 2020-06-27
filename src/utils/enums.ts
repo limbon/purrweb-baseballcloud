@@ -15,3 +15,9 @@ export enum Route {
 	Network = 'network',
 	Leaderboard = 'leaderboard',
 }
+
+export enum AuthField {
+	Email = 'email',
+	Password = 'password',
+	ConfirmPassword = 'password_confirmation',
+}

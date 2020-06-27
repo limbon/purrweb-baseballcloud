@@ -1,0 +1,55 @@
+$padding: 32px;
+
+.form {
+	display: grid;
+	gap: 15px;
+
+	.field {
+		position: relative;
+		display: grid;
+		grid-auto-flow: column;
+		align-items: center;
+
+		svg {
+			position: absolute;
+			left: 0;
+			margin-left: ($padding / 2) - 4px;
+			color: #667784;
+			font-size: 14px;
+		}
+
+		.input {
+			height: 50px;
+			font-size: 16px;
+			padding-left: $padding;
+			border: 1px solid transparent;
+
+			&::placeholder {
+				color: #000;
+			}
+
+			&:focus {
+				border: solid 1px #48bbff !important;
+			}
+		}
+	}
+
+	.submit {
+		width: 100%;
+		color: #ffffff;
+		background-color: #48bbff;
+		padding-top: 15px;
+		padding-bottom: 17px;
+		border: solid 1px transparent;
+		box-shadow: 0 0 4px 0 rgba(72, 187, 255, 0.8);
+		cursor: pointer;
+
+		&:active {
+			box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.25) !important;
+		}
+
+		&:hover {
+			box-shadow: 0 0 4px 0 rgba(72, 187, 255, 0.8);
+		}
+	}
+}
