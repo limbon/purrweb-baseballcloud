@@ -21,3 +21,8 @@ export enum AuthField {
 	Password = 'password',
 	ConfirmPassword = 'password_confirmation',
 }
+
+export enum Role {
+	Player = 'player',
+	Scout = 'scout',
+}
