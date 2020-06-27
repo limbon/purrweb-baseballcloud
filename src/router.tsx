@@ -5,6 +5,8 @@ import { Route } from './utils/enums';
 
 import SignInView from './views/SignInView/SignInView';
 import SignUpView from './views/SignUpView/SignUpView';
+import TOSView from './views/Legal/TOSView';
+import PrivacyView from './views/Legal/PrivacyView';
 
 export const router: Router = {
 	rootRoute: {
@@ -39,11 +41,11 @@ export const router: Router = {
 		},
 		{
 			path: Route.TOS,
-			component: () => <div>TOS</div>,
+			component: TOSView,
 		},
 		{
 			path: Route.Privacy,
-			component: () => <div>Privacy</div>,
+			component: PrivacyView,
 		},
 		{
 			path: Route.Profile,

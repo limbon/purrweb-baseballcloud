@@ -14,7 +14,7 @@ const App: React.FC = () => {
 	return (
 		<div style={{ height: '100%', flexDirection: 'column', display: 'flex' }}>
 			<Header />
-			<div style={{ flex: 1 }}>{generateRoutes(router)}</div>
+			<div style={{ flex: 1, overflow: 'hidden' }}>{generateRoutes(router)}</div>
 			<Footer />
 		</div>
 	);
