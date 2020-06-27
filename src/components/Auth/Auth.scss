@@ -4,6 +4,31 @@ $padding: 32px;
 	display: grid;
 	gap: 15px;
 
+	.roles {
+		display: grid;
+		gap: 15px;
+
+		.roleDescription {
+			background-color: #48bbff;
+			display: grid;
+			justify-items: center;
+			gap: 15px;
+			padding: 16px;
+			border-radius: 8px;
+
+			.roleName {
+				color: #ffffff;
+				font-size: 36px;
+				font-weight: 700;
+			}
+
+			.roleDescriptionText {
+				color: #ffffff;
+				text-align: center;
+			}
+		}
+	}
+
 	.field {
 		position: relative;
 		display: grid;

@@ -20,6 +20,7 @@ export enum AuthField {
 	Email = 'email',
 	Password = 'password',
 	ConfirmPassword = 'password_confirmation',
+	Role = 'role',
 }
 
 export enum Role {
