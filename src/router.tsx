@@ -3,7 +3,8 @@ import * as React from 'react';
 import { Router } from 'baseballcloud/types';
 import { Route } from './utils/enums';
 
-import SignIn from './views/SignInView/SignInView';
+import SignInView from './views/SignInView/SignInView';
+import SignUpView from './views/SignUpView/SignUpView';
 
 export const router: Router = {
 	rootRoute: {
@@ -26,11 +27,11 @@ export const router: Router = {
 	routes: [
 		{
 			path: Route.SignIn,
-			component: SignIn,
+			component: SignInView,
 		},
 		{
 			path: Route.SignUp,
-			component: () => <div>SignUp</div>,
+			component: SignUpView,
 		},
 		{
 			path: Route.PasswordRecovery,
