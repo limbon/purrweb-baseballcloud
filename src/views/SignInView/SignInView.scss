@@ -1,0 +1,16 @@
+.view {
+	height: 100%;
+	background-image: url('../../assets/images/background.png');
+	background-color: rgba(0, 0, 0, 0.424);
+	background-blend-mode: darken;
+	background-position: top center;
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	h1 {
+		color: white;
+		font-size: 100px;
+	}
+}

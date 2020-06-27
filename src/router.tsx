@@ -3,6 +3,8 @@ import * as React from 'react';
 import { Router } from 'baseballcloud/types';
 import { Route } from './utils/enums';
 
+import SignIn from './views/SignInView/SignInView';
+
 export const router: Router = {
 	rootRoute: {
 		// TEMP
@@ -24,7 +26,7 @@ export const router: Router = {
 	routes: [
 		{
 			path: Route.SignIn,
-			component: () => <div>SignIn</div>,
+			component: SignIn,
 		},
 		{
 			path: Route.SignUp,
