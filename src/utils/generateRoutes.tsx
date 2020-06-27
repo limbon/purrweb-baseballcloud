@@ -26,7 +26,12 @@ export const generateRoutes = (router: Router) => {
 		<Switch>
 			<ReactRouterRoute path='//'>{router.rootRoute.component}</ReactRouterRoute>
 			{flattenRoutes(router.routes).map((r) => (
-				<ReactRouterRoute key={r.path} exact path={`/${r.path}`} component={r.component} />
+				<ReactRouterRoute
+					key={r.path}
+					exact={r.exact ?? true}
+					path={`/${r.path}`}
+					component={r.component}
+				/>
 			))}
 			<ReactRouterRoute
 				path={`/${router.fallbackRoute.path}`}

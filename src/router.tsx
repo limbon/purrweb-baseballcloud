@@ -21,5 +21,40 @@ export const router: Router = {
 			</div>
 		),
 	},
-	routes: [],
+	routes: [
+		{
+			path: Route.SignIn,
+			component: () => <div>SignIn</div>,
+		},
+		{
+			path: Route.SignUp,
+			component: () => <div>SignUp</div>,
+		},
+		{
+			path: Route.PasswordRecovery,
+			component: () => <div>Password Recovery</div>,
+		},
+		{
+			path: Route.TOS,
+			component: () => <div>TOS</div>,
+		},
+		{
+			path: Route.Privacy,
+			component: () => <div>Privacy</div>,
+		},
+		{
+			path: Route.Profile,
+			// TODO: Handle profile by id
+			component: () => <div>Profile</div>,
+			exact: false,
+		},
+		{
+			path: Route.Leaderboard,
+			component: () => <div>Leaderboard</div>,
+		},
+		{
+			path: Route.Network,
+			component: () => <div>Network</div>,
+		},
+	],
 };

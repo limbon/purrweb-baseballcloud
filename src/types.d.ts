@@ -12,6 +12,7 @@ declare module 'baseballcloud/types' {
 		component: React.ComponentType;
 		name?: string;
 		subroutes?: Route[];
+		exact?: boolean;
 	};
 
 	type Router = {
