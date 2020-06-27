@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 const App: React.FC = () => {
 	const message = useSelector((store: ApplicationStore) => store.message);
-
 	return (
 		<div>
 			<h1>{message}</h1>
