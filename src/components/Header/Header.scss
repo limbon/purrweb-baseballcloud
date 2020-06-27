@@ -1,0 +1,12 @@
+.header {
+	background-color: #fff;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 10px;
+
+	a {
+		display: flex;
+		align-items: center;
+	}
+}
