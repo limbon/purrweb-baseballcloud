@@ -1,0 +1,21 @@
+.footer {
+	height: 40px;
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 16px;
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+	.legal {
+		display: grid;
+		grid-auto-flow: column;
+		gap: 16px;
+	}
+
+	.socials {
+		display: grid;
+		grid-auto-flow: column;
+		gap: 16px;
+	}
+}
