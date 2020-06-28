@@ -7,6 +7,8 @@ import { faUser, faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { AuthField, Role, Route } from '../../../utils/enums';
 
+import { minLength, isEmail, equalFields } from '../../../utils/validators';
+
 import Input from '../../UI/Input/Input';
 import RolePicker from '../../UI/RolePicker/RolePicker';
 
@@ -35,8 +37,16 @@ const SignUp: React.FC = () => {
 	}, []);
 
 	return (
-		<Form onSubmit={handleSubmit} initialValues={{ role: Role.Player }}>
-			{({ handleSubmit }) => (
+		<Form
+			onSubmit={handleSubmit}
+			validate={equalFields(
+				AuthField.Password,
+				AuthField.ConfirmPassword,
+				'Passwords must be equal',
+			)}
+			initialValues={{ role: Role.Player }}
+		>
+			{({ handleSubmit, hasValidationErrors, errors }) => (
 				<form className={styles.form} onSubmit={handleSubmit}>
 					<Field name={AuthField.Role}>
 						{({ input }) => (
@@ -53,37 +63,60 @@ const SignUp: React.FC = () => {
 							</div>
 						)}
 					</Field>
-					<Field name={AuthField.Email}>
-						{({ input }) => (
+					<Field name={AuthField.Email} validate={isEmail}>
+						{({ input, meta }) => (
 							<div className={styles.field}>
-								<FontAwesomeIcon icon={faUser} />
-								<Input {...input} className={styles.input} type='email' placeholder='Email' />
+								<div className={styles.inputContainer}>
+									<FontAwesomeIcon icon={faUser} />
+									<Input
+										{...input}
+										className={styles.input}
+										type='email'
+										placeholder='Email'
+									/>
+								</div>
+								{meta.touched && !meta.pristine && meta.error && (
+									<span className={styles.error}>{meta.error}</span>
+								)}
 							</div>
 						)}
 					</Field>
-					<Field name={AuthField.Password}>
-						{({ input }) => (
+					<Field name={AuthField.Password} validate={minLength(8)}>
+						{({ input, meta }) => (
 							<div className={styles.field}>
-								<FontAwesomeIcon icon={faLock} />
-								<Input
-									{...input}
-									className={styles.input}
-									type='password'
-									placeholder='Password'
-								/>
+								<div className={styles.inputContainer}>
+									<FontAwesomeIcon icon={faLock} />
+									<Input
+										{...input}
+										className={styles.input}
+										type='password'
+										placeholder='Password'
+									/>
+								</div>
+								{meta.touched && !meta.pristine && meta.error && (
+									<span className={styles.error}>{meta.error}</span>
+								)}
 							</div>
 						)}
 					</Field>
-					<Field name={AuthField.ConfirmPassword}>
-						{({ input }) => (
+					<Field name={AuthField.ConfirmPassword} validate={minLength(8)}>
+						{({ input, meta }) => (
 							<div className={styles.field}>
-								<FontAwesomeIcon icon={faCheck} />
-								<Input
-									{...input}
-									className={styles.input}
-									type='password'
-									placeholder='Confirm Password'
-								/>
+								<div className={styles.inputContainer}>
+									<FontAwesomeIcon icon={faCheck} />
+									<Input
+										{...input}
+										className={styles.input}
+										type='password'
+										placeholder='Confirm Password'
+									/>
+								</div>
+								{meta.touched && !meta.pristine && meta.error && (
+									<span className={styles.error}>{meta.error}</span>
+								)}
+								{!meta.error && !meta.pristine && errors.inequalFields && (
+									<span className={styles.error}>{errors.inequalFields}</span>
+								)}
 							</div>
 						)}
 					</Field>
@@ -91,7 +124,9 @@ const SignUp: React.FC = () => {
 						By clicking Sign Up, you agree to our <Link to={Route.TOS}>Terms of Service</Link>{' '}
 						and <Link to={Route.Privacy}>Privacy Policy</Link>.
 					</p>
-					<button className={styles.submit}>Sign Up</button>
+					<button type='submit' className={styles.submit}>
+						Sign Up
+					</button>
 				</form>
 			)}
 		</Form>

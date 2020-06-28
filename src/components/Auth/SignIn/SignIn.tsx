@@ -5,6 +5,8 @@ import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 
 import { AuthField } from '../../../utils/enums';
 
+import { isEmail, minLength } from '../../../utils/validators';
+
 import Input from '../../UI/Input/Input';
 
 import styles from '../Auth.scss';
@@ -18,24 +20,36 @@ const SignIn: React.FC = () => {
 		<Form onSubmit={handleSubmit}>
 			{({ handleSubmit }) => (
 				<form className={styles.form} onSubmit={handleSubmit}>
-					<Field name={AuthField.Email}>
-						{({ input }) => (
+					<Field name={AuthField.Email} validate={isEmail}>
+						{({ input, meta }) => (
 							<div className={styles.field}>
-								<FontAwesomeIcon icon={faUser} />
-								<Input {...input} type='email' className={styles.input} placeholder='Email' />
+								<div className={styles.inputContainer}>
+									<FontAwesomeIcon icon={faUser} />
+									<Input
+										{...input}
+										type='email'
+										className={styles.input}
+										placeholder='Email'
+									/>
+								</div>
+								{meta.touched && !meta.pristine && meta.error && (
+									<span className={styles.error}>{meta.error}</span>
+								)}
 							</div>
 						)}
 					</Field>
 					<Field name={AuthField.Password}>
 						{({ input }) => (
 							<div className={styles.field}>
-								<FontAwesomeIcon icon={faLock} />
-								<Input
-									{...input}
-									type='password'
-									className={styles.input}
-									placeholder='Password'
-								/>
+								<div className={styles.inputContainer}>
+									<FontAwesomeIcon icon={faLock} />
+									<Input
+										{...input}
+										type='password'
+										className={styles.input}
+										placeholder='Password'
+									/>
+								</div>
 							</div>
 						)}
 					</Field>

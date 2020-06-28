@@ -30,32 +30,42 @@ $padding: 32px;
 	}
 
 	.field {
-		position: relative;
 		display: grid;
-		grid-auto-flow: column;
-		align-items: center;
+		gap: 8px;
 
-		svg {
-			position: absolute;
-			left: 0;
-			margin-left: ($padding / 2) - 4px;
-			color: #667784;
-			font-size: 14px;
+		.inputContainer {
+			position: relative;
+			display: grid;
+			grid-auto-flow: column;
+			align-items: center;
+
+			svg {
+				position: absolute;
+				left: 0;
+				margin-left: ($padding / 2) - 4px;
+				color: #667784;
+				font-size: 14px;
+				z-index: 10;
+			}
+
+			.input {
+				height: 50px;
+				font-size: 16px;
+				padding-left: $padding;
+				border: 1px solid transparent;
+
+				&::placeholder {
+					color: #000;
+				}
+
+				&:focus {
+					border: solid 1px #48bbff !important;
+				}
+			}
 		}
 
-		.input {
-			height: 50px;
-			font-size: 16px;
-			padding-left: $padding;
-			border: 1px solid transparent;
-
-			&::placeholder {
-				color: #000;
-			}
-
-			&:focus {
-				border: solid 1px #48bbff !important;
-			}
+		.error {
+			color: red;
 		}
 	}
 
