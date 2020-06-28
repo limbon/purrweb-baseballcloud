@@ -1,19 +1,23 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 
 import { AuthField } from '../../../utils/enums';
+import { SignInFormData } from 'baseballcloud/types';
 
-import { isEmail, minLength } from '../../../utils/validators';
+import { isEmail } from '../../../utils/validators';
+import { requestSignIn } from '../../../ducks/user';
 
 import Input from '../../UI/Input/Input';
 
 import styles from '../Auth.scss';
 
 const SignIn: React.FC = () => {
-	const handleSubmit = React.useCallback((data: any) => {
-		console.log(data);
+	const dispatch = useDispatch();
+	const handleSubmit = React.useCallback((data: SignInFormData) => {
+		dispatch(requestSignIn(data));
 	}, []);
 
 	return (

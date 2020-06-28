@@ -34,6 +34,12 @@ declare module 'baseballcloud/types' {
 		Scout,
 	}
 
+	type CachedData = {
+		'access-token': string;
+		client: string;
+		uid: string;
+	};
+
 	type SignInFormData = {
 		email: string;
 		password: string;
