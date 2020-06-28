@@ -1,11 +1,14 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
+import { ApplicationStore } from 'baseballcloud/types';
+
+import { userReducer } from './ducks/user';
+
 const sagaMiddleware = createSagaMiddleware();
 
-const rootReducer = combineReducers({
-	// TEMP
-	message: () => 'Hello, World',
+const rootReducer = combineReducers<ApplicationStore>({
+	user: userReducer,
 });
 
 const middleware = [sagaMiddleware];
