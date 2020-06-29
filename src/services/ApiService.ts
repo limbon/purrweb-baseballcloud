@@ -49,6 +49,18 @@ export class ApiService {
 		return response.data.data;
 	};
 
+	requestProfileById = async (id: string): Promise<Profile> => {
+		const response = await axios.post<{ data: { profile: Profile } }>(
+			this.GRAPHQL,
+			{
+				query: REQUEST_PROFILE_BY_ID,
+				variables: { id },
+			},
+			{ headers: this.Headers },
+		);
+		return response.data.data.profile;
+	};
+
 	requestCurrentUserProfile = async (): Promise<Profile> => {
 		const id = await this.requestCurrentUserId();
 		const response = await axios.post<{ data: { profile: Profile } }>(

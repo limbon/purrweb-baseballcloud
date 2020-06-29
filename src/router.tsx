@@ -7,6 +7,7 @@ import SignInView from './views/SignInView/SignInView';
 import SignUpView from './views/SignUpView/SignUpView';
 import TOSView from './views/Legal/TOSView';
 import PrivacyView from './views/Legal/PrivacyView';
+import ProfileView from './views/ProfileView/ProfileView';
 
 export const router: Router = {
 	rootRoute: {
@@ -49,9 +50,8 @@ export const router: Router = {
 		},
 		{
 			path: Route.Profile,
-			// TODO: Handle profile by id
-			component: () => <div>Profile</div>,
-			exact: false,
+			component: ProfileView,
+			subroutes: [{ path: ':id', component: ProfileView }],
 		},
 		{
 			path: Route.Leaderboard,
