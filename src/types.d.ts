@@ -6,6 +6,7 @@ declare module '*.svg';
 declare module 'baseballcloud/types' {
 	type ApplicationStore = {
 		user: UserState;
+		profile: ProfileState;
 	};
 
 	type Route = {
@@ -34,6 +35,28 @@ declare module 'baseballcloud/types' {
 		Scout,
 	}
 
+	enum Position {
+		Catcher,
+		Pitcher,
+		Firstbase,
+		Secondbase,
+		Thirdbase,
+		Shortstop,
+		Outfield,
+	}
+
+	enum SchoolYear {
+		Junior,
+		Senior,
+		Freshman,
+		Sophomore,
+	}
+
+	enum Hand {
+		Left,
+		Right,
+	}
+
 	type CachedData = {
 		'access-token': string;
 		client: string;
@@ -52,6 +75,46 @@ declare module 'baseballcloud/types' {
 		size_32_32: { url: string | null };
 		size_20_20: { url: string | null };
 	};
+	type School = {
+		id: string;
+		name: string;
+	};
+
+	type Team = {
+		id: string;
+		name: string;
+	};
+
+	type Facility = {
+		id: number;
+		email: string;
+		u_name: string;
+	};
+
+	type BatterTopValues = {
+		pitch_type: string;
+		distance: number;
+		launch_angle: number;
+		exit_velocity: number;
+	};
+
+	type BatterSummary = {
+		exit_velocity: number;
+		distance: number;
+		launch_angle: number;
+	};
+
+	type PitcherTopValues = {
+		velocity: number;
+		spin_rate: number;
+		pitch_movement: number;
+	};
+
+	type PitcherSummary = {
+		velocity: number;
+		spin_rate: number;
+		horizontal_break: number | null;
+	};
 
 	type User = {
 		id: number;
@@ -68,4 +131,42 @@ declare module 'baseballcloud/types' {
 	};
 
 	type UserState = User | null;
+
+	type Profile = {
+		id: string;
+		first_name: string;
+		last_name: string;
+		position: Position;
+		position2: Position;
+		school_year: SchoolYear;
+		avatar: string | null;
+		throws_hand: Hand;
+		bats_hand: Hand;
+		biography: string;
+		feet: number;
+		inches: number;
+		weight: number;
+		age: number;
+		recent_events: [];
+		winsgspan: null;
+		grip_right: null;
+		grip_left: null;
+		wrist_to_elbow: null;
+		broad_jump: null;
+		act_score: number | null;
+		gpa_score: number | null;
+		sat_score: number | null;
+		batting_top_values: BatterTopValues[];
+		pitching_top_values: PitcherTopValues[];
+		pitcher_summary: PitcherSummary[];
+		batter_summary: BatterSummary[];
+		school: School;
+		teams: Team[];
+		facilities: Facility[];
+		favorite: boolean;
+		events_opened: boolean;
+		paid: boolean;
+	};
+
+	type ProfileState = Profile | null;
 }

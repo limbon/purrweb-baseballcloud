@@ -5,11 +5,13 @@ import { all } from 'redux-saga/effects';
 import { ApplicationStore } from 'baseballcloud/types';
 
 import { userReducer, userSaga } from './ducks/user';
+import { profileReducer } from './ducks/profile';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers<ApplicationStore>({
 	user: userReducer,
+	profile: profileReducer,
 });
 
 const middleware = [sagaMiddleware];
