@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
 import { ProfileState } from 'baseballcloud/types';
@@ -12,6 +12,7 @@ import { useService } from '../../hooks/useService';
 import { selectProfile } from '../../utils/selectors';
 
 import styles from './ProfileView.scss';
+import { requestProfile } from '../../ducks/profile';
 
 const ProfileView: React.FC = () => {
 	const [profile, setProfile] = React.useState<ProfileState>(null);
@@ -19,6 +20,7 @@ const ProfileView: React.FC = () => {
 	const currentProfile = useSelector(selectProfile);
 	const api = useService<ApiService>(ServiceID.ApiService);
 	const history = useHistory();
+	const dispatch = useDispatch();
 
 	React.useEffect(() => {
 		if (params.id && !isNaN(parseInt(params.id))) {
@@ -32,6 +34,8 @@ const ProfileView: React.FC = () => {
 					history.goBack();
 				}
 			})();
+		} else if (!currentProfile) {
+			dispatch(requestProfile());
 		} else {
 			setProfile(currentProfile);
 		}

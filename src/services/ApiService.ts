@@ -49,6 +49,13 @@ export class ApiService {
 		return response.data.data;
 	};
 
+	requestValidateToken = async (): Promise<User> => {
+		const url = `${this.BASE_URL}/auth/validate_token`;
+		const response = await axios.get<{ data: User }>(url, { headers: this.Headers });
+
+		return response.data.data;
+	};
+
 	requestProfileById = async (id: string): Promise<Profile> => {
 		const response = await axios.post<{ data: { profile: Profile } }>(
 			this.GRAPHQL,

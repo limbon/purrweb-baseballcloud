@@ -1,13 +1,21 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { Route } from '../../utils/enums';
 
 import SignIn from '../../components/Auth/SignIn/SignIn';
 
 import styles from './SignInView.scss';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../utils/selectors';
 
 const SignInView: React.FC = () => {
+	const user = useSelector(selectUser);
+
+	if (user) {
+		return <Redirect to={Route.Profile} />;
+	}
+
 	return (
 		<div className={styles.view} style={{ flexDirection: 'column' }}>
 			<div className={styles.formContainer}>

@@ -1,18 +1,19 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { router } from './router';
 
 import { generateRoutes } from './utils/generateRoutes';
-import { router } from './router';
+import { validateToken } from './ducks/user';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import { useDispatch } from 'react-redux';
-import { requestProfile } from './ducks/profile';
 
 const App: React.FC = () => {
 	const dispatch = useDispatch();
 
 	React.useEffect(() => {
-		dispatch(requestProfile());
+		dispatch(validateToken());
 	}, []);
 
 	return (

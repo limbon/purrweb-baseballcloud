@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
-
-import { Route } from '../../utils/enums';
 import { useSelector } from 'react-redux';
 
-const HomeView: React.FC = () => {
-	const user = useSelector((store: any) => store.user);
+import { Route } from '../../utils/enums';
 
-	console.log(user);
+import { selectUser } from '../../utils/selectors';
+
+const HomeView: React.FC = () => {
+	const user = useSelector(selectUser);
 
 	if (user) {
 		return <Redirect to={Route.Profile} />;
