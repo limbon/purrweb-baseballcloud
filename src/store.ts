@@ -5,7 +5,7 @@ import { all } from 'redux-saga/effects';
 import { ApplicationStore } from 'baseballcloud/types';
 
 import { userReducer, userSaga } from './ducks/user';
-import { profileReducer } from './ducks/profile';
+import { profileReducer, profileSaga } from './ducks/profile';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -21,7 +21,7 @@ const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)));
 
 function* rootSaga() {
-	yield all([userSaga()]);
+	yield all([userSaga(), profileSaga()]);
 }
 sagaMiddleware.run(rootSaga);
 
