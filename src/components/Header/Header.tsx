@@ -11,6 +11,7 @@ import DefaultAvatar from '../../assets/images/default-avatar.png';
 import Dropdown from '../UI/Dropdown/Dropdown';
 
 import styles from './Header.scss';
+import Select from '../UI/Select/Select';
 
 const Header: React.FC = () => {
 	const profile = useSelector(selectActiveProfile);
@@ -23,6 +24,7 @@ const Header: React.FC = () => {
 			<div className={styles.navigation}>
 				<Link to={Route.Leaderboard}>Leaderboard</Link>
 				<Link to={Route.Network}>Network</Link>
+				<Select onChange={(e) => console.log(e.target.value)} options={['Foo', 'Bar', 'Baz']} />
 				{profile && (
 					<div className={styles.profile}>
 						<img src={profile.avatar || DefaultAvatar} />

@@ -1,0 +1,22 @@
+.select {
+	position: relative;
+
+	.input {
+	}
+
+	.options {
+		position: absolute;
+		width: 100%;
+		background-color: #fff;
+
+		.option {
+			width: 100%;
+			padding: 8px;
+
+			&:hover {
+				background-color: #eee;
+				cursor: pointer;
+			}
+		}
+	}
+}
