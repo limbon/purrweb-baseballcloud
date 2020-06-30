@@ -3,6 +3,8 @@ declare module '*.md';
 declare module '*.scss';
 declare module '*.svg';
 
+declare module 'use-dropdown';
+
 declare module 'baseballcloud/types' {
 	type ApplicationStore = {
 		user: UserState;

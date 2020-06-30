@@ -54,6 +54,7 @@
 		"redux": "^4.0.5",
 		"redux-saga": "^1.1.3",
 		"reflect-metadata": "^0.1.13",
-		"reselect": "^4.0.0"
+		"reselect": "^4.0.0",
+		"use-dropdown": "^1.0.0"
 	}
 }

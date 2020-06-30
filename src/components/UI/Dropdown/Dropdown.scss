@@ -1,0 +1,28 @@
+.dropdown {
+	position: relative;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #eee;
+	}
+
+	.title {
+		padding: 8px;
+	}
+
+	.options {
+		position: absolute;
+		width: 100%;
+		background-color: #fff;
+
+		.option {
+			padding: 8px;
+			word-wrap: break-word;
+			white-space: pre-wrap;
+
+			&:hover {
+				background-color: #eee;
+			}
+		}
+	}
+}
