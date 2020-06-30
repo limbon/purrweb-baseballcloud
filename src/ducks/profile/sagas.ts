@@ -12,7 +12,7 @@ import {
 	RequestProfileByIdAction,
 } from './actionTypes';
 
-import { requestProfileSuccess } from './actionCreators';
+import { requestProfileSuccess, setActiveProfileId } from './actionCreators';
 
 const api = IOC.get<ApiService>(ServiceID.ApiService);
 
@@ -20,6 +20,7 @@ function* requestProfile(action: RequestProfileAction) {
 	try {
 		const profile = yield call(api.requestCurrentUserProfile);
 		yield put(requestProfileSuccess(profile));
+		yield put(setActiveProfileId(profile.id));
 	} catch (error) {
 		// TODO
 		console.error(error);

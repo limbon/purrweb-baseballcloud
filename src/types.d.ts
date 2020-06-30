@@ -170,5 +170,8 @@ declare module 'baseballcloud/types' {
 		paid: boolean;
 	};
 
-	type ProfileState = Profile | null;
+	type ProfileState = {
+		activeProfile: string | null;
+		profiles: { [index: string]: Profile };
+	};
 }

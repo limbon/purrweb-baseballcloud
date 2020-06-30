@@ -5,6 +5,8 @@ import {
 	RequestProfileAction,
 	RequestProfileByIdAction,
 	RequestProfileSuccessAction,
+	SetActiveProfileIdAction,
+	SET_ACTIVE_PROFILE_ID,
 } from './actionTypes';
 import { Profile } from 'baseballcloud/types';
 
@@ -17,6 +19,13 @@ export const requestProfile = (): RequestProfileAction => {
 export const requestProfileById = (id: string): RequestProfileByIdAction => {
 	return {
 		type: REQUEST_PROFILE_BY_ID,
+		payload: id,
+	};
+};
+
+export const setActiveProfileId = (id: string): SetActiveProfileIdAction => {
+	return {
+		type: SET_ACTIVE_PROFILE_ID,
 		payload: id,
 	};
 };
