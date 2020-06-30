@@ -6,7 +6,7 @@ import { CachedData } from 'baseballcloud/types';
 
 const IOC = new Container();
 
-IOC.bind<CacheService<CachedData>>(ServiceID.CacheService).to(CacheService);
-IOC.bind<ApiService>(ServiceID.ApiService).to(ApiService);
+IOC.bind<CacheService<CachedData>>(ServiceID.CacheService).to(CacheService).inSingletonScope();
+IOC.bind<ApiService>(ServiceID.ApiService).to(ApiService).inSingletonScope();
 
 export { IOC };
