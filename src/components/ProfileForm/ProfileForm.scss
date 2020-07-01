@@ -1,0 +1,64 @@
+.avatarForm {
+	display: grid;
+	justify-items: center;
+	gap: 8px;
+
+	.avatar {
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+	}
+
+	.input {
+		position: relative;
+
+		input {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			opacity: 0;
+			cursor: pointer;
+
+			&:hover {
+				& + span {
+					color: #48bbff;
+					text-decoration: underline;
+				}
+			}
+		}
+
+		span {
+			color: #788b99;
+			z-index: 1;
+		}
+	}
+
+	.buttons {
+		display: grid;
+		grid-auto-flow: column;
+		gap: 16px;
+
+		button {
+			background: none;
+			border: 0;
+			cursor: pointer;
+
+			&.upload {
+				color: #48bbff;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+
+			&.cancel {
+				color: #788b99;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+}
