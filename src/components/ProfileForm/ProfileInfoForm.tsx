@@ -6,6 +6,7 @@ import { Form } from 'react-final-form';
 import { Position, ProfileFormField } from '../../utils/enums';
 
 import UserInfo from './UserInfo';
+import PersonalInfo from './PersonalInfo';
 
 import styles from './ProfileForm.scss';
 
@@ -26,11 +27,18 @@ const ProfileInfoForm: React.FC<Props> = ({ data }) => {
 				[ProfileFormField.LastName]: data.last_name,
 				[ProfileFormField.Position1]: data.position,
 				[ProfileFormField.Position2]: data.position2,
+				[ProfileFormField.Age]: data.age,
+				[ProfileFormField.Feet]: data.feet,
+				[ProfileFormField.Inches]: data.inches,
+				[ProfileFormField.Weight]: data.weight,
+				[ProfileFormField.ThrowsHand]: data.throws_hand,
+				[ProfileFormField.BatsHand]: data.bats_hand,
 			}}
 		>
 			{({ handleSubmit }) => (
 				<form className={styles.profileInfoForm} onSubmit={handleSubmit}>
 					<UserInfo />
+					<PersonalInfo />
 					<div className={styles.buttons}>
 						<button className={styles.cancel}>Cancel</button>
 						<button className={styles.submit}>Save</button>

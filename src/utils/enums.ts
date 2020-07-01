@@ -33,6 +33,11 @@ export enum Position {
 	Outfield = 'outfield',
 }
 
+export enum Hand {
+	Right = 'r',
+	Left = 'l',
+}
+
 export enum ProfileFormField {
 	FirstName = 'first_name',
 	LastName = 'last_name',

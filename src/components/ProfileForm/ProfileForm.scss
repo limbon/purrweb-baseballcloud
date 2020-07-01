@@ -1,3 +1,21 @@
+@mixin Heading {
+	span {
+		color: #414f5a;
+		font-size: 18px;
+		font-weight: 900;
+		display: flex;
+		align-items: center;
+
+		&::after {
+			content: '';
+			height: 1px;
+			display: block;
+			flex: 1;
+			background-color: #e7ebef;
+		}
+	}
+}
+
 .avatarForm {
 	display: grid;
 	justify-items: center;
@@ -76,6 +94,23 @@
 
 	.positions {
 		display: grid;
+		gap: 8px;
+	}
+}
+
+.personalInfo {
+	display: grid;
+	gap: 8px;
+	margin-top: 8px;
+
+	.heading {
+		@include Heading;
+	}
+
+	.height,
+	.hands {
+		display: grid;
+		grid-auto-flow: column;
 		gap: 8px;
 	}
 }
