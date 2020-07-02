@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Profile } from 'baseballcloud/types';
+import { Profile, Team } from 'baseballcloud/types';
 import { Form, Field } from 'react-final-form';
 
 import { Position, ProfileFormField } from '../../utils/enums';
@@ -11,6 +11,8 @@ import SchoolInfo from './SchoolInfo';
 
 import styles from './ProfileForm.scss';
 import Biography from './Biography';
+import { useDispatch } from 'react-redux';
+import { requestTeams } from '../../ducks/profile/asyncActions';
 
 interface Props {
 	data: Profile;
@@ -36,6 +38,7 @@ const ProfileInfoForm: React.FC<Props> = ({ data }) => {
 				[ProfileFormField.ThrowsHand]: data.throws_hand,
 				[ProfileFormField.BatsHand]: data.bats_hand,
 				[ProfileFormField.SchoolYear]: data.school_year,
+				[ProfileFormField.Teams]: data.teams,
 				[ProfileFormField.Biography]: data.biography,
 			}}
 		>

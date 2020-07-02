@@ -2,11 +2,11 @@ import {
 	REQUEST_PROFILE,
 	REQUEST_PROFILE_SUCCESS,
 	REQUEST_PROFILE_BY_ID,
+	SET_ACTIVE_PROFILE_ID,
 	RequestProfileAction,
 	RequestProfileByIdAction,
 	RequestProfileSuccessAction,
 	SetActiveProfileIdAction,
-	SET_ACTIVE_PROFILE_ID,
 } from './actionTypes';
 import { Profile } from 'baseballcloud/types';
 

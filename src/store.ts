@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import thunk from 'redux-thunk';
 import { all } from 'redux-saga/effects';
 
 import { ApplicationStore } from 'baseballcloud/types';
@@ -14,7 +15,7 @@ const rootReducer = combineReducers<ApplicationStore>({
 	profile: profileReducer,
 });
 
-const middleware = [sagaMiddleware];
+const middleware = [sagaMiddleware, thunk];
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

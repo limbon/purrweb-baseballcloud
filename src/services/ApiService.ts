@@ -1,10 +1,17 @@
 import { injectable, inject } from 'inversify';
 import axios from 'axios';
+import { keyBy } from 'lodash';
 
 import { ServiceID } from '../utils/enums';
 import { CacheService } from './CacheService';
-import { SignInFormData, User, CachedData, Profile } from 'baseballcloud/types';
-import { REQUEST_PROFILE_BY_ID, REQUEST_CURRENT_PROFILE_ID } from '../requests/profile';
+
+import { SignInFormData, User, CachedData, Profile, Team } from 'baseballcloud/types';
+
+import {
+	REQUEST_PROFILE_BY_ID,
+	REQUEST_CURRENT_PROFILE_ID,
+	REQUEST_TEAMS,
+} from '../requests/profile';
 
 @injectable()
 export class ApiService {
@@ -80,5 +87,18 @@ export class ApiService {
 		);
 
 		return response.data.data.profile;
+	};
+
+	requestTeams = async () => {
+		const response = await axios.post<{ data: { teams: { teams: { [index: string]: Team } } } }>(
+			this.GRAPHQL,
+			{
+				query: REQUEST_TEAMS,
+				variables: { search: '' },
+			},
+			{ headers: this.Headers },
+		);
+
+		return keyBy(response.data.data.teams.teams, (t) => t.name);
 	};
 }

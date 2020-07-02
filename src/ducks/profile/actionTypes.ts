@@ -5,6 +5,8 @@ export const REQUEST_PROFILE_BY_ID = 'REQUEST_PROFILE_BY_ID';
 
 export const SET_ACTIVE_PROFILE_ID = 'SET_ACTIVE_PROFILE';
 
+export const REQUEST_TEAMS = 'REQUEST_TEAMS';
+
 export const REQUEST_PROFILE_SUCCESS = 'REQUEST_PROFILE_SUCCESS';
 
 export type RequestProfileAction = {

@@ -84,3 +84,14 @@ query Profile($id:String!) {
         paid
     }
 }`;
+
+export const REQUEST_TEAMS = `
+  query Teams($search:String!) { 
+    teams(search: $search) {
+      teams {
+        id
+        name
+      }
+    }
+}
+`;
