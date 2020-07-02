@@ -1,58 +1,51 @@
 import * as React from 'react';
-import useDropdown from 'use-dropdown';
+import ReactSelect, { Props as ReactSelectProps } from 'react-select';
 
-import Input from '../Input/Input';
+interface Props extends ReactSelectProps {}
 
-import styles from './Select.scss';
+const removeStyle = () => ({
+	height: '100%',
+	display: 'flex',
+	alignItems: 'center',
+	padding: '0 2px',
+	gridColumn: 1,
+	borderRight: '1px solid rgba(0,126,255,.24)',
+	':hover': {
+		backgroundColor: 'rgba(0,113,230,.08)',
+		color: '#0071e6',
+	},
+});
 
-interface Props {
-	value?: string;
-	defaultValue?: string;
-	options: string[];
-	onChange?: (e: any) => void;
-	searchable?: boolean;
-}
+const valueStyle = () => ({
+	display: 'grid',
+	gridAutoFlow: 'column',
+	alignItems: 'start',
+	backgroundColor: 'rgba(0,126,255,.08)',
+	borderRadius: '2px',
+	border: '1px solid rgba(0,126,255,.24)',
+	color: '#007eff',
+	fontSize: '.9em',
+	margin: '0 4px',
+});
 
-const Select: React.FC<Props> = ({ options, defaultValue, value, searchable, onChange }) => {
-	const [_value, setValue] = React.useState<string>(value || defaultValue || options[0] || '');
-	const [searching, setSearching] = React.useState<boolean>(false);
-	const [filteredValue, setFileteredValue] = React.useState<string>('');
-	const [ref, isOpen, open, close] = useDropdown();
+const valueLabelStyle = () => ({
+	height: 'max-content',
+	color: '#007eff',
+	padding: '0 4px',
+});
 
+const Select: React.FC<Props> = (props) => {
 	return (
-		<div className={styles.select} ref={ref}>
-			<Input
-				onChange={(e) => searchable && setFileteredValue(e.target.value)}
-				className={styles.input}
-				readOnly={!searchable}
-				value={searching ? filteredValue : _value}
-				onFocus={(e) => {
-					searchable && setSearching(true);
-					open(e);
+		<div>
+			<ReactSelect
+				styles={{
+					multiValueRemove: removeStyle,
+					multiValue: valueStyle,
+					multiValueLabel: valueLabelStyle,
 				}}
-				onBlur={() => searchable && setSearching(false)}
+				hideSelectedOptions
+				{...props}
 			/>
-			{isOpen && (
-				<div className={styles.options}>
-					{options
-						.filter((v) => v.toLowerCase().startsWith(filteredValue.toLowerCase()))
-						.map((opt, idx) => (
-							<div
-								className={styles.option}
-								key={idx}
-								onMouseDown={(e) => {
-									(e.target as any).value = opt;
-									setValue(opt);
-									onChange && onChange(e);
-									searching && setSearching(false);
-									close();
-								}}
-							>
-								{opt}
-							</div>
-						))}
-				</div>
-			)}
 		</div>
 	);
 };

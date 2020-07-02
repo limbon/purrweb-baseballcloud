@@ -23,6 +23,39 @@ export enum AuthField {
 	Role = 'role',
 }
 
+export enum Position {
+	Catcher = 'catcher',
+	Pitcher = 'pitcher',
+	Firstbase = 'firstbase',
+	Secondbase = 'secondbase',
+	Thirdbase = 'thirdbase',
+	Shortstop = 'shortstop',
+	Outfield = 'outfield',
+}
+
+export enum Hand {
+	Right = 'r',
+	Left = 'l',
+}
+
+export enum ProfileFormField {
+	FirstName = 'first_name',
+	LastName = 'last_name',
+	Position1 = 'position',
+	Position2 = 'position2',
+	ThrowsHand = 'throws_hand',
+	BatsHand = 'bats_hand',
+	Biography = 'biography',
+	SchoolYear = 'school_year',
+	Feet = 'feet',
+	Inches = 'inches',
+	Weight = 'weight',
+	Age = 'age',
+	School = 'school',
+	Teams = 'teams',
+	Facilites = 'facilities',
+}
+
 export enum Role {
 	Player = 'player',
 	Scout = 'scout',
