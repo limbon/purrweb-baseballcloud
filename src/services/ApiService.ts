@@ -5,13 +5,22 @@ import { keyBy } from 'lodash';
 import { ServiceID } from '../utils/enums';
 import { CacheService } from './CacheService';
 
-import { SignInFormData, User, CachedData, Profile, Team, School } from 'baseballcloud/types';
+import {
+	SignInFormData,
+	User,
+	CachedData,
+	Profile,
+	Team,
+	School,
+	Facility,
+} from 'baseballcloud/types';
 
 import {
 	REQUEST_PROFILE_BY_ID,
 	REQUEST_CURRENT_PROFILE_ID,
 	REQUEST_TEAMS,
 	REQUEST_SCHOOLS,
+	REQUEST_FACILITIES,
 } from '../requests/profile';
 
 @injectable()
@@ -116,5 +125,20 @@ export class ApiService {
 		);
 
 		return keyBy(response.data.data.schools.schools, (s) => s.name);
+	};
+
+	requestFacilites = async () => {
+		const response = await axios.post<{
+			data: { facilities: { facilities: { [index: string]: Facility } } };
+		}>(
+			this.GRAPHQL,
+			{
+				query: REQUEST_FACILITIES,
+				variables: { search: '' },
+			},
+			{ headers: this.Headers },
+		);
+
+		return keyBy(response.data.data.facilities.facilities, (s) => s.u_name);
 	};
 }

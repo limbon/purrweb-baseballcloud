@@ -5,8 +5,9 @@ import { ProfileFormField, SchoolYear } from '../../utils/enums';
 
 import { useTeams } from '../../hooks/useTeams';
 import { useSchools } from '../../hooks/useSchools';
+import { useFacilites } from '../../hooks/useFacilities';
 
-import { Team } from 'baseballcloud/types';
+import { Team, Facility } from 'baseballcloud/types';
 
 import Select from '../UI/Select/Select';
 
@@ -17,6 +18,7 @@ const schoolYears = Object.entries(SchoolYear).map(([label, value]) => ({ label,
 const SchoolInfo: React.FC = () => {
 	const { teams, teamOptions } = useTeams();
 	const { schools, schoolOptions } = useSchools();
+	const { facilities, facilityOptions } = useFacilites();
 
 	return (
 		<div className={styles.schoolInfo}>
@@ -82,7 +84,28 @@ const SchoolInfo: React.FC = () => {
 					<span>Facility</span>
 				</div>
 				<div className={styles.info}>
-					<Field name={ProfileFormField.Facilites}>{() => <Select placeholder='Facility' />}</Field>
+					<Field name={ProfileFormField.Facilites}>
+						{({ input }) => (
+							<Select
+								isMulti
+								options={facilityOptions}
+								defaultValue={
+									input.value
+										? input.value.map((f: Facility) => ({
+												label: f.u_name,
+												value: f.u_name,
+										  }))
+										: []
+								}
+								placeholder='Facility'
+								onChange={(data?: any) => {
+									const _facilities = data?.map((d: any) => facilities[d.value]) || [];
+									const e = { target: { value: _facilities } };
+									input.onChange(e);
+								}}
+							/>
+						)}
+					</Field>
 				</div>
 			</div>
 		</div>

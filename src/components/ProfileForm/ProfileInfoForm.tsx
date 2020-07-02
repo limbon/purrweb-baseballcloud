@@ -40,6 +40,7 @@ const ProfileInfoForm: React.FC<Props> = ({ data }) => {
 				[ProfileFormField.SchoolYear]: data.school_year,
 				[ProfileFormField.Teams]: data.teams,
 				[ProfileFormField.School]: data.school,
+				[ProfileFormField.Facilites]: data.facilities,
 				[ProfileFormField.Biography]: data.biography,
 			}}
 		>

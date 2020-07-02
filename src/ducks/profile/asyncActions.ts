@@ -11,3 +11,7 @@ export const requestTeams = () => () => {
 export const requestSchools = () => () => {
 	return api.requestSchools();
 };
+
+export const requestFacilites = () => () => {
+	return api.requestFacilites();
+};
