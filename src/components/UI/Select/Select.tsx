@@ -25,13 +25,35 @@ const valueStyle = () => ({
 	border: '1px solid rgba(0,126,255,.24)',
 	color: '#007eff',
 	fontSize: '.9em',
-	margin: '0 4px',
+	margin: '4px',
 });
 
 const valueLabelStyle = () => ({
 	height: 'max-content',
 	color: '#007eff',
 	padding: '0 4px',
+});
+
+const controlStyle = () => ({
+	maxWidth: '100%',
+	display: 'flex',
+	alignItems: 'center',
+	minHeight: '38px',
+	backgroundColor: '#eff1f3',
+	borderColor: 'transparent',
+});
+
+const singleValueStyle = () => ({
+	color: '#667784',
+});
+
+const optionStyle = (): any => ({
+	padding: '8px',
+	color: '#788b99',
+	cursor: 'pointer',
+	':hover': {
+		backgroundColor: 'rgba(72, 187, 255, 0.1)',
+	},
 });
 
 const Select: React.FC<Props> = (props) => {
@@ -42,8 +64,11 @@ const Select: React.FC<Props> = (props) => {
 					multiValueRemove: removeStyle,
 					multiValue: valueStyle,
 					multiValueLabel: valueLabelStyle,
+					control: controlStyle,
+					singleValue: singleValueStyle,
+					option: optionStyle,
 				}}
-				hideSelectedOptions
+				isClearable={false}
 				{...props}
 			/>
 		</div>
