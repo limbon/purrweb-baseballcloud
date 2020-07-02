@@ -9,7 +9,7 @@ interface Props {
 
 const ProfileForm: React.FC<Props> = ({ data }) => {
 	return (
-		<div style={{ backgroundColor: 'white', height: '100%', padding: '16px' }}>
+		<div style={{ backgroundColor: 'white', height: '100%', padding: '16px', overflow: 'auto' }}>
 			<AvatarUpload avatar={data.avatar} />
 			<ProfileInfoForm data={data} />
 		</div>

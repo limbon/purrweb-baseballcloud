@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Profile } from 'baseballcloud/types';
-import { Form } from 'react-final-form';
+import { Form, Field } from 'react-final-form';
 
 import { Position, ProfileFormField } from '../../utils/enums';
 
@@ -10,6 +10,7 @@ import PersonalInfo from './PersonalInfo';
 import SchoolInfo from './SchoolInfo';
 
 import styles from './ProfileForm.scss';
+import Biography from './Biography';
 
 interface Props {
 	data: Profile;
@@ -34,6 +35,8 @@ const ProfileInfoForm: React.FC<Props> = ({ data }) => {
 				[ProfileFormField.Weight]: data.weight,
 				[ProfileFormField.ThrowsHand]: data.throws_hand,
 				[ProfileFormField.BatsHand]: data.bats_hand,
+				[ProfileFormField.SchoolYear]: data.school_year,
+				[ProfileFormField.Biography]: data.biography,
 			}}
 		>
 			{({ handleSubmit }) => (
@@ -41,6 +44,7 @@ const ProfileInfoForm: React.FC<Props> = ({ data }) => {
 					<UserInfo />
 					<PersonalInfo />
 					<SchoolInfo />
+					<Biography />
 					<div className={styles.buttons}>
 						<button className={styles.cancel}>Cancel</button>
 						<button className={styles.submit}>Save</button>
