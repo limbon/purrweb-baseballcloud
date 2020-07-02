@@ -2,7 +2,9 @@ import * as React from 'react';
 import { Field } from 'react-final-form';
 
 import { ProfileFormField, SchoolYear } from '../../utils/enums';
+
 import { useTeams } from '../../hooks/useTeams';
+import { useSchools } from '../../hooks/useSchools';
 
 import { Team } from 'baseballcloud/types';
 
@@ -14,6 +16,7 @@ const schoolYears = Object.entries(SchoolYear).map(([label, value]) => ({ label,
 
 const SchoolInfo: React.FC = () => {
 	const { teams, teamOptions } = useTeams();
+	const { schools, schoolOptions } = useSchools();
 
 	return (
 		<div className={styles.schoolInfo}>
@@ -22,7 +25,20 @@ const SchoolInfo: React.FC = () => {
 					<span>School</span>
 				</div>
 				<div className={styles.info}>
-					<Field name={ProfileFormField.School}>{() => <Select placeholder='School' />}</Field>
+					<Field name={ProfileFormField.School}>
+						{({ input }) => (
+							<Select
+								options={schoolOptions}
+								defaultValue={{ label: input.value.name, value: input.value.name }}
+								placeholder='School'
+								onChange={(data?: any) => {
+									const school = schools[data?.value];
+									const e = { target: { value: school } };
+									input.onChange(e);
+								}}
+							/>
+						)}
+					</Field>
 					<Field name={ProfileFormField.SchoolYear}>
 						{({ input }) => (
 							<Select

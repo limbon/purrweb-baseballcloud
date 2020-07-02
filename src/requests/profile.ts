@@ -93,5 +93,16 @@ export const REQUEST_TEAMS = `
         name
       }
     }
-}
+  }
+`;
+
+export const REQUEST_SCHOOLS = `
+  query Schools($search:String!) { 
+    schools(search: $search) {
+      schools {
+        id
+        name
+      }
+    }
+  }
 `;

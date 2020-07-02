@@ -39,6 +39,7 @@ const ProfileInfoForm: React.FC<Props> = ({ data }) => {
 				[ProfileFormField.BatsHand]: data.bats_hand,
 				[ProfileFormField.SchoolYear]: data.school_year,
 				[ProfileFormField.Teams]: data.teams,
+				[ProfileFormField.School]: data.school,
 				[ProfileFormField.Biography]: data.biography,
 			}}
 		>
