@@ -1,4 +1,4 @@
-@mixin Heading {
+.heading {
 	span {
 		color: #414f5a;
 		font-size: 18px;
@@ -103,15 +103,31 @@
 	gap: 8px;
 	margin-top: 8px;
 
-	.heading {
-		@include Heading;
-	}
-
 	.height,
 	.hands {
 		display: grid;
 		grid-auto-flow: column;
 		gap: 8px;
+	}
+}
+
+.schoolInfo {
+	display: grid;
+	gap: 8px;
+	margin-top: 8px;
+
+	.school {
+		.info {
+			display: grid;
+			gap: 8px;
+			margin-top: 8px;
+		}
+	}
+
+	.facilities {
+		.info {
+			margin-top: 8px;
+		}
 	}
 }
 

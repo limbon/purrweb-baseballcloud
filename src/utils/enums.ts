@@ -38,6 +38,13 @@ export enum Hand {
 	Left = 'l',
 }
 
+export enum SchoolYear {
+	Junior = 'junior',
+	Senior = 'senior',
+	Freshman = 'freshman',
+	Sophomore = 'sophomore',
+}
+
 export enum ProfileFormField {
 	FirstName = 'first_name',
 	LastName = 'last_name',

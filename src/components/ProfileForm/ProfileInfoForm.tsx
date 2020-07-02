@@ -7,6 +7,7 @@ import { Position, ProfileFormField } from '../../utils/enums';
 
 import UserInfo from './UserInfo';
 import PersonalInfo from './PersonalInfo';
+import SchoolInfo from './SchoolInfo';
 
 import styles from './ProfileForm.scss';
 
@@ -39,6 +40,7 @@ const ProfileInfoForm: React.FC<Props> = ({ data }) => {
 				<form className={styles.profileInfoForm} onSubmit={handleSubmit}>
 					<UserInfo />
 					<PersonalInfo />
+					<SchoolInfo />
 					<div className={styles.buttons}>
 						<button className={styles.cancel}>Cancel</button>
 						<button className={styles.submit}>Save</button>
