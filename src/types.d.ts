@@ -170,6 +170,26 @@ declare module 'baseballcloud/types' {
 		paid: boolean;
 	};
 
+	type ProfileForm = {
+		id: string;
+		first_name: string;
+		last_name: string;
+		position: Position;
+		position2: Position;
+		school_year: SchoolYear;
+		avatar: string | null;
+		throws_hand: Hand;
+		bats_hand: Hand;
+		biography: string;
+		feet: number;
+		inches: number;
+		weight: number;
+		age: number;
+		school: School;
+		teams: Team[];
+		facilities: Facility[];
+	};
+
 	type ProfileState = {
 		activeProfile: string | null;
 		profiles: { [index: string]: Profile };

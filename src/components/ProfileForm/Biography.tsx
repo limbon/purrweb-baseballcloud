@@ -3,6 +3,8 @@ import { Field } from 'react-final-form';
 
 import { ProfileFormField } from '../../utils/enums';
 
+import BiographyInput from './Fields/BiographyInput';
+
 import styles from './ProfileForm.scss';
 
 const Biography: React.FC = () => {
@@ -11,11 +13,7 @@ const Biography: React.FC = () => {
 			<div className={styles.heading}>
 				<span>About</span>
 			</div>
-			<Field name={ProfileFormField.Biography}>
-				{({ input }) => (
-					<textarea placeholder='Describe yourself in a few words' {...input}></textarea>
-				)}
-			</Field>
+			<Field name={ProfileFormField.Biography} render={BiographyInput} />
 		</div>
 	);
 };

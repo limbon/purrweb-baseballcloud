@@ -1,12 +1,15 @@
 import * as React from 'react';
+import { Field } from 'react-final-form';
+
+import { ProfileFormField } from '../../utils/enums';
+
+import HandInput from './Fields/HandInput';
+import WeightInput from './Fields/WeightInput';
+import InchesInput from './Fields/InchesInput';
+import FeetInput from './Fields/FeetInput';
+import AgeInput from './Fields/AgeInput';
 
 import styles from './ProfileForm.scss';
-import { Field } from 'react-final-form';
-import Input from '../UI/Input/Input';
-import { ProfileFormField, Hand } from '../../utils/enums';
-import Select from '../UI/Select/Select';
-
-const hands = Object.values(Hand).map((value) => ({ label: value.toUpperCase(), value }));
 
 const PersonalInfo: React.FC = () => {
 	return (
@@ -14,49 +17,15 @@ const PersonalInfo: React.FC = () => {
 			<div className={styles.heading}>
 				<span>Personal Info</span>
 			</div>
-			<Field name={ProfileFormField.Age}>
-				{({ input }) => <Input {...input} placeholder='Age' />}
-			</Field>
+			<Field name={ProfileFormField.Age} render={AgeInput} />
 			<div className={styles.height}>
-				<Field name={ProfileFormField.Feet}>
-					{({ input }) => <Input {...input} placeholder='Feet' />}
-				</Field>
-				<Field name={ProfileFormField.Inches}>
-					{({ input }) => <Input {...input} placeholder='Inches' />}
-				</Field>
+				<Field name={ProfileFormField.Feet} render={FeetInput} />
+				<Field name={ProfileFormField.Inches} render={InchesInput} />
 			</div>
-			<Field name={ProfileFormField.Weight}>
-				{({ input }) => <Input {...input} placeholder='Weight' />}
-			</Field>
+			<Field name={ProfileFormField.Weight} render={WeightInput} />
 			<div className={styles.hands}>
-				<Field name={ProfileFormField.ThrowsHand}>
-					{({ input }) => (
-						<Select
-							hideSelectedOptions={false}
-							options={hands}
-							isSearchable={false}
-							defaultValue={hands.find((h) => h.value === input.value) || hands[0]}
-							onChange={(data: any) => {
-								const e = { target: { value: data.value } };
-								input.onChange(e);
-							}}
-						/>
-					)}
-				</Field>
-				<Field name={ProfileFormField.BatsHand}>
-					{({ input }) => (
-						<Select
-							hideSelectedOptions={false}
-							options={hands}
-							isSearchable={false}
-							defaultValue={hands.find((h) => h.value === input.value) || hands[0]}
-							onChange={(data: any) => {
-								const e = { target: { value: data.value } };
-								input.onChange(e);
-							}}
-						/>
-					)}
-				</Field>
+				<Field name={ProfileFormField.ThrowsHand} render={HandInput} />
+				<Field name={ProfileFormField.BatsHand} render={HandInput} />
 			</div>
 		</div>
 	);

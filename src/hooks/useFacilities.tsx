@@ -5,7 +5,7 @@ import { Facility } from 'baseballcloud/types';
 
 import { requestFacilites } from '../ducks/profile/asyncActions';
 
-export const useFacilites = () => {
+export const useFacilities = () => {
 	const [facilities, setFacilities] = React.useState<{ [index: string]: Facility }>({});
 	const facilityOptions = React.useMemo(
 		() =>
