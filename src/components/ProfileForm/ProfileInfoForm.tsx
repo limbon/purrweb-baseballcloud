@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ProfileForm } from 'baseballcloud/types';
-import { Form } from 'react-final-form';
+import { Form, FormSpy } from 'react-final-form';
 
 import { ProfileFormField } from '../../utils/enums';
 
@@ -14,36 +14,14 @@ import styles from './ProfileForm.scss';
 
 interface Props {
 	data: ProfileForm;
+	onValuesChange: (values: any) => void;
 }
 
-const ProfileInfoForm: React.FC<Props> = ({ data }) => {
+const ProfileInfoForm: React.FC<Props> = ({ data, onValuesChange }) => {
 	const handleSubmit = React.useCallback(() => {}, []);
-	const initialValues = React.useMemo(() => {
-		return {
-			[ProfileFormField.FirstName]: data.first_name,
-			[ProfileFormField.LastName]: data.last_name,
-			[ProfileFormField.Position1]: data.position,
-			[ProfileFormField.Position2]: data.position2,
-			[ProfileFormField.Age]: data.age,
-			[ProfileFormField.Feet]: data.feet,
-			[ProfileFormField.Inches]: data.inches,
-			[ProfileFormField.Weight]: data.weight,
-			[ProfileFormField.ThrowsHand]: data.throws_hand,
-			[ProfileFormField.BatsHand]: data.bats_hand,
-			[ProfileFormField.SchoolYear]: data.school_year,
-			[ProfileFormField.Teams]: data.teams,
-			[ProfileFormField.School]: data.school,
-			[ProfileFormField.Facilites]: data.facilities,
-			[ProfileFormField.Biography]: data.biography,
-		};
-	}, [data]);
 
 	return (
-		<Form
-			subscription={{ values: true }}
-			onSubmit={handleSubmit}
-			initialValues={initialValues}
-		>
+		<Form subscription={{ values: true }} onSubmit={handleSubmit} initialValues={data}>
 			{() => {
 				return (
 					<form className={styles.profileInfoForm}>
@@ -51,6 +29,10 @@ const ProfileInfoForm: React.FC<Props> = ({ data }) => {
 						<PersonalInfo />
 						<SchoolInfo />
 						<Biography />
+						<FormSpy
+							subscription={{ values: true }}
+							onChange={(state) => onValuesChange(state.values)}
+						/>
 					</form>
 				);
 			}}

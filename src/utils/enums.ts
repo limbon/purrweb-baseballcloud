@@ -46,6 +46,7 @@ export enum SchoolYear {
 }
 
 export enum ProfileFormField {
+	Avatar = 'avatar',
 	FirstName = 'first_name',
 	LastName = 'last_name',
 	Position1 = 'position',
