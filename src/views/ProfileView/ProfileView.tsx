@@ -8,7 +8,6 @@ import { selectProfile } from '../../utils/selectors';
 import Profile from '../../components/Profile/Profile';
 
 import styles from './ProfileView.scss';
-import ProfileForm from '../../components/ProfileForm/ProfileForm';
 
 const ProfileView: React.FC = () => {
 	const { activeProfile, profiles } = useSelector(selectProfile);
@@ -36,12 +35,11 @@ const ProfileView: React.FC = () => {
 		);
 	}
 
-	if (activeProfile) {
+	if (activeProfile && profiles[activeProfile]) {
 		return (
 			<div className={styles.view}>
 				<div className={styles.profile}>
-					{/* <Profile data={profiles[activeProfile]} /> */}
-					<ProfileForm data={profiles[activeProfile]} />
+					<Profile data={profiles[activeProfile]} />
 				</div>
 			</div>
 		);

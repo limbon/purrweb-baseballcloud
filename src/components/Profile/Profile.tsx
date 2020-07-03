@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { startCase } from 'lodash';
+import { useSelector } from 'react-redux';
 
 import { Profile as ProfileData } from 'baseballcloud/types';
+
+import { selectActiveProfile } from '../../utils/selectors';
 
 import DefaultAvatar from '../../assets/images/default-avatar.png';
 import AgeIcon from '../../assets/icons/age.svg';
@@ -9,8 +12,11 @@ import HeightIcon from '../../assets/icons/height.svg';
 import WeightIcon from '../../assets/icons/weight.svg';
 import ThrowsIcon from '../../assets/icons/throws.svg';
 import BatsIcon from '../../assets/icons/bats.svg';
+import EditIcon from '../../assets/icons/edit.svg';
+import LikeIcon from '../../assets/icons/like.svg';
 
 import PlayerAttribute from './PlayerAttribute';
+import ProfileForm from '../ProfileForm/ProfileForm';
 
 import styles from './Profile.scss';
 
@@ -18,7 +24,7 @@ interface Props {
 	data: ProfileData;
 }
 
-const Profile: React.FC<Props> = ({ data }) => {
+const ProfileComponent: React.FC<Props> = ({ data }) => {
 	return (
 		<div className={styles.profile}>
 			<div className={styles.userInfo}>
@@ -27,7 +33,7 @@ const Profile: React.FC<Props> = ({ data }) => {
 					{data.first_name} {data.last_name}
 				</div>
 				<div className={styles.position}>{startCase(data.position.toString())}</div>
-				<div className={styles.position}>{startCase(data.position2.toString())}</div>
+				<div className={styles.position}>{startCase(data.position2?.toString())}</div>
 			</div>
 			<div className={styles.personalInfo}>
 				<PlayerAttribute icon={<AgeIcon />} name='Age' value={data.age} />
@@ -88,6 +94,30 @@ const Profile: React.FC<Props> = ({ data }) => {
 			) : null}
 		</div>
 	);
+};
+
+const Profile: React.FC<Props> = ({ data }) => {
+	const [edit, setEdit] = React.useState<boolean>(false);
+	const activeProfile = useSelector(selectActiveProfile);
+
+	if (edit) {
+		return <ProfileForm onCancel={() => setEdit(false)} data={data} />;
+	} else {
+		return (
+			<div className={styles.profileContainer}>
+				{data.id === activeProfile?.id ? (
+					<button onClick={() => setEdit(true)}>
+						<EditIcon />
+					</button>
+				) : (
+					<button>
+						<LikeIcon />
+					</button>
+				)}
+				<ProfileComponent data={data} />
+			</div>
+		);
+	}
 };
 
 export default Profile;

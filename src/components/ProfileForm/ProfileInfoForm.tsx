@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Profile, Team } from 'baseballcloud/types';
-import { Form, Field } from 'react-final-form';
+import { Profile } from 'baseballcloud/types';
+import { Form } from 'react-final-form';
 
-import { Position, ProfileFormField } from '../../utils/enums';
+import { ProfileFormField } from '../../utils/enums';
 
 import UserInfo from './UserInfo';
 import PersonalInfo from './PersonalInfo';
@@ -11,14 +11,13 @@ import SchoolInfo from './SchoolInfo';
 
 import styles from './ProfileForm.scss';
 import Biography from './Biography';
-import { useDispatch } from 'react-redux';
-import { requestTeams } from '../../ducks/profile/asyncActions';
 
 interface Props {
 	data: Profile;
+	onCancel: () => void;
 }
 
-const ProfileInfoForm: React.FC<Props> = ({ data }) => {
+const ProfileInfoForm: React.FC<Props> = ({ data, onCancel }) => {
 	const handleSubmit = React.useCallback((data: any) => {
 		console.log(data);
 	}, []);
@@ -51,7 +50,9 @@ const ProfileInfoForm: React.FC<Props> = ({ data }) => {
 					<SchoolInfo />
 					<Biography />
 					<div className={styles.buttons}>
-						<button className={styles.cancel}>Cancel</button>
+						<button type='button' onClick={() => onCancel()} className={styles.cancel}>
+							Cancel
+						</button>
 						<button className={styles.submit}>Save</button>
 					</div>
 				</form>
