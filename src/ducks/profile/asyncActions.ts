@@ -4,14 +4,14 @@ import { ServiceID } from '../../utils/enums';
 
 const api = IOC.get<ApiService>(ServiceID.ApiService);
 
-export const requestTeams = () => () => {
-	return api.requestTeams();
+export const requestTeams = (search: string) => () => {
+	return api.requestTeams(search);
 };
 
-export const requestSchools = () => () => {
-	return api.requestSchools();
+export const requestSchools = (search: string) => () => {
+	return api.requestSchools(search);
 };
 
-export const requestFacilites = () => () => {
-	return api.requestFacilites();
+export const requestFacilites = (search: string) => () => {
+	return api.requestFacilites(search);
 };

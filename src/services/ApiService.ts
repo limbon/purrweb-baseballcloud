@@ -99,12 +99,12 @@ export class ApiService {
 		return response.data.data.profile;
 	};
 
-	requestTeams = async () => {
+	requestTeams = async (search: string) => {
 		const response = await axios.post<{ data: { teams: { teams: { [index: string]: Team } } } }>(
 			this.GRAPHQL,
 			{
 				query: REQUEST_TEAMS,
-				variables: { search: '' },
+				variables: { search },
 			},
 			{ headers: this.Headers },
 		);
@@ -112,14 +112,14 @@ export class ApiService {
 		return keyBy(response.data.data.teams.teams, (t) => t.name);
 	};
 
-	requestSchools = async () => {
+	requestSchools = async (search: string) => {
 		const response = await axios.post<{
 			data: { schools: { schools: { [index: string]: School } } };
 		}>(
 			this.GRAPHQL,
 			{
 				query: REQUEST_SCHOOLS,
-				variables: { search: '' },
+				variables: { search },
 			},
 			{ headers: this.Headers },
 		);
@@ -127,14 +127,14 @@ export class ApiService {
 		return keyBy(response.data.data.schools.schools, (s) => s.name);
 	};
 
-	requestFacilites = async () => {
+	requestFacilites = async (search: string) => {
 		const response = await axios.post<{
 			data: { facilities: { facilities: { [index: string]: Facility } } };
 		}>(
 			this.GRAPHQL,
 			{
 				query: REQUEST_FACILITIES,
-				variables: { search: '' },
+				variables: { search },
 			},
 			{ headers: this.Headers },
 		);

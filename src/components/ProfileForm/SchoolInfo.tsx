@@ -19,8 +19,8 @@ type ChangeType = 'school' | 'team' | 'facility' | 'school-year';
 const schoolYears = Object.entries(SchoolYear).map(([label, value]) => ({ label, value }));
 
 const SchoolInfo: React.FC = () => {
-	const { teams, teamOptions } = useTeams();
-	const { schools, schoolOptions } = useSchools();
+	const { teams, teamOptions, requestMoreTeams, teamsLoading } = useTeams();
+	const { schools, schoolOptions, requestMoreSchools, schoolLoading } = useSchools();
 	const { facilities, facilityOptions } = useFacilites();
 
 	const handleChange = React.useCallback(
@@ -66,6 +66,8 @@ const SchoolInfo: React.FC = () => {
 								options={schoolOptions}
 								value={{ label: input.value.name, value: input.value.name }}
 								placeholder='School'
+								onInputChange={requestMoreSchools}
+								isLoading={schoolLoading}
 								onChange={handleChange('school', input)}
 							/>
 						)}
@@ -90,14 +92,9 @@ const SchoolInfo: React.FC = () => {
 								hideSelectedOptions
 								placeholder='Team'
 								options={teamOptions as any}
-								value={
-									input.value
-										? input.value.map((t: Team) => ({
-												label: t.name,
-												value: t.name,
-										  }))
-										: []
-								}
+								onInputChange={requestMoreTeams}
+								isLoading={teamsLoading}
+								value={input.value?.map((t: Team) => ({ label: t.name, value: t.name } || []))}
 								onChange={handleChange('team', input)}
 							/>
 						)}

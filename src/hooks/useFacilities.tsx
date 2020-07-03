@@ -18,7 +18,7 @@ export const useFacilites = () => {
 	const dispatch = useDispatch();
 
 	React.useEffect(() => {
-		(dispatch(requestFacilites()) as any).then((data: any) => setFacilities(data));
+		(dispatch(requestFacilites('')) as any).then((data: any) => setFacilities(data));
 	}, []);
 
 	return { facilities, facilityOptions };
