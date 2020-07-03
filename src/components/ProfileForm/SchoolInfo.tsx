@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Field } from 'react-final-form';
+import { Field, FieldInputProps } from 'react-final-form';
 
 import { ProfileFormField, SchoolYear } from '../../utils/enums';
 
@@ -7,11 +7,14 @@ import { useTeams } from '../../hooks/useTeams';
 import { useSchools } from '../../hooks/useSchools';
 import { useFacilites } from '../../hooks/useFacilities';
 
-import { Team, Facility, School } from 'baseballcloud/types';
+import { Team, Facility } from 'baseballcloud/types';
 
 import Select from '../UI/Select/Select';
 
 import styles from './ProfileForm.scss';
+import { faChessKing } from '@fortawesome/free-solid-svg-icons';
+
+type ChangeType = 'school' | 'team' | 'facility' | 'school-year';
 
 const schoolYears = Object.entries(SchoolYear).map(([label, value]) => ({ label, value }));
 
@@ -19,6 +22,35 @@ const SchoolInfo: React.FC = () => {
 	const { teams, teamOptions } = useTeams();
 	const { schools, schoolOptions } = useSchools();
 	const { facilities, facilityOptions } = useFacilites();
+
+	const handleChange = React.useCallback(
+		(type: ChangeType, input: FieldInputProps<any, HTMLElement>) => {
+			return (data?: any) => {
+				switch (type) {
+					case 'school': {
+						const school = schools[data?.value] || { id: data.value, name: data.value };
+						const e = { target: { value: school } };
+						return input.onChange(e);
+					}
+					case 'school-year': {
+						const e = { target: { value: data.value } };
+						return input.onChange(e);
+					}
+					case 'team': {
+						const _teams = data?.map((d: any) => teams[d.value] || { id: d.value, name: d.value });
+						const e = { target: { value: _teams ?? [] } };
+						return input.onChange(e);
+					}
+					case 'facility': {
+						const _facilities = data?.map((d: any) => facilities[d.value]) || [];
+						const e = { target: { value: _facilities } };
+						return input.onChange(e);
+					}
+				}
+			};
+		},
+		[teams, schools, facilities],
+	);
 
 	return (
 		<div className={styles.schoolInfo}>
@@ -30,18 +62,11 @@ const SchoolInfo: React.FC = () => {
 					<Field name={ProfileFormField.School}>
 						{({ input }) => (
 							<Select
+								creatable
 								options={schoolOptions}
 								value={{ label: input.value.name, value: input.value.name }}
 								placeholder='School'
-								onCreateOption={(value) => {
-									const e = { target: { value: { id: value, name: value } } };
-									input.onChange(e);
-								}}
-								onChange={(data?: any) => {
-									const school = schools[data?.value];
-									const e = { target: { value: school } };
-									input.onChange(e);
-								}}
+								onChange={handleChange('school', input)}
 							/>
 						)}
 					</Field>
@@ -50,18 +75,17 @@ const SchoolInfo: React.FC = () => {
 							<Select
 								placeholder='School years'
 								options={schoolYears}
+								isSearchable={false}
 								value={schoolYears.find((y) => y.value === input.value)}
 								defaultValue={schoolYears[0]}
-								onChange={(data?: any) => {
-									const e = { target: { value: data?.value } };
-									input.onChange(e);
-								}}
+								onChange={handleChange('school-year', input)}
 							/>
 						)}
 					</Field>
 					<Field name={ProfileFormField.Teams}>
 						{({ input }) => (
 							<Select
+								creatable
 								isMulti
 								hideSelectedOptions
 								placeholder='Team'
@@ -74,12 +98,7 @@ const SchoolInfo: React.FC = () => {
 										  }))
 										: []
 								}
-								onChange={(data?: any) => {
-									const _teams =
-										data?.map((d: any) => teams[d.value] || { id: d.value, name: d.value }) || [];
-									const e = { target: { value: _teams } };
-									input.onChange(e);
-								}}
+								onChange={handleChange('team', input)}
 							/>
 						)}
 					</Field>
@@ -104,11 +123,7 @@ const SchoolInfo: React.FC = () => {
 										: []
 								}
 								placeholder='Facility'
-								onChange={(data?: any) => {
-									const _facilities = data?.map((d: any) => facilities[d.value]) || [];
-									const e = { target: { value: _facilities } };
-									input.onChange(e);
-								}}
+								onChange={handleChange('facility', input)}
 							/>
 						)}
 					</Field>

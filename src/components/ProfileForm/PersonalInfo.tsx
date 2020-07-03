@@ -34,6 +34,7 @@ const PersonalInfo: React.FC = () => {
 						<Select
 							hideSelectedOptions={false}
 							options={hands}
+							isSearchable={false}
 							defaultValue={hands.find((h) => h.value === input.value) || hands[0]}
 							onChange={(data: any) => {
 								const e = { target: { value: data.value } };
@@ -47,6 +48,7 @@ const PersonalInfo: React.FC = () => {
 						<Select
 							hideSelectedOptions={false}
 							options={hands}
+							isSearchable={false}
 							defaultValue={hands.find((h) => h.value === input.value) || hands[0]}
 							onChange={(data: any) => {
 								const e = { target: { value: data.value } };
