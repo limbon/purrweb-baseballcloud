@@ -1,7 +1,15 @@
 import * as React from 'react';
-import ReactSelect, { Props as ReactSelectProps } from 'react-select';
+import { OptionsType, Props as ReactSelectProps } from 'react-select';
+import CreatableSelect, {
+	CreatableProps as ReactSelectCreatableProps,
+} from 'react-select/creatable';
 
-interface Props extends ReactSelectProps {}
+import styles from './Select.scss';
+
+type SelectProps = ReactSelectProps;
+type CreatableProps = ReactSelectCreatableProps<OptionsType<{ label: string; value: string }>>;
+
+type Props = SelectProps & CreatableProps;
 
 const removeStyle = () => ({
 	height: '100%',
@@ -56,10 +64,10 @@ const optionStyle = (): any => ({
 	},
 });
 
-const Select: React.FC<Props> = (props) => {
+const Select: React.FC<Props> = (props: CreatableProps) => {
 	return (
 		<div>
-			<ReactSelect
+			<CreatableSelect
 				styles={{
 					multiValueRemove: removeStyle,
 					multiValue: valueStyle,

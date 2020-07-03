@@ -7,7 +7,7 @@ import { useTeams } from '../../hooks/useTeams';
 import { useSchools } from '../../hooks/useSchools';
 import { useFacilites } from '../../hooks/useFacilities';
 
-import { Team, Facility } from 'baseballcloud/types';
+import { Team, Facility, School } from 'baseballcloud/types';
 
 import Select from '../UI/Select/Select';
 
@@ -31,8 +31,12 @@ const SchoolInfo: React.FC = () => {
 						{({ input }) => (
 							<Select
 								options={schoolOptions}
-								defaultValue={{ label: input.value.name, value: input.value.name }}
+								value={{ label: input.value.name, value: input.value.name }}
 								placeholder='School'
+								onCreateOption={(value) => {
+									const e = { target: { value: { id: value, name: value } } };
+									input.onChange(e);
+								}}
 								onChange={(data?: any) => {
 									const school = schools[data?.value];
 									const e = { target: { value: school } };
@@ -46,7 +50,8 @@ const SchoolInfo: React.FC = () => {
 							<Select
 								placeholder='School years'
 								options={schoolYears}
-								defaultValue={schoolYears.find((y) => y.value === input.value) || schoolYears[0]}
+								value={schoolYears.find((y) => y.value === input.value)}
+								defaultValue={schoolYears[0]}
 								onChange={(data?: any) => {
 									const e = { target: { value: data?.value } };
 									input.onChange(e);
@@ -61,7 +66,7 @@ const SchoolInfo: React.FC = () => {
 								hideSelectedOptions
 								placeholder='Team'
 								options={teamOptions as any}
-								defaultValue={
+								value={
 									input.value
 										? input.value.map((t: Team) => ({
 												label: t.name,
@@ -70,7 +75,8 @@ const SchoolInfo: React.FC = () => {
 										: []
 								}
 								onChange={(data?: any) => {
-									const _teams = data?.map((d: any) => teams[d.value]);
+									const _teams =
+										data?.map((d: any) => teams[d.value] || { id: d.value, name: d.value }) || [];
 									const e = { target: { value: _teams } };
 									input.onChange(e);
 								}}
