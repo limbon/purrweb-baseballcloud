@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { promisifyRoutine } from 'redux-saga-routines';
 
 import { Team } from 'baseballcloud/types';
-import { useDispatch } from 'react-redux';
-import { requestTeams } from '../ducks/profile/asyncActions';
+
+import { fetchTeams } from '../ducks/profile';
 
 export const useTeams = () => {
 	const [teams, setTeams] = React.useState<{ [index: string]: Team }>({});
@@ -16,8 +18,7 @@ export const useTeams = () => {
 	const requestMoreTeams = React.useCallback(
 		(value: string) => {
 			if (value) {
-				setLoading(true);
-				(dispatch(requestTeams(value)) as any).then((data: any) => {
+				promisifyRoutine(fetchTeams)(value, dispatch).then((data) => {
 					setTeams({ ...teams, ...data });
 					setLoading(false);
 				});
@@ -28,7 +29,7 @@ export const useTeams = () => {
 
 	React.useEffect(() => {
 		setLoading(true);
-		(dispatch(requestTeams('')) as any).then((data: any) => {
+		promisifyRoutine(fetchTeams)('', dispatch).then((data) => {
 			setTeams(data);
 			setLoading(false);
 		});

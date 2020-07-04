@@ -1,4 +1,4 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, put, call, takeEvery } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
 
 import { IOC } from '../../ioc';
@@ -6,7 +6,14 @@ import { IOC } from '../../ioc';
 import { ApiService } from '../../services/ApiService';
 import { ServiceID } from '../../utils/enums';
 
-import { fetchProfile, fetchProfileById, updateProfile } from './actionCreators';
+import {
+	fetchProfile,
+	fetchProfileById,
+	updateProfile,
+	fetchTeams,
+	fetchSchools,
+	fetchFacilities,
+} from './actionCreators';
 
 const api = IOC.get<ApiService>(ServiceID.ApiService);
 
@@ -43,8 +50,44 @@ function* updateProfileSaga(action: AnyAction) {
 	yield put(updateProfile.fulfill());
 }
 
+function* fetchTeamsSaga(action: AnyAction) {
+	yield put(fetchTeams.request());
+	try {
+		const teams = yield call(api.requestTeams, action.payload);
+		yield put(fetchTeams.success(teams));
+	} catch (error) {
+		yield put(fetchTeams.failure(error));
+	}
+	yield put(fetchTeams.fulfill());
+}
+
+function* fetchSchoolsSaga(action: AnyAction) {
+	yield put(fetchSchools.request());
+	try {
+		const teams = yield call(api.requestSchools, action.payload);
+		yield put(fetchSchools.success(teams));
+	} catch (error) {
+		yield put(fetchSchools.failure(error));
+	}
+	yield put(fetchSchools.fulfill());
+}
+
+function* fetchFacilitiesSaga(action: AnyAction) {
+	yield put(fetchFacilities.request());
+	try {
+		const teams = yield call(api.requestFacilities, action.payload);
+		yield put(fetchFacilities.success(teams));
+	} catch (error) {
+		yield put(fetchFacilities.failure(error));
+	}
+	yield put(fetchFacilities.fulfill());
+}
+
 export function* profileSaga() {
 	yield takeLatest(fetchProfile.TRIGGER, fetchProfileSaga);
 	yield takeLatest(fetchProfileById.TRIGGER, fetchProfileByIdSaga);
 	yield takeLatest(updateProfile.TRIGGER, updateProfileSaga);
+	yield takeEvery(fetchTeams.TRIGGER, fetchTeamsSaga);
+	yield takeEvery(fetchSchools.TRIGGER, fetchSchoolsSaga);
+	yield takeEvery(fetchFacilities.TRIGGER, fetchFacilitiesSaga);
 }

@@ -142,7 +142,7 @@ export class ApiService {
 		return keyBy(response.data.data.schools.schools, (s) => s.name);
 	};
 
-	requestFacilites = async (search: string) => {
+	requestFacilities = async (search: string) => {
 		const response = await axios.post<{
 			data: { facilities: { facilities: { [index: string]: Facility } } };
 		}>(

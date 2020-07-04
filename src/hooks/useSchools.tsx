@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
+import { promisifyRoutine } from 'redux-saga-routines';
 
 import { School } from 'baseballcloud/types';
-import { requestSchools } from '../ducks/profile/asyncActions';
+
+import { fetchSchools } from '../ducks/profile';
 
 export const useSchools = () => {
 	const [schools, setSchools] = React.useState<{ [index: string]: School }>({});
@@ -17,7 +19,7 @@ export const useSchools = () => {
 		(value: string) => {
 			if (value) {
 				setLoading(true);
-				(dispatch(requestSchools(value)) as any).then((data: any) => {
+				promisifyRoutine(fetchSchools)(value, dispatch).then((data) => {
 					setSchools({ ...schools, ...data });
 					setLoading(false);
 				});
@@ -28,7 +30,7 @@ export const useSchools = () => {
 
 	React.useEffect(() => {
 		setLoading(true);
-		(dispatch(requestSchools('')) as any).then((data: any) => {
+		promisifyRoutine(fetchSchools)('', dispatch).then((data) => {
 			setSchools(data);
 			setLoading(false);
 		});
