@@ -4,11 +4,11 @@ import { Form, Field } from 'react-final-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 
+import { signIn } from '../../../ducks/user';
 import { AuthField } from '../../../utils/enums';
 import { SignInFormData } from 'baseballcloud/types';
 
 import { isEmail } from '../../../utils/validators';
-import { requestSignIn } from '../../../ducks/user';
 
 import Input from '../../UI/Input/Input';
 
@@ -17,7 +17,7 @@ import styles from '../Auth.scss';
 const SignIn: React.FC = () => {
 	const dispatch = useDispatch();
 	const handleSubmit = React.useCallback((data: SignInFormData) => {
-		dispatch(requestSignIn(data));
+		dispatch(signIn(data));
 	}, []);
 
 	return (

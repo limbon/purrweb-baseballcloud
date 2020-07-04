@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,50 +12,29 @@ import { fetchProfile } from './ducks/profile';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import { selectUser } from './utils/selectors';
 
 const App: React.FC = () => {
-	const [ready, setReady] = React.useState<boolean>(false);
+	const user = useSelector(selectUser);
 	const dispatch = useDispatch();
-	const [_, requestValidateToken] = useRoutine(
-		{ routine: validateToken, onSuccess: () => setReady(true) },
-		[],
-	);
 
 	React.useEffect(() => {
-		requestValidateToken();
+		dispatch(validateToken());
 	}, []);
 
 	React.useEffect(() => {
-		if (ready) {
+		if (user) {
 			dispatch(fetchProfile());
 		}
-	}, [ready]);
+	}, [user]);
 
-	if (ready) {
-		return (
-			<div style={{ height: '100%', flexDirection: 'column', display: 'flex' }}>
-				<Header />
-
-				<div style={{ flex: 1, overflow: 'hidden' }}>{generateRoutes(router)}</div>
-				<Footer />
-			</div>
-		);
-	} else {
-		return (
-			<div
-				style={{
-					height: '100%',
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-					color: '#48BBFF',
-					backgroundColor: 'white',
-				}}
-			>
-				<FontAwesomeIcon icon={faSpinner} size='10x' spin />
-			</div>
-		);
-	}
+	return (
+		<div style={{ height: '100%', flexDirection: 'column', display: 'flex' }}>
+			<Header />
+			<div style={{ flex: 1, overflow: 'hidden' }}>{generateRoutes(router)}</div>
+			<Footer />
+		</div>
+	);
 };
 
 export default App;

@@ -9,6 +9,7 @@ import TOSView from './views/Legal/TOSView';
 import PrivacyView from './views/Legal/PrivacyView';
 import HomeView from './views/HomeView/HomeView';
 import ProfileView from './views/ProfileView/ProfileView';
+import MyProfileView from './views/MyProfileView/MyProfileView';
 
 export const router: Router = {
 	rootRoute: {
@@ -46,7 +47,8 @@ export const router: Router = {
 		},
 		{
 			path: Route.Profile,
-			component: ProfileView,
+			component: MyProfileView,
+			exact: true,
 			subroutes: [{ path: ':id', component: ProfileView }],
 		},
 		{
