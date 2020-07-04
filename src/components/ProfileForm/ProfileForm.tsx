@@ -14,7 +14,7 @@ interface Props {
 }
 
 const ProfileForm: React.FC<Props> = ({ data, onCancel }) => {
-	const initialFormData = React.useMemo(() => {
+	const formData = React.useMemo(() => {
 		return {
 			id: data.id,
 			avatar: data.avatar,
@@ -35,42 +35,13 @@ const ProfileForm: React.FC<Props> = ({ data, onCancel }) => {
 			facilities: data.facilities,
 		};
 	}, [data]);
-	const [formData, setFormData] = React.useState(initialFormData);
-
-	const dispatch = useDispatch();
-
-	const handleSubmit = React.useCallback(() => {
-		dispatch(requestUpdateProfile(formData));
-	}, [formData]);
-
-	const updateFormData = React.useCallback(
-		(values) => {
-			const data = {
-				...values,
-				age: parseInt(values.age) || '',
-				feet: parseInt(values.feet) || '',
-				inches: parseInt(values.inches) || '',
-				weight: parseInt(values.weight) || '',
-			};
-			setFormData(data);
-		},
-		[formData],
-	);
 
 	return (
 		<div
 			style={{ backgroundColor: 'white', height: '100%', padding: '16px', overflow: 'auto' }}
 		>
 			<AvatarUpload avatar={formData.avatar} />
-			<ProfileInfoForm onValuesChange={(values) => updateFormData(values)} data={formData} />
-			<div className={styles.buttons}>
-				<button type='button' onClick={() => onCancel()} className={styles.cancel}>
-					Cancel
-				</button>
-				<button onClick={handleSubmit} className={styles.submit}>
-					Save
-				</button>
-			</div>
+			<ProfileInfoForm onCancel={() => onCancel()} data={formData} />
 		</div>
 	);
 };

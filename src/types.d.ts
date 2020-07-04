@@ -181,10 +181,10 @@ declare module 'baseballcloud/types' {
 		throws_hand: Hand;
 		bats_hand: Hand;
 		biography: string;
-		feet: number;
-		inches: number;
-		weight: number;
-		age: number;
+		feet: string;
+		inches: string;
+		weight: string;
+		age: string;
 		school: School;
 		teams: Team[];
 		facilities: Facility[];
