@@ -16,8 +16,10 @@ const Dropdown: React.FC<Props> = ({ title, options }) => {
 			<div className={styles.title}>{title || options[0] || ''}</div>
 			{isOpen && (
 				<div className={styles.options}>
-					{options.map((opt) => (
-						<div className={styles.option}>{opt}</div>
+					{options.map((opt, idx) => (
+						<div key={idx} className={styles.option}>
+							{opt}
+						</div>
 					))}
 				</div>
 			)}

@@ -1,9 +1,11 @@
 .dropdown {
 	position: relative;
+	min-width: 100px;
+	text-align: center;
 	cursor: pointer;
 
 	&:hover {
-		background-color: #eee;
+		background-color: rgba(72, 187, 255, 0.1);
 	}
 
 	.title {
@@ -13,15 +15,26 @@
 	.options {
 		position: absolute;
 		width: 100%;
+		text-align: left;
 		background-color: #fff;
 
 		.option {
 			padding: 8px;
+			color: #788b99;
 			word-wrap: break-word;
 			white-space: pre-wrap;
+			cursor: pointer;
+
+			a {
+				display: block;
+
+				&:hover {
+					text-decoration: none;
+				}
+			}
 
 			&:hover {
-				background-color: #eee;
+				background-color: rgba(72, 187, 255, 0.1);
 			}
 		}
 	}
