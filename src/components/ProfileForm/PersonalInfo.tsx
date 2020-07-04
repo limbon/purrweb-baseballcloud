@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Field } from 'react-final-form';
 
-import { ProfileFormField } from '../../utils/enums';
-
 import HandInput from './Fields/HandInput';
 import WeightInput from './Fields/WeightInput';
 import InchesInput from './Fields/InchesInput';
@@ -17,15 +15,15 @@ const PersonalInfo: React.FC = () => {
 			<div className={styles.heading}>
 				<span>Personal Info</span>
 			</div>
-			<Field name={ProfileFormField.Age} render={AgeInput} />
+			<Field name='age' render={AgeInput} />
 			<div className={styles.height}>
-				<Field name={ProfileFormField.Feet} render={FeetInput} />
-				<Field name={ProfileFormField.Inches} render={InchesInput} />
+				<Field name='feet' render={FeetInput} />
+				<Field name='inches' render={InchesInput} />
 			</div>
-			<Field name={ProfileFormField.Weight} render={WeightInput} />
+			<Field name='weight' render={WeightInput} />
 			<div className={styles.hands}>
-				<Field name={ProfileFormField.ThrowsHand} render={HandInput} />
-				<Field name={ProfileFormField.BatsHand} render={HandInput} />
+				<Field name='throws_hand' render={HandInput} />
+				<Field name='bats_hand' render={HandInput} />
 			</div>
 		</div>
 	);

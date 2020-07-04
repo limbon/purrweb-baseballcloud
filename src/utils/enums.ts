@@ -45,25 +45,6 @@ export enum SchoolYear {
 	Sophomore = 'sophomore',
 }
 
-export enum ProfileFormField {
-	Avatar = 'avatar',
-	FirstName = 'first_name',
-	LastName = 'last_name',
-	Position1 = 'position',
-	Position2 = 'position2',
-	ThrowsHand = 'throws_hand',
-	BatsHand = 'bats_hand',
-	Biography = 'biography',
-	SchoolYear = 'school_year',
-	Feet = 'feet',
-	Inches = 'inches',
-	Weight = 'weight',
-	Age = 'age',
-	School = 'school',
-	Teams = 'teams',
-	Facilites = 'facilities',
-}
-
 export enum Role {
 	Player = 'player',
 	Scout = 'scout',

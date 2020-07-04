@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Field } from 'react-final-form';
 
-import { ProfileFormField } from '../../utils/enums';
-
 import SchoolField from './Fields/SchoolInput';
 import SchoolYearInput from './Fields/SchoolYearInput';
 import TeamsInput from './Fields/TeamsInput';
@@ -18,9 +16,9 @@ const SchoolInfo: React.FC = () => {
 					<span>School</span>
 				</div>
 				<div className={styles.info}>
-					<Field name={ProfileFormField.School} render={SchoolField} />
-					<Field name={ProfileFormField.SchoolYear} render={SchoolYearInput} />
-					<Field name={ProfileFormField.Teams} render={TeamsInput} />
+					<Field name='school' render={SchoolField} />
+					<Field name='school_year' render={SchoolYearInput} />
+					<Field name='teams' render={TeamsInput} />
 				</div>
 			</div>
 			<div className={styles.facilities}>
@@ -28,7 +26,7 @@ const SchoolInfo: React.FC = () => {
 					<span>Facility</span>
 				</div>
 				<div className={styles.info}>
-					<Field name={ProfileFormField.Facilites} render={FacilitiesInput} />
+					<Field name='facilities' render={FacilitiesInput} />
 				</div>
 			</div>
 		</div>
