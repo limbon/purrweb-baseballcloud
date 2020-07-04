@@ -22,7 +22,7 @@ export const fetchProfileById = createRoutine(FETCH_PROFILE_BY_ID, {
 
 export const updateProfile = createRoutine(UPDATE_PROFILE, {
 	trigger: (form: ProfileForm) => form,
-	success: (profile: Profile) => profile,
+	success: (profile: Profile | null) => profile,
 	failure: (error: Error) => error,
 });
 

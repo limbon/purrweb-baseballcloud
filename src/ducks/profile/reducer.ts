@@ -1,5 +1,6 @@
 import { ProfileState } from 'baseballcloud/types';
 import { Reducer } from 'redux';
+import { signOut } from '../user';
 
 import { fetchProfile, fetchProfileById, updateProfile } from './actionCreators';
 
@@ -71,6 +72,20 @@ export const profileReducer: Reducer<ProfileState> = (state = initialState, acti
 		}
 		case updateProfile.FULFILL: {
 			return { ...state, loading: false };
+		}
+
+		case signOut.SUCCESS: {
+			const { activeProfile } = state;
+			const {
+				[activeProfile!]: {},
+				...profiles
+			} = state.profiles;
+
+			return {
+				...state,
+				activeProfile: null,
+				profiles,
+			};
 		}
 
 		default: {

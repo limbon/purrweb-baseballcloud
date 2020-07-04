@@ -72,6 +72,12 @@ export class ApiService {
 		};
 	};
 
+	requestSignOut = async () => {
+		const url = `${this.BASE_URL}/auth/sign_out`;
+		await axios.delete(url, { headers: this.Headers });
+		this.cacheService.remove('credentials');
+	};
+
 	requestValidateToken = async (): Promise<User> => {
 		const url = `${this.BASE_URL}/auth/validate_token`;
 		const response = await axios.get<{ data: User }>(url, { headers: this.Headers });

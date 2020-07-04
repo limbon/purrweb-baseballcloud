@@ -5,7 +5,7 @@ import { IOC } from '../../ioc';
 import { ServiceID } from '../../utils/enums';
 import { CacheService } from '../../services/CacheService';
 
-import { signIn, validateToken } from './actionCreators';
+import { signIn, validateToken, signOut } from './actionCreators';
 
 const cache = IOC.get<CacheService<CachedData>>(ServiceID.CacheService);
 
@@ -28,6 +28,19 @@ export const userReducer: Reducer<UserState> = (state = initialState, action) =>
 			return { ...state, error: action.payload };
 		}
 		case signIn.FULFILL: {
+			return { ...state, loading: false };
+		}
+
+		case signOut.REQUEST: {
+			return { ...state, loading: true };
+		}
+		case signOut.SUCCESS: {
+			return { ...state, user: null, credentials: null };
+		}
+		case signOut.FAILURE: {
+			return { ...state, error: action.payload };
+		}
+		case signOut.FULFILL: {
 			return { ...state, loading: false };
 		}
 

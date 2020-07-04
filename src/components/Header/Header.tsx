@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { signOut } from '../../ducks/user';
 
 import { Route } from '../../utils/enums';
 
@@ -14,6 +15,11 @@ import styles from './Header.scss';
 
 const Header: React.FC = () => {
 	const profile = useSelector(selectActiveProfile);
+	const dispatch = useDispatch();
+
+	const handleSignOut = React.useCallback(() => {
+		dispatch(signOut());
+	}, []);
 
 	return (
 		<header className={styles.header}>
@@ -30,7 +36,9 @@ const Header: React.FC = () => {
 							title={`${profile?.first_name} ${profile?.last_name}`}
 							options={[
 								<Link to={Route.Profile}>My Profile</Link>,
-								<Link to='/logout'>Logout</Link>,
+								<Link to='#' onClick={handleSignOut}>
+									Logout
+								</Link>,
 							]}
 						/>
 					</div>
