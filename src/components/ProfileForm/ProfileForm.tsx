@@ -5,16 +5,15 @@ import AvatarUpload from './AvatarUpload';
 import ProfileInfoForm from './ProfileInfoForm';
 
 import styles from './ProfileForm.scss';
-import { useDispatch } from 'react-redux';
-import { requestUpdateProfile } from '../../ducks/profile';
 
 interface Props {
 	data: ProfileFormData;
 	onCancel: () => void;
+	onSubmit: () => void;
 }
 
-const ProfileForm: React.FC<Props> = ({ data, onCancel }) => {
-	const formData = React.useMemo(() => {
+const ProfileForm: React.FC<Props> = ({ data, onCancel, onSubmit }) => {
+	const formData = React.useMemo<any>(() => {
 		return {
 			id: data.id,
 			avatar: data.avatar,
@@ -41,7 +40,7 @@ const ProfileForm: React.FC<Props> = ({ data, onCancel }) => {
 			style={{ backgroundColor: 'white', height: '100%', padding: '16px', overflow: 'auto' }}
 		>
 			<AvatarUpload avatar={formData.avatar} />
-			<ProfileInfoForm onCancel={() => onCancel()} data={formData} />
+			<ProfileInfoForm onSubmit={onSubmit} onCancel={onCancel} data={formData} />
 		</div>
 	);
 };

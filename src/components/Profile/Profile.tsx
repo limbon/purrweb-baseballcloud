@@ -100,8 +100,36 @@ const Profile: React.FC<Props> = ({ data }) => {
 	const [edit, setEdit] = React.useState<boolean>(false);
 	const activeProfile = useSelector(selectActiveProfile);
 
+	const profileForm = React.useMemo(() => {
+		return {
+			id: data.id,
+			avatar: data.avatar,
+			first_name: data.first_name,
+			last_name: data.last_name,
+			position: data.position,
+			position2: data.position2,
+			throws_hand: data.throws_hand,
+			bats_hand: data.bats_hand,
+			biography: data.biography,
+			school_year: data.school_year,
+			feet: data.feet.toString(),
+			inches: data.inches.toString(),
+			weight: data.weight.toString(),
+			age: data.age.toString(),
+			school: data.school,
+			teams: data.teams,
+			facilities: data.facilities,
+		};
+	}, [data]);
+
 	if (edit) {
-		return <ProfileForm onCancel={() => setEdit(false)} data={data} />;
+		return (
+			<ProfileForm
+				onCancel={() => setEdit(false)}
+				onSubmit={() => setEdit(false)}
+				data={profileForm}
+			/>
+		);
 	} else {
 		return (
 			<div className={styles.profileContainer}>

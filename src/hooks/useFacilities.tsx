@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
-import { promisifyRoutine } from 'redux-saga-routines';
 
 import { Facility } from 'baseballcloud/types';
 
 import { fetchFacilities } from '../ducks/profile';
+import { useRoutine } from './useRoutine';
 
 export const useFacilities = () => {
 	const [facilities, setFacilities] = React.useState<{ [index: string]: Facility }>({});
@@ -16,10 +15,17 @@ export const useFacilities = () => {
 			})),
 		[facilities],
 	);
-	const dispatch = useDispatch();
+
+	const [loading, request] = useRoutine(
+		{
+			routine: fetchFacilities,
+			onSuccess: (data: any) => setFacilities(data),
+		},
+		[],
+	);
 
 	React.useEffect(() => {
-		promisifyRoutine(fetchFacilities)('', dispatch).then((data) => setFacilities(data));
+		request();
 	}, []);
 
 	return { facilities, facilityOptions };
