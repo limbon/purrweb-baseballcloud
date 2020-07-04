@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import { selectActiveProfile, selectProfileState } from '../../utils/selectors';
+import { Route } from '../../utils/enums';
+
+import { selectActiveProfile, selectCredentials } from '../../utils/selectors';
 
 import Profile from '../../components/Profile/Profile';
 import Loading from '../../components/Loading/Loading';
@@ -10,6 +13,11 @@ import styles from './MyProfileView.scss';
 
 const MyProfileView: React.FC = () => {
 	const profile = useSelector(selectActiveProfile);
+	const credentials = useSelector(selectCredentials);
+
+	if (!credentials) {
+		return <Redirect to={Route.Home} />;
+	}
 
 	if (profile) {
 		return (

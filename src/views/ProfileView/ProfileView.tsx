@@ -4,25 +4,32 @@ import { useParams, Redirect } from 'react-router-dom';
 
 import { Route } from '../../utils/enums';
 import { fetchProfileById } from '../../ducks/profile';
-import { selectProfileState } from '../../utils/selectors';
+import { selectProfileState, selectCredentials } from '../../utils/selectors';
 
 import Profile from '../../components/Profile/Profile';
+import Loading from '../../components/Loading/Loading';
 
 import styles from './ProfileView.scss';
-import Loading from '../../components/Loading/Loading';
 
 const ProfileView: React.FC = () => {
 	const { profiles } = useSelector(selectProfileState);
+	const credentials = useSelector(selectCredentials);
 	const params = useParams<{ id: string }>();
 	const dispatch = useDispatch();
 
 	React.useEffect(() => {
-		if (!profiles[params.id]) {
-			if (!isNaN(parseInt(params.id))) {
-				dispatch(fetchProfileById(params.id));
+		if (credentials) {
+			if (!profiles[params.id]) {
+				if (!isNaN(parseInt(params.id))) {
+					dispatch(fetchProfileById(params.id));
+				}
 			}
 		}
 	}, []);
+
+	if (!credentials) {
+		return <Redirect to={Route.Home} />;
+	}
 
 	if (isNaN(parseInt(params.id))) {
 		return <Redirect to={Route.Home} />;

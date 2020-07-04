@@ -12,15 +12,18 @@ import { fetchProfile } from './ducks/profile';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import { selectUser } from './utils/selectors';
+import { selectUser, selectCredentials } from './utils/selectors';
 
 const App: React.FC = () => {
 	const user = useSelector(selectUser);
+	const credentials = useSelector(selectCredentials);
 	const dispatch = useDispatch();
 
 	React.useEffect(() => {
-		dispatch(validateToken());
-	}, []);
+		if (credentials && !user) {
+			dispatch(validateToken());
+		}
+	}, [credentials, user]);
 
 	React.useEffect(() => {
 		if (user) {

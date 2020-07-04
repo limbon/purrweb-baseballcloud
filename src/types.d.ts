@@ -59,10 +59,14 @@ declare module 'baseballcloud/types' {
 		Right,
 	}
 
-	type CachedData = {
+	type Credentials = {
 		'access-token': string;
 		client: string;
 		uid: string;
+	};
+
+	type CachedData = {
+		credentials: Credentials;
 	};
 
 	type SignInFormData = {
@@ -134,6 +138,7 @@ declare module 'baseballcloud/types' {
 
 	type UserState = {
 		user: User | null;
+		credentials: Credentials | null;
 		loading: boolean;
 		error: Error | null;
 	};

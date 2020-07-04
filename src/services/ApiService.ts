@@ -14,6 +14,7 @@ import {
 	School,
 	Facility,
 	ProfileForm,
+	Credentials,
 } from 'baseballcloud/types';
 
 import {
@@ -39,11 +40,7 @@ export class ApiService {
 		return `${this.BASE_URL}/graphql`;
 	}
 	private get Headers() {
-		return {
-			'access-token': this.cacheService.get('access-token'),
-			uid: this.cacheService.get('uid'),
-			client: this.cacheService.get('client'),
-		};
+		return this.cacheService.get('credentials');
 	}
 
 	private requestCurrentUserId = async (): Promise<number> => {
@@ -57,15 +54,22 @@ export class ApiService {
 		return response.data.data.current_profile.id;
 	};
 
-	requestSignIn = async (data: SignInFormData): Promise<User> => {
+	requestSignIn = async (
+		data: SignInFormData,
+	): Promise<{ user: User; credentials: Credentials }> => {
 		const url = `${this.BASE_URL}/auth/sign_in`;
 		const response = await axios.post<{ data: User }>(url, data);
 
-		this.cacheService.set<string>('access-token', response.headers['access-token']);
-		this.cacheService.set<string>('uid', response.headers.uid);
-		this.cacheService.set<string>('client', response.headers.client);
+		this.cacheService.set('credentials', {
+			'access-token': response.headers['access-token'],
+			uid: response.headers.uid,
+			client: response.headers.client,
+		});
 
-		return response.data.data;
+		return {
+			user: response.data.data,
+			credentials: this.cacheService.get<Credentials>('credentials')!,
+		};
 	};
 
 	requestValidateToken = async (): Promise<User> => {

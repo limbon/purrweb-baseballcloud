@@ -1,11 +1,19 @@
 import { Reducer } from 'redux';
-import { UserState } from 'baseballcloud/types';
+import { UserState, CachedData } from 'baseballcloud/types';
+
+import { IOC } from '../../ioc';
+import { ServiceID } from '../../utils/enums';
+import { CacheService } from '../../services/CacheService';
+
 import { signIn, validateToken } from './actionCreators';
+
+const cache = IOC.get<CacheService<CachedData>>(ServiceID.CacheService);
 
 const initialState: UserState = {
 	user: null,
 	loading: false,
 	error: null,
+	credentials: cache.get('credentials') || null,
 };
 
 export const userReducer: Reducer<UserState> = (state = initialState, action) => {
@@ -14,7 +22,7 @@ export const userReducer: Reducer<UserState> = (state = initialState, action) =>
 			return { ...state, loading: true };
 		}
 		case signIn.SUCCESS: {
-			return { ...state, user: action.payload };
+			return { ...state, user: action.payload.user, credentials: action.payload.credentials };
 		}
 		case signIn.FAILURE: {
 			return { ...state, error: action.payload };

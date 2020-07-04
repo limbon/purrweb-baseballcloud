@@ -13,8 +13,8 @@ const api = IOC.get<ApiService>(ServiceID.ApiService);
 function* signInSaga(action: AnyAction) {
 	yield put(signIn.request());
 	try {
-		const user = yield call(api.requestSignIn, action.payload);
-		yield put(signIn.success(user));
+		const { user, credentials } = yield call(api.requestSignIn, action.payload);
+		yield put(signIn.success(user, credentials));
 	} catch (error) {
 		yield put(signIn.failure(error));
 	}

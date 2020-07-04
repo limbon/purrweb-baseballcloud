@@ -1,10 +1,23 @@
 import { createSelector } from 'reselect';
-import { ApplicationStore, ProfileState, Profile, UserState, User } from 'baseballcloud/types';
+import {
+	ApplicationStore,
+	ProfileState,
+	Profile,
+	UserState,
+	User,
+	Credentials,
+} from 'baseballcloud/types';
 
 export const selectUser = createSelector<ApplicationStore, UserState, User | null>(
 	[(store) => store.userState],
 	(state) => state.user,
 );
+
+export const selectCredentials = createSelector<
+	ApplicationStore,
+	UserState,
+	Credentials | null
+>([(store) => store.userState], (state) => state.credentials);
 
 export const selectActiveProfile = createSelector<
 	ApplicationStore,

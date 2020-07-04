@@ -4,16 +4,16 @@ import { useSelector } from 'react-redux';
 
 import { Route } from '../../utils/enums';
 
-import { selectUser } from '../../utils/selectors';
+import { selectUser, selectCredentials } from '../../utils/selectors';
 
 const HomeView: React.FC = () => {
-	const user = useSelector(selectUser);
+	const credentials = useSelector(selectCredentials);
 
-	if (user) {
-		return <Redirect to={Route.Profile} />;
-	} else {
+	if (!credentials) {
 		return <Redirect to={Route.SignIn} />;
 	}
+
+	return <Redirect to={Route.Profile} />;
 };
 
 export default HomeView;
