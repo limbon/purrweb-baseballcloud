@@ -11,8 +11,8 @@ import { profileReducer, profileSaga } from './ducks/profile';
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers<ApplicationStore>({
-	user: userReducer,
-	profile: profileReducer,
+	userState: userReducer,
+	profileState: profileReducer,
 });
 
 const middleware = [sagaMiddleware, thunk];

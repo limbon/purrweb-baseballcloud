@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
 import { fetchProfileById } from '../../ducks/profile';
-import { selectProfile } from '../../utils/selectors';
+import { selectProfileState } from '../../utils/selectors';
 
 import Profile from '../../components/Profile/Profile';
 
 import styles from './ProfileView.scss';
 
 const ProfileView: React.FC = () => {
-	const { activeProfile, profiles } = useSelector(selectProfile);
+	const { activeProfile, profiles } = useSelector(selectProfileState);
 	const params = useParams<{ id: string }>();
 	const history = useHistory();
 	const dispatch = useDispatch();

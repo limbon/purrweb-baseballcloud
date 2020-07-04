@@ -7,8 +7,8 @@ declare module 'use-dropdown';
 
 declare module 'baseballcloud/types' {
 	type ApplicationStore = {
-		user: UserState;
-		profile: ProfileState;
+		userState: UserState;
+		profileState: ProfileState;
 	};
 
 	type Route = {
