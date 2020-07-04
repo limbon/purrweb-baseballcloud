@@ -2,7 +2,7 @@ import { ProfileState } from 'baseballcloud/types';
 import { Reducer } from 'redux';
 import { signOut } from '../user';
 
-import { fetchProfile, fetchProfileById, updateProfile } from './actionCreators';
+import { fetchProfile, fetchProfileById, updateProfile, updateAvatar } from './actionCreators';
 
 const initialState: ProfileState = {
 	activeProfile: null,
@@ -63,7 +63,10 @@ export const profileReducer: Reducer<ProfileState> = (state = initialState, acti
 				...state,
 				profiles: {
 					...state.profiles,
-					[id]: action.payload,
+					[id]: {
+						...state.profiles[id],
+						...action.payload,
+					},
 				},
 			};
 		}

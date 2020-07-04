@@ -13,6 +13,7 @@ import {
 	fetchTeams,
 	fetchSchools,
 	fetchFacilities,
+	updateAvatar,
 } from './actionCreators';
 
 const api = IOC.get<ApiService>(ServiceID.ApiService);
@@ -48,6 +49,17 @@ function* updateProfileSaga(action: AnyAction) {
 		yield put(updateProfile.failure(error));
 	}
 	yield put(updateProfile.fulfill());
+}
+
+function* updateAvatarSaga(action: AnyAction) {
+	yield put(updateAvatar.request());
+	try {
+		const url = yield call(api.uploadAvatar, action.payload.name, action.payload.data);
+		yield put(updateAvatar.success(url));
+	} catch (error) {
+		yield put(updateAvatar.failure(error));
+	}
+	yield put(updateAvatar.fulfill());
 }
 
 function* fetchTeamsSaga(action: AnyAction) {
@@ -87,6 +99,7 @@ export function* profileSaga() {
 	yield takeLatest(fetchProfile.TRIGGER, fetchProfileSaga);
 	yield takeLatest(fetchProfileById.TRIGGER, fetchProfileByIdSaga);
 	yield takeLatest(updateProfile.TRIGGER, updateProfileSaga);
+	yield takeLatest(updateAvatar.TRIGGER, updateAvatarSaga);
 	yield takeEvery(fetchTeams.TRIGGER, fetchTeamsSaga);
 	yield takeEvery(fetchSchools.TRIGGER, fetchSchoolsSaga);
 	yield takeEvery(fetchFacilities.TRIGGER, fetchFacilitiesSaga);

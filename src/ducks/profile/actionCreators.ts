@@ -5,6 +5,7 @@ import {
 	FETCH_TEAMS,
 	FETCH_SCHOOLS,
 	FETCH_FACILITIES,
+	UPDATE_AVATAR,
 } from './actionTypes';
 
 import { Profile, ProfileForm, Team, School, Facility } from 'baseballcloud/types';
@@ -21,9 +22,14 @@ export const fetchProfileById = createRoutine(FETCH_PROFILE_BY_ID, {
 });
 
 export const updateProfile = createRoutine(UPDATE_PROFILE, {
-	trigger: (form: ProfileForm) => form,
+	trigger: (form: Partial<ProfileForm>) => form,
 	success: (profile: Profile | null) => profile,
 	failure: (error: Error) => error,
+});
+
+export const updateAvatar = createRoutine(UPDATE_AVATAR, {
+	trigger: ({ name, data }: { name: string; data: string }) => ({ name, data }),
+	success: (url: string) => url,
 });
 
 export const fetchTeams = createRoutine(FETCH_TEAMS, {

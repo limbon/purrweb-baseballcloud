@@ -40,7 +40,7 @@ export class ApiService {
 		return `${this.BASE_URL}/graphql`;
 	}
 	private get Headers() {
-		return this.cacheService.get('credentials');
+		return this.cacheService.get<Credentials>('credentials');
 	}
 
 	private requestCurrentUserId = async (): Promise<number> => {
@@ -76,6 +76,16 @@ export class ApiService {
 		const url = `${this.BASE_URL}/auth/sign_out`;
 		await axios.delete(url, { headers: this.Headers });
 		this.cacheService.remove('credentials');
+	};
+
+	uploadAvatar = async (name: string, data: File) => {
+		const url = `${this.BASE_URL}/s3/signed_url`;
+		const response = await axios.post(url, { name }, { headers: this.Headers });
+		const { signedUrl, fileKey } = response.data;
+		await axios.put(signedUrl, data, {
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded', ...this.Headers },
+		});
+		return `https://baseballcloud-staging-assets.s3.us-east-2.amazonaws.com/${fileKey}`;
 	};
 
 	requestValidateToken = async (): Promise<User> => {
