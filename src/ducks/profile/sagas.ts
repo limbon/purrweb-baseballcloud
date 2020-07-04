@@ -8,11 +8,17 @@ import { ServiceID } from '../../utils/enums';
 import {
 	REQUEST_PROFILE,
 	REQUEST_PROFILE_BY_ID,
+	REQUEST_UPDATE_PROFILE,
 	RequestProfileAction,
 	RequestProfileByIdAction,
+	RequestUpdateProfileAction,
 } from './actionTypes';
 
-import { requestProfileSuccess, setActiveProfileId } from './actionCreators';
+import {
+	requestProfileSuccess,
+	setActiveProfileId,
+	requestUpdateProfileSuccess,
+} from './actionCreators';
 
 const api = IOC.get<ApiService>(ServiceID.ApiService);
 
@@ -36,7 +42,17 @@ function* requestProfileById(action: RequestProfileByIdAction) {
 	}
 }
 
+function* requestUpdateProfile(action: RequestUpdateProfileAction) {
+	try {
+		const profile = yield call(api.requestUpdateProfile, action.payload);
+		yield put(requestUpdateProfileSuccess(profile));
+	} catch (error) {
+		yield console.error(error);
+	}
+}
+
 export function* profileSaga() {
 	yield takeLatest(REQUEST_PROFILE, requestProfile);
 	yield takeLatest(REQUEST_PROFILE_BY_ID, requestProfileById);
+	yield takeLatest(REQUEST_UPDATE_PROFILE, requestUpdateProfile);
 }

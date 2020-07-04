@@ -1,6 +1,11 @@
 import { ProfileState } from 'baseballcloud/types';
 import { Reducer } from 'redux';
-import { ProfileAction, REQUEST_PROFILE_SUCCESS, SET_ACTIVE_PROFILE_ID } from './actionTypes';
+import {
+	ProfileAction,
+	REQUEST_PROFILE_SUCCESS,
+	SET_ACTIVE_PROFILE_ID,
+	REQUEST_UPDATE_PROFILE_SUCCESS,
+} from './actionTypes';
 
 const initialState: ProfileState = {
 	activeProfile: null,
@@ -24,6 +29,14 @@ export const profileReducer: Reducer<ProfileState, ProfileAction> = (
 			return {
 				...state,
 				activeProfile: action.payload,
+			};
+		}
+
+		case REQUEST_UPDATE_PROFILE_SUCCESS: {
+			const { id } = action.payload;
+			return {
+				...state,
+				profiles: { ...state.profiles, [id!]: { ...state.profiles[id!], ...action.payload } },
 			};
 		}
 

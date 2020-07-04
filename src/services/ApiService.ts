@@ -13,6 +13,7 @@ import {
 	Team,
 	School,
 	Facility,
+	ProfileForm,
 } from 'baseballcloud/types';
 
 import {
@@ -21,6 +22,7 @@ import {
 	REQUEST_TEAMS,
 	REQUEST_SCHOOLS,
 	REQUEST_FACILITIES,
+	REQUEST_UPDATE_PROFILE,
 } from '../requests/profile';
 
 @injectable()
@@ -99,8 +101,21 @@ export class ApiService {
 		return response.data.data.profile;
 	};
 
+	requestUpdateProfile = async (form: ProfileForm): Promise<Partial<Profile>> => {
+		const response = await axios.post<{
+			data: { update_profile: { profile: Partial<Profile> } };
+		}>(
+			this.GRAPHQL,
+			{ query: REQUEST_UPDATE_PROFILE, variables: { form } },
+			{ headers: this.Headers },
+		);
+		return response.data.data.update_profile.profile;
+	};
+
 	requestTeams = async (search: string) => {
-		const response = await axios.post<{ data: { teams: { teams: { [index: string]: Team } } } }>(
+		const response = await axios.post<{
+			data: { teams: { teams: { [index: string]: Team } } };
+		}>(
 			this.GRAPHQL,
 			{
 				query: REQUEST_TEAMS,

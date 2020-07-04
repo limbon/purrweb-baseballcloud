@@ -5,6 +5,8 @@ import AvatarUpload from './AvatarUpload';
 import ProfileInfoForm from './ProfileInfoForm';
 
 import styles from './ProfileForm.scss';
+import { useDispatch } from 'react-redux';
+import { requestUpdateProfile } from '../../ducks/profile';
 
 interface Props {
 	data: ProfileFormData;
@@ -35,22 +37,22 @@ const ProfileForm: React.FC<Props> = ({ data, onCancel }) => {
 	}, [data]);
 	const [formData, setFormData] = React.useState(initialFormData);
 
+	const dispatch = useDispatch();
+
 	const handleSubmit = React.useCallback(() => {
-		console.log(formData);
+		dispatch(requestUpdateProfile(formData));
 	}, [formData]);
 
 	const updateFormData = React.useCallback(
 		(values) => {
-			return setTimeout(() => {
-				const data = {
-					...values,
-					age: parseInt(values.age),
-					feet: parseInt(values.feet),
-					inches: parseInt(values.inches),
-					weight: parseInt(values.weight),
-				};
-				setFormData(data);
-			});
+			const data = {
+				...values,
+				age: parseInt(values.age) || '',
+				feet: parseInt(values.feet) || '',
+				inches: parseInt(values.inches) || '',
+				weight: parseInt(values.weight) || '',
+			};
+			setFormData(data);
 		},
 		[formData],
 	);
@@ -60,7 +62,7 @@ const ProfileForm: React.FC<Props> = ({ data, onCancel }) => {
 			style={{ backgroundColor: 'white', height: '100%', padding: '16px', overflow: 'auto' }}
 		>
 			<AvatarUpload avatar={formData.avatar} />
-			<ProfileInfoForm onValuesChange={updateFormData} data={formData} />
+			<ProfileInfoForm onValuesChange={(values) => updateFormData(values)} data={formData} />
 			<div className={styles.buttons}>
 				<button type='button' onClick={() => onCancel()} className={styles.cancel}>
 					Cancel

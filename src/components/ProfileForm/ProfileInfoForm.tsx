@@ -3,8 +3,6 @@ import * as React from 'react';
 import { ProfileForm } from 'baseballcloud/types';
 import { Form, FormSpy } from 'react-final-form';
 
-import { ProfileFormField } from '../../utils/enums';
-
 import UserInfo from './UserInfo';
 import PersonalInfo from './PersonalInfo';
 import SchoolInfo from './SchoolInfo';
