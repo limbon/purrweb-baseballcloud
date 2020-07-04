@@ -9,6 +9,7 @@ import { selectProfileState } from '../../utils/selectors';
 import Profile from '../../components/Profile/Profile';
 
 import styles from './ProfileView.scss';
+import Loading from '../../components/Loading/Loading';
 
 const ProfileView: React.FC = () => {
 	const { profiles } = useSelector(selectProfileState);
@@ -35,9 +36,13 @@ const ProfileView: React.FC = () => {
 				</div>
 			</div>
 		);
-	} else {
-		return null;
 	}
+
+	return (
+		<div className={styles.loading}>
+			<Loading size='10x' />
+		</div>
+	);
 };
 
 export default ProfileView;
