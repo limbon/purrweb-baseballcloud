@@ -37,7 +37,7 @@ export const NullablePositionInput: React.FC<FieldRenderProps<any, HTMLElement>>
 	input,
 }) => {
 	const handleChange = React.useCallback((data: any) => {
-		const e = { target: { value: data.value } };
+		const e = { target: { value: data.value || null } };
 		input.onChange(e);
 	}, []);
 
