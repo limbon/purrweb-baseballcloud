@@ -26,10 +26,10 @@ const Header: React.FC = () => {
 			<Link className={styles.homeLink} to={Route.Home}>
 				<Logo />
 			</Link>
-			<div className={styles.navigation}>
-				<Link to={Route.Leaderboard}>Leaderboard</Link>
-				<Link to={Route.Network}>Network</Link>
-				{profile && (
+			{profile && (
+				<div className={styles.navigation}>
+					<Link to={Route.Leaderboard}>Leaderboard</Link>
+					<Link to={Route.Network}>Network</Link>
 					<div className={styles.profile}>
 						<img src={profile.avatar || DefaultAvatar} />
 						<Dropdown
@@ -42,8 +42,8 @@ const Header: React.FC = () => {
 							]}
 						/>
 					</div>
-				)}
-			</div>
+				</div>
+			)}
 		</header>
 	);
 };
