@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { router } from './router';
 
@@ -39,7 +41,20 @@ const App: React.FC = () => {
 			</div>
 		);
 	} else {
-		return <h1>Loading...</h1>;
+		return (
+			<div
+				style={{
+					height: '100%',
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					color: '#48BBFF',
+					backgroundColor: 'white',
+				}}
+			>
+				<FontAwesomeIcon icon={faSpinner} size='10x' spin />
+			</div>
+		);
 	}
 };
 
