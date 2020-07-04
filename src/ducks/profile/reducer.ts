@@ -1,43 +1,76 @@
 import { ProfileState } from 'baseballcloud/types';
 import { Reducer } from 'redux';
-import {
-	ProfileAction,
-	REQUEST_PROFILE_SUCCESS,
-	SET_ACTIVE_PROFILE_ID,
-	REQUEST_UPDATE_PROFILE_SUCCESS,
-} from './actionTypes';
+
+import { fetchProfile, fetchProfileById, updateProfile } from './actionCreators';
 
 const initialState: ProfileState = {
 	activeProfile: null,
 	profiles: {},
+	loading: false,
+	error: null,
 };
 
-export const profileReducer: Reducer<ProfileState, ProfileAction> = (
-	state = initialState,
-	action,
-) => {
+export const profileReducer: Reducer<ProfileState> = (state = initialState, action) => {
 	switch (action.type) {
-		case REQUEST_PROFILE_SUCCESS: {
+		case fetchProfile.REQUEST: {
+			return { ...state, loading: true };
+		}
+		case fetchProfile.SUCCESS: {
 			const { id } = action.payload;
 			return {
 				...state,
-				profiles: { ...state.profiles, [id]: action.payload },
+				activeProfile: id,
+				profiles: {
+					...state.profiles,
+					[id]: action.payload,
+				},
 			};
 		}
-
-		case SET_ACTIVE_PROFILE_ID: {
-			return {
-				...state,
-				activeProfile: action.payload,
-			};
+		case fetchProfile.FAILURE: {
+			return { ...state, error: action.payload };
+		}
+		case fetchProfile.FULFILL: {
+			return { ...state, loading: false };
 		}
 
-		case REQUEST_UPDATE_PROFILE_SUCCESS: {
+		case fetchProfileById.REQUEST: {
+			return { ...state, loading: true };
+		}
+		case fetchProfileById.SUCCESS: {
 			const { id } = action.payload;
 			return {
 				...state,
-				profiles: { ...state.profiles, [id!]: { ...state.profiles[id!], ...action.payload } },
+				profiles: {
+					...state.profiles,
+					[id]: action.payload,
+				},
 			};
+		}
+		case fetchProfileById.FAILURE: {
+			return { ...state, error: action.payload };
+		}
+		case fetchProfileById.FULFILL: {
+			return { ...state, loading: false };
+		}
+
+		case updateProfile.REQUEST: {
+			return { ...state, loading: true };
+		}
+		case updateProfile.SUCCESS: {
+			const { id } = action.payload;
+			return {
+				...state,
+				profiles: {
+					...state.profiles,
+					[id]: action.payload,
+				},
+			};
+		}
+		case updateProfile.FAILURE: {
+			return { ...state, error: action.payload };
+		}
+		case updateProfile.FULFILL: {
+			return { ...state, loading: false };
 		}
 
 		default: {

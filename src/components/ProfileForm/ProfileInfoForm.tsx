@@ -10,7 +10,7 @@ import Biography from './Biography';
 
 import styles from './ProfileForm.scss';
 import { useDispatch } from 'react-redux';
-import { requestUpdateProfile } from '../../ducks/profile';
+import { updateProfile } from '../../ducks/profile';
 
 interface Props {
 	data: ProfileForm;
@@ -28,7 +28,7 @@ const ProfileInfoForm: React.FC<Props> = ({ data, onCancel }) => {
 			weight: parseInt(form.weight),
 		};
 
-		dispatch(requestUpdateProfile(_form));
+		dispatch(updateProfile(_form));
 	}, []);
 
 	return (

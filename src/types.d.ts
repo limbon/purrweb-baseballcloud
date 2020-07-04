@@ -132,7 +132,11 @@ declare module 'baseballcloud/types' {
 		direct_paid: boolean;
 	};
 
-	type UserState = User | null;
+	type UserState = {
+		user: User | null;
+		loading: boolean;
+		error: Error | null;
+	};
 
 	type Profile = {
 		id: string;
@@ -193,5 +197,7 @@ declare module 'baseballcloud/types' {
 	type ProfileState = {
 		activeProfile: string | null;
 		profiles: { [index: string]: Profile };
+		loading: boolean;
+		error: Error | null;
 	};
 }

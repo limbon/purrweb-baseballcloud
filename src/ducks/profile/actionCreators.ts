@@ -1,58 +1,19 @@
-import {
-	REQUEST_PROFILE,
-	REQUEST_PROFILE_SUCCESS,
-	REQUEST_UPDATE_PROFILE,
-	REQUEST_UPDATE_PROFILE_SUCCESS,
-	REQUEST_PROFILE_BY_ID,
-	SET_ACTIVE_PROFILE_ID,
-	RequestProfileAction,
-	RequestProfileByIdAction,
-	RequestProfileSuccessAction,
-	SetActiveProfileIdAction,
-	RequestUpdateProfileAction,
-	RequestUpdateProfileSuccessAction,
-} from './actionTypes';
+import { FETCH_PROFILE, FETCH_PROFILE_BY_ID, UPDATE_PROFILE } from './actionTypes';
 import { Profile, ProfileForm } from 'baseballcloud/types';
+import { createRoutine } from 'redux-saga-routines';
 
-export const requestProfile = (): RequestProfileAction => {
-	return {
-		type: REQUEST_PROFILE,
-	};
-};
+export const fetchProfile = createRoutine(FETCH_PROFILE, {
+	success: (profile: Profile) => profile,
+	failure: (error: Error) => error,
+});
 
-export const requestUpdateProfile = (form: ProfileForm): RequestUpdateProfileAction => {
-	return {
-		type: REQUEST_UPDATE_PROFILE,
-		payload: form,
-	};
-};
+export const fetchProfileById = createRoutine(FETCH_PROFILE_BY_ID, {
+	trigger: (id: string) => id,
+	success: (profile: Profile) => profile,
+});
 
-export const requestProfileById = (id: string): RequestProfileByIdAction => {
-	return {
-		type: REQUEST_PROFILE_BY_ID,
-		payload: id,
-	};
-};
-
-export const setActiveProfileId = (id: string): SetActiveProfileIdAction => {
-	return {
-		type: SET_ACTIVE_PROFILE_ID,
-		payload: id,
-	};
-};
-
-export const requestProfileSuccess = (profile: Profile): RequestProfileSuccessAction => {
-	return {
-		type: REQUEST_PROFILE_SUCCESS,
-		payload: profile,
-	};
-};
-
-export const requestUpdateProfileSuccess = (
-	profile: Partial<Profile>,
-): RequestUpdateProfileSuccessAction => {
-	return {
-		type: REQUEST_UPDATE_PROFILE_SUCCESS,
-		payload: profile,
-	};
-};
+export const updateProfile = createRoutine(UPDATE_PROFILE, {
+	trigger: (form: ProfileForm) => form,
+	success: (profile: Profile) => profile,
+	failure: (error: Error) => error,
+});

@@ -1,41 +1,38 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
+import { AnyAction } from 'redux';
 
-import { IOC } from '../../ioc';
 import { ApiService } from '../../services/ApiService';
 import { ServiceID } from '../../utils/enums';
 
-import {
-	REQUEST_SIGN_IN,
-	VALIDATE_TOKEN,
-	RequestSignInAction,
-	ValidateTokenAction,
-} from './actionTypes';
+import { IOC } from '../../ioc';
 
-import { requestSignInSuccess, validateTokenSuccess } from './actionCreators';
+import { signIn, validateToken } from './actionCreators';
 
 const api = IOC.get<ApiService>(ServiceID.ApiService);
 
-function* requestSignIn(action: RequestSignInAction) {
+function* signInSaga(action: AnyAction) {
+	yield put(signIn.request());
 	try {
 		const user = yield call(api.requestSignIn, action.payload);
-		yield put(requestSignInSuccess(user));
+		yield put(signIn.success(user));
 	} catch (error) {
-		// TODO
-		console.error(error);
+		yield put(signIn.failure(error));
 	}
+	yield put(signIn.fulfill());
 }
 
-function* validateToken(action: ValidateTokenAction) {
+function* validateTokenSaga(action: AnyAction) {
+	yield put(validateToken.request());
 	try {
 		const user = yield call(api.requestValidateToken);
-		yield put(validateTokenSuccess(user));
+		yield put(validateToken.success(user));
 	} catch (error) {
-		// TODO
-		console.error(error);
+		yield put(validateToken.failure());
 	}
+	yield put(validateToken.fulfill());
 }
 
 export function* userSaga() {
-	yield takeLatest(REQUEST_SIGN_IN, requestSignIn);
-	yield takeLatest(VALIDATE_TOKEN, validateToken);
+	yield takeLatest(signIn.TRIGGER, signInSaga);
+	yield takeLatest(validateToken.TRIGGER, validateTokenSaga);
 }

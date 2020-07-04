@@ -1,39 +1,12 @@
 import { SignInFormData, User } from 'baseballcloud/types';
+import { createRoutine } from 'redux-saga-routines';
+import { SIGN_IN, VALIDATE_TOKEN } from './actionTypes';
 
-import {
-	REQUEST_SIGN_IN,
-	VALIDATE_TOKEN,
-	REQUEST_SIGN_IN_SUCCESS,
-	VALIDATE_TOKEN_SUCCESS,
-	RequestSignInAction,
-	ValidateTokenAction,
-	ValidateTokenSuccessAciton,
-	RequestSignInSuccessAction,
-} from './actionTypes';
+export const signIn = createRoutine(SIGN_IN, {
+	trigger: (form: SignInFormData) => form,
+	success: (user: User) => user,
+});
 
-export const requestSignIn = (data: SignInFormData): RequestSignInAction => {
-	return {
-		type: REQUEST_SIGN_IN,
-		payload: data,
-	};
-};
-
-export const validateToken = (): ValidateTokenAction => {
-	return {
-		type: VALIDATE_TOKEN,
-	};
-};
-
-export const requestSignInSuccess = (user: User): RequestSignInSuccessAction => {
-	return {
-		type: REQUEST_SIGN_IN_SUCCESS,
-		payload: user,
-	};
-};
-
-export const validateTokenSuccess = (user: User): ValidateTokenSuccessAciton => {
-	return {
-		type: VALIDATE_TOKEN_SUCCESS,
-		payload: user,
-	};
-};
+export const validateToken = createRoutine(VALIDATE_TOKEN, {
+	success: (user: User) => user,
+});

@@ -1,58 +1,50 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
+import { AnyAction } from 'redux';
 
 import { IOC } from '../../ioc';
 
 import { ApiService } from '../../services/ApiService';
 import { ServiceID } from '../../utils/enums';
 
-import {
-	REQUEST_PROFILE,
-	REQUEST_PROFILE_BY_ID,
-	REQUEST_UPDATE_PROFILE,
-	RequestProfileAction,
-	RequestProfileByIdAction,
-	RequestUpdateProfileAction,
-} from './actionTypes';
-
-import {
-	requestProfileSuccess,
-	setActiveProfileId,
-	requestUpdateProfileSuccess,
-} from './actionCreators';
+import { fetchProfile, fetchProfileById, updateProfile } from './actionCreators';
 
 const api = IOC.get<ApiService>(ServiceID.ApiService);
 
-function* requestProfile(action: RequestProfileAction) {
+function* fetchProfileSaga() {
+	yield put(fetchProfile.request());
 	try {
 		const profile = yield call(api.requestCurrentUserProfile);
-		yield put(requestProfileSuccess(profile));
-		yield put(setActiveProfileId(profile.id));
+		yield put(fetchProfile.success(profile));
 	} catch (error) {
-		// TODO
-		console.error(error);
+		yield put(fetchProfile.failure(error));
 	}
+	yield put(fetchProfile.fulfill());
 }
 
-function* requestProfileById(action: RequestProfileByIdAction) {
+function* fetchProfileByIdSaga(action: AnyAction) {
+	yield put(fetchProfileById.request());
 	try {
 		const profile = yield call(api.requestProfileById, action.payload);
-		yield put(requestProfileSuccess(profile));
+		yield put(fetchProfileById.success(profile));
 	} catch (error) {
-		console.error(error);
+		yield put(fetchProfileById.failure(error));
 	}
+	yield put(fetchProfileById.fulfill());
 }
 
-function* requestUpdateProfile(action: RequestUpdateProfileAction) {
+function* updateProfileSaga(action: AnyAction) {
+	yield put(updateProfile.request());
 	try {
 		const profile = yield call(api.requestUpdateProfile, action.payload);
-		yield put(requestUpdateProfileSuccess(profile));
+		yield put(updateProfile.success(profile));
 	} catch (error) {
-		yield console.error(error);
+		yield put(updateProfile.failure(error));
 	}
+	yield put(updateProfile.fulfill());
 }
 
 export function* profileSaga() {
-	yield takeLatest(REQUEST_PROFILE, requestProfile);
-	yield takeLatest(REQUEST_PROFILE_BY_ID, requestProfileById);
-	yield takeLatest(REQUEST_UPDATE_PROFILE, requestUpdateProfile);
+	yield takeLatest(fetchProfile.TRIGGER, fetchProfileSaga);
+	yield takeLatest(fetchProfileById.TRIGGER, fetchProfileByIdSaga);
+	yield takeLatest(updateProfile.TRIGGER, updateProfileSaga);
 }

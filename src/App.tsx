@@ -5,7 +5,7 @@ import { router } from './router';
 
 import { generateRoutes } from './utils/generateRoutes';
 import { validateToken } from './ducks/user';
-import { requestProfile } from './ducks/profile';
+import { fetchProfile } from './ducks/profile';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
@@ -16,7 +16,7 @@ const App: React.FC = () => {
 
 	React.useEffect(() => {
 		dispatch(validateToken());
-		dispatch(requestProfile());
+		dispatch(fetchProfile());
 	}, []);
 
 	return (

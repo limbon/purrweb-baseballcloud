@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
-import { requestProfileById } from '../../ducks/profile';
+import { fetchProfileById } from '../../ducks/profile';
 import { selectProfile } from '../../utils/selectors';
 
 import Profile from '../../components/Profile/Profile';
@@ -20,7 +20,7 @@ const ProfileView: React.FC = () => {
 			if (isNaN(parseInt(params.id))) {
 				history.goBack();
 			} else {
-				dispatch(requestProfileById(params.id));
+				dispatch(fetchProfileById(params.id));
 			}
 		}
 	}, []);

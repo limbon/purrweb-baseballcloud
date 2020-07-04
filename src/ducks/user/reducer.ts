@@ -1,17 +1,39 @@
 import { Reducer } from 'redux';
 import { UserState } from 'baseballcloud/types';
-import { UserAction, REQUEST_SIGN_IN_SUCCESS, VALIDATE_TOKEN_SUCCESS } from './actionTypes';
+import { signIn, validateToken } from './actionCreators';
 
-const initialState: UserState = null;
+const initialState: UserState = {
+	user: null,
+	loading: false,
+	error: null,
+};
 
-export const userReducer: Reducer<UserState, UserAction> = (state = initialState, action) => {
+export const userReducer: Reducer<UserState> = (state = initialState, action) => {
 	switch (action.type) {
-		case REQUEST_SIGN_IN_SUCCESS: {
-			return action.payload;
+		case signIn.REQUEST: {
+			return { ...state, loading: true };
+		}
+		case signIn.SUCCESS: {
+			return { ...state, user: action.payload };
+		}
+		case signIn.FAILURE: {
+			return { ...state, error: action.payload };
+		}
+		case signIn.FULFILL: {
+			return { ...state, loading: false };
 		}
 
-		case VALIDATE_TOKEN_SUCCESS: {
-			return action.payload;
+		case validateToken.REQUEST: {
+			return { ...state, loading: true };
+		}
+		case validateToken.SUCCESS: {
+			return { ...state, user: action.payload };
+		}
+		case validateToken.FAILURE: {
+			return { ...state, error: action.payload };
+		}
+		case validateToken.FULFILL: {
+			return { ...state, loading: false };
 		}
 
 		default: {
