@@ -5,6 +5,8 @@ import { Hand } from '../../../utils/enums';
 
 import Select from '../../UI/Select/Select';
 
+import styles from '../ProfileForm.scss';
+
 const hands = Object.values(Hand).map((value) => ({ label: value.toUpperCase(), value }));
 
 const getHandsValue = (input: FieldInputProps<any, HTMLElement>) => {

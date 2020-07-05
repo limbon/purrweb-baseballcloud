@@ -3,8 +3,15 @@ import { FieldRenderProps } from 'react-final-form';
 
 import Input from '../../UI/Input/Input';
 
+import styles from '../ProfileForm.scss';
+
 const FeetInput: React.FC<FieldRenderProps<any, HTMLElement>> = ({ input }) => {
-	return <Input {...input} placeholder='Feet' />;
+	return (
+		<div className={styles.input}>
+			<Input {...input} placeholder='Feet' />
+			<label>Feet</label>
+		</div>
+	);
 };
 
 export default FeetInput;
