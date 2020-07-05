@@ -5,15 +5,15 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { ProfileForm } from 'baseballcloud/types';
 
-import { useRoutine } from '../../hooks/useRoutine';
-import { updateProfile } from '../../ducks/profile';
+import { useRoutine } from '../../../hooks/useRoutine';
+import { updateProfile } from '../../../ducks/profile';
 
-import UserInfo from './UserInfo';
-import PersonalInfo from './PersonalInfo';
-import SchoolInfo from './SchoolInfo';
-import Biography from './Biography';
+import UserInfo from '../Sections/UserInfo';
+import PersonalInfo from '../Sections/PersonalInfo';
+import SchoolInfo from '../Sections/SchoolInfo';
+import Biography from '../Sections/Biography';
 
-import styles from './ProfileForm.scss';
+import styles from './Form.scss';
 
 interface Props {
 	data: Partial<ProfileForm>;

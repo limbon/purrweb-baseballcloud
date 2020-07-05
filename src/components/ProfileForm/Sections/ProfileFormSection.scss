@@ -1,0 +1,92 @@
+.heading {
+	span {
+		color: #414f5a;
+		font-size: 18px;
+		font-weight: 900;
+		display: flex;
+		align-items: center;
+
+		&::after {
+			content: '';
+			height: 1px;
+			display: block;
+			flex: 1;
+			background-color: #e7ebef;
+		}
+	}
+}
+
+.userInfo {
+	display: grid;
+	gap: 16px;
+	margin-top: 16px;
+
+	.name {
+		display: grid;
+		grid-auto-flow: column;
+		gap: 8px;
+	}
+
+	.positions {
+		display: grid;
+		gap: 8px;
+	}
+}
+
+.personalInfo {
+	display: grid;
+	gap: 8px;
+	margin-top: 8px;
+
+	.height,
+	.hands {
+		display: grid;
+		grid-auto-flow: column;
+		gap: 8px;
+	}
+}
+
+.schoolInfo {
+	display: grid;
+	gap: 8px;
+	margin-top: 8px;
+
+	.school {
+		.info {
+			display: grid;
+			gap: 8px;
+			margin-top: 8px;
+		}
+	}
+
+	.facilities {
+		.info {
+			margin-top: 8px;
+		}
+	}
+}
+
+.bio {
+	margin-top: 8px;
+
+	textarea {
+		width: 100%;
+		min-height: 110px;
+		color: #667784;
+		font-size: 16px;
+		line-height: 1.13;
+		font-weight: 400;
+		margin-top: 8px;
+		background-color: #eff1f3;
+		border-radius: 4px;
+		padding: 11px 16px;
+		border: 1px solid transparent;
+		resize: none;
+
+		&:focus {
+			outline: none;
+			background-color: #fff;
+			border: solid 1px #48bbff;
+		}
+	}
+}

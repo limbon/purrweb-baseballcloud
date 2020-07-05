@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Form, Field } from 'react-final-form';
 
-import DefaultAvatar from '../../assets/images/default-avatar.png';
+import { useRoutine } from '../../../hooks/useRoutine';
+import { updateAvatar } from '../../../ducks/profile';
 
-import styles from './ProfileForm.scss';
-import { useRoutine } from '../../hooks/useRoutine';
-import { updateProfile, updateAvatar } from '../../ducks/profile';
-import { useDispatch } from 'react-redux';
+import DefaultAvatar from '../../../assets/images/default-avatar.png';
+
+import styles from './Form.scss';
 
 type Avatar = {
 	name: string | null;

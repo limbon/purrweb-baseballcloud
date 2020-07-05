@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { ProfileForm as ProfileFormData, Profile } from 'baseballcloud/types';
+import { ProfileForm as ProfileFormData } from 'baseballcloud/types';
 
-import AvatarUpload from './AvatarUpload';
-import ProfileInfoForm from './ProfileInfoForm';
+import AvatarUpload from './Forms/AvatarUpload';
+import ProfileInfoForm from './Forms/ProfileInfoForm';
 
 import styles from './ProfileForm.scss';
 
@@ -15,9 +15,7 @@ interface Props {
 const ProfileForm: React.FC<Props> = ({ data, onCancel, onSubmit }) => {
 	const [avatar, setAvatar] = React.useState<string | null>(data.avatar);
 	return (
-		<div
-			style={{ backgroundColor: 'white', height: '100%', padding: '16px', overflow: 'auto' }}
-		>
+		<div className={styles.profileForm}>
 			<AvatarUpload onUpload={setAvatar} avatar={avatar} />
 			<ProfileInfoForm onSubmit={onSubmit} onCancel={onCancel} avatar={avatar} data={data} />
 		</div>
