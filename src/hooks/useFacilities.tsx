@@ -25,7 +25,7 @@ export const useFacilities = () => {
 	);
 
 	React.useEffect(() => {
-		request();
+		request('');
 	}, []);
 
 	return { facilities, facilityOptions };

@@ -76,8 +76,8 @@ function* fetchTeamsSaga(action: AnyAction) {
 function* fetchSchoolsSaga(action: AnyAction) {
 	yield put(fetchSchools.request());
 	try {
-		const teams = yield call(api.requestSchools, action.payload);
-		yield put(fetchSchools.success(teams));
+		const schools = yield call(api.requestSchools, action.payload);
+		yield put(fetchSchools.success(schools));
 	} catch (error) {
 		yield put(fetchSchools.failure(error));
 	}
@@ -87,8 +87,8 @@ function* fetchSchoolsSaga(action: AnyAction) {
 function* fetchFacilitiesSaga(action: AnyAction) {
 	yield put(fetchFacilities.request());
 	try {
-		const teams = yield call(api.requestFacilities, action.payload);
-		yield put(fetchFacilities.success(teams));
+		const facilities = yield call(api.requestFacilities, action.payload);
+		yield put(fetchFacilities.success(facilities));
 	} catch (error) {
 		yield put(fetchFacilities.failure(error));
 	}

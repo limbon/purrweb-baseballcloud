@@ -39,10 +39,10 @@ export const fetchTeams = createRoutine(FETCH_TEAMS, {
 
 export const fetchSchools = createRoutine(FETCH_SCHOOLS, {
 	trigger: (search: string) => search,
-	success: (teams: { [index: string]: School }) => teams,
+	success: (schools: { [index: string]: School }) => schools,
 });
 
 export const fetchFacilities = createRoutine(FETCH_FACILITIES, {
 	trigger: (search: string) => search,
-	success: (teams: { [index: string]: Facility }) => teams,
+	success: (facilities: { [index: string]: Facility }) => facilities,
 });
