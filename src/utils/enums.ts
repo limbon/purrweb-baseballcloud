@@ -26,9 +26,9 @@ export enum AuthField {
 export enum Position {
 	Catcher = 'catcher',
 	Pitcher = 'pitcher',
-	Firstbase = 'firstbase',
-	Secondbase = 'secondbase',
-	Thirdbase = 'thirdbase',
+	First_Base = 'first_base',
+	Second_Base = 'second_base',
+	Third_Base = 'third_base',
 	Shortstop = 'shortstop',
 	Outfield = 'outfield',
 }

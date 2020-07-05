@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { FieldRenderProps, FieldInputProps } from 'react-final-form';
 import { Position } from '../../../utils/enums';
+import { startCase } from 'lodash';
 
 import Select from '../../UI/Select/Select';
 
-const positions = Object.entries(Position).map(([label, value]) => ({ label, value }));
+const positions = Object.entries(Position).map(([label, value]) => ({
+	label: startCase(label),
+	value,
+}));
 const nullablePositions = [{ label: '-', value: '' }, ...positions];
 
 const getPosition = (input: FieldInputProps<any, HTMLElement>) => {

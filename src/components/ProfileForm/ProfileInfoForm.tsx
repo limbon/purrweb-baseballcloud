@@ -52,7 +52,7 @@ const ProfileInfoForm: React.FC<Props> = ({ data, onCancel, onSubmit }) => {
 						>
 							Cancel
 						</button>
-						<button disabled={loading} onClick={handleSubmit} className={styles.submit}>
+						<button disabled={loading} className={styles.submit}>
 							{loading ? <FontAwesomeIcon icon={faSpinner} spin /> : 'Save'}
 						</button>
 					</div>
