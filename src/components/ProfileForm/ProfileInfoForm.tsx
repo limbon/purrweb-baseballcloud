@@ -16,24 +16,29 @@ import Biography from './Biography';
 import styles from './ProfileForm.scss';
 
 interface Props {
-	data: ProfileForm;
+	data: Partial<ProfileForm>;
+	avatar: string | null;
 	onCancel: () => void;
 	onSubmit: () => void;
 }
 
-const ProfileInfoForm: React.FC<Props> = ({ data, onCancel, onSubmit }) => {
+const ProfileInfoForm: React.FC<Props> = ({ data, onCancel, onSubmit, avatar }) => {
 	const [loading, submit] = useRoutine({ routine: updateProfile, onSuccess: onSubmit }, []);
 
-	const handleSubmit = React.useCallback((form) => {
-		const _form: ProfileForm = {
-			...form,
-			age: parseInt(form.age),
-			feet: parseInt(form.feet),
-			inches: parseInt(form.inches),
-			weight: parseInt(form.weight),
-		};
-		submit(_form);
-	}, []);
+	const handleSubmit = React.useCallback(
+		(form) => {
+			const _form: ProfileForm = {
+				...form,
+				avatar,
+				age: parseInt(form.age),
+				feet: parseInt(form.feet),
+				inches: parseInt(form.inches),
+				weight: parseInt(form.weight),
+			};
+			submit(_form);
+		},
+		[avatar],
+	);
 
 	return (
 		<Form onSubmit={handleSubmit} initialValues={data}>
