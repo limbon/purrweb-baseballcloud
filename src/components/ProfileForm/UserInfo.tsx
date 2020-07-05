@@ -5,7 +5,8 @@ import { validateAll, notNull } from '../../utils/validators';
 
 import FirstNameInput from './Fields/FirstNameInput';
 import LastNameInput from './Fields/LastNameInput';
-import { PositionInput, NullablePositionInput } from './Fields/PositionInput';
+import Position1 from './Fields/PrimaryPostionInput';
+import Position2 from './Fields/SecondaryPositionInput';
 
 import styles from './ProfileForm.scss';
 
@@ -27,8 +28,8 @@ const UserInfo: React.FC<Props> = () => {
 				<Field name='last_name' validate={validateLastName} render={LastNameInput} />
 			</div>
 			<div className={styles.positions}>
-				<Field name='position' render={PositionInput} />
-				<Field name='position2' render={NullablePositionInput} />
+				<Field name='position' render={Position1} />
+				<Field name='position2' render={Position2} />
 			</div>
 		</div>
 	);

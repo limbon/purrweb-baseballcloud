@@ -7,6 +7,8 @@ import { useFacilities } from '../../../hooks/useFacilities';
 
 import Select from '../../UI/Select/Select';
 
+import styles from '../ProfileForm.scss';
+
 const getFacilityValue = (input: FieldInputProps<any, HTMLElement>) => {
 	if (input.value) {
 		return input.value.map((f: Facility) => ({ label: f.u_name, value: f.u_name }));
@@ -16,6 +18,7 @@ const getFacilityValue = (input: FieldInputProps<any, HTMLElement>) => {
 };
 
 const FacilitesInput: React.FC<FieldRenderProps<any, HTMLElement>> = ({ input }) => {
+	const [focus, setFocus] = React.useState<boolean>(false);
 	const { facilities, facilityOptions } = useFacilities();
 
 	const handleChange = React.useCallback(
@@ -28,13 +31,19 @@ const FacilitesInput: React.FC<FieldRenderProps<any, HTMLElement>> = ({ input })
 	);
 
 	return (
-		<Select
-			isMulti
-			options={facilityOptions}
-			defaultValue={getFacilityValue(input)}
-			placeholder='Facility'
-			onChange={handleChange}
-		/>
+		<div className={styles.input}>
+			<Select
+				className={`${focus ? styles.select : ''}`}
+				onFocus={() => setFocus(true)}
+				onBlur={() => setFocus(false)}
+				isMulti
+				options={facilityOptions}
+				defaultValue={getFacilityValue(input)}
+				placeholder='Facility'
+				onChange={handleChange}
+			/>
+			<label className={focus ? styles.label : ''}>Facility</label>
+		</div>
 	);
 };
 

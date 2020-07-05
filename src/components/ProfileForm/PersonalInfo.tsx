@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Field } from 'react-final-form';
-import { FormState } from 'final-form';
 
 import { numberInRange, validateAll, isNumber, notNull } from '../../utils/validators';
 
-import HandInput from './Fields/HandInput';
 import WeightInput from './Fields/WeightInput';
 import InchesInput from './Fields/InchesInput';
 import FeetInput from './Fields/FeetInput';
 import AgeInput from './Fields/AgeInput';
+import ThrowsHand from './Fields/ThrowsHandInput';
+import BatsHand from './Fields/BatsHandInput';
 
 import styles from './ProfileForm.scss';
 
@@ -43,8 +43,8 @@ const PersonalInfo: React.FC = () => {
 			</div>
 			<Field name='weight' validate={validateWeight} render={WeightInput} />
 			<div className={styles.hands}>
-				<Field name='throws_hand' render={HandInput} />
-				<Field name='bats_hand' render={HandInput} />
+				<Field name='throws_hand' render={ThrowsHand} />
+				<Field name='bats_hand' render={BatsHand} />
 			</div>
 		</div>
 	);
