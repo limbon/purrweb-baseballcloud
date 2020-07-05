@@ -42,12 +42,21 @@ const ProfileInfoForm: React.FC<Props> = ({ data, onCancel, onSubmit, avatar }) 
 
 	return (
 		<Form onSubmit={handleSubmit} initialValues={data}>
-			{({ handleSubmit }) => (
+			{({ handleSubmit, form }) => (
 				<form onSubmit={handleSubmit} className={styles.profileInfoForm}>
 					<UserInfo />
 					<PersonalInfo />
 					<SchoolInfo />
 					<Biography />
+					{form.getState().hasValidationErrors && (
+						<div className={styles.errors}>
+							{Object.entries(form.getState().errors).map(([key, error]) => (
+								<span className={styles.error} key={key}>
+									* {error}
+								</span>
+							))}
+						</div>
+					)}
 					<div className={styles.buttons}>
 						<button
 							disabled={loading}

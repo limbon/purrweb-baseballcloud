@@ -16,6 +16,14 @@
 	}
 }
 
+.errors {
+	display: grid;
+
+	.error {
+		color: #c70000;
+	}
+}
+
 .avatarForm {
 	display: grid;
 	justify-items: center;

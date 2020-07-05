@@ -40,7 +40,7 @@ const ProfileComponent: React.FC<Props> = ({ data }) => {
 				<PlayerAttribute
 					icon={<HeightIcon />}
 					name='Height'
-					value={`${data.feet} ft ${data.inches} in`}
+					value={`${data.feet} ft ${data.inches || 0} in`}
 				/>
 				<PlayerAttribute icon={<WeightIcon />} name='Weight' value={`${data.weight} lbs`} />
 				<PlayerAttribute
@@ -113,7 +113,7 @@ const Profile: React.FC<Props> = ({ data }) => {
 			biography: data.biography,
 			school_year: data.school_year,
 			feet: data.feet.toString(),
-			inches: data.inches.toString(),
+			inches: data.inches?.toString(),
 			weight: data.weight.toString(),
 			age: data.age.toString(),
 			school: data.school,

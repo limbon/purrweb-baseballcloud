@@ -4,7 +4,7 @@ import { FieldRenderProps } from 'react-final-form';
 import Input from '../../UI/Input/Input';
 
 const AgeInput: React.FC<FieldRenderProps<any, HTMLElement>> = ({ input }) => {
-	return <Input {...input} placeholder='Inches' />;
+	return <Input {...input} placeholder='Age' />;
 };
 
 export default AgeInput;
