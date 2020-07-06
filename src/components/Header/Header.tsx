@@ -5,7 +5,7 @@ import { signOut } from '../../ducks/user';
 
 import { Route } from '../../utils/enums';
 
-import { selectActiveProfile } from '../../utils/selectors';
+import { selectActiveProfile, selectUser } from '../../utils/selectors';
 
 import Logo from '../../assets/icons/logo.svg';
 import DefaultAvatar from '../../assets/images/default-avatar.png';
@@ -15,6 +15,7 @@ import styles from './Header.scss';
 
 const Header: React.FC = () => {
 	const profile = useSelector(selectActiveProfile);
+	const user = useSelector(selectUser);
 	const dispatch = useDispatch();
 
 	const handleSignOut = React.useCallback(() => {
@@ -33,7 +34,9 @@ const Header: React.FC = () => {
 					<div className={styles.profile}>
 						<img src={profile.avatar || DefaultAvatar} />
 						<Dropdown
-							title={`${profile?.first_name} ${profile?.last_name}`}
+							title={
+								profile.first_name ? `${profile!.first_name} ${profile!.last_name}` : user?.email
+							}
 							options={[
 								<Link to={Route.Profile}>My Profile</Link>,
 								<Link to='#' onClick={handleSignOut}>

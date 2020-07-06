@@ -6,7 +6,7 @@ import { ServiceID } from '../../utils/enums';
 
 import { IOC } from '../../ioc';
 
-import { signIn, validateToken, signOut } from './actionCreators';
+import { signIn, validateToken, signOut, signUp } from './actionCreators';
 
 const api = IOC.get<ApiService>(ServiceID.ApiService);
 
@@ -14,6 +14,17 @@ function* signInSaga(action: AnyAction) {
 	yield put(signIn.request());
 	try {
 		const { user, credentials } = yield call(api.requestSignIn, action.payload);
+		yield put(signIn.success(user, credentials));
+	} catch (error) {
+		yield put(signIn.failure(error));
+	}
+	yield put(signIn.fulfill());
+}
+
+function* signUpSaga(action: AnyAction) {
+	yield put(signIn.request());
+	try {
+		const { user, credentials } = yield call(api.requestSignUp, action.payload);
 		yield put(signIn.success(user, credentials));
 	} catch (error) {
 		yield put(signIn.failure(error));
@@ -45,6 +56,7 @@ function* validateTokenSaga(action: AnyAction) {
 
 export function* userSaga() {
 	yield takeLatest(signIn.TRIGGER, signInSaga);
+	yield takeLatest(signUp.TRIGGER, signUpSaga);
 	yield takeLatest(signOut.TRIGGER, signOutSaga);
 	yield takeLatest(validateToken.TRIGGER, validateTokenSaga);
 }

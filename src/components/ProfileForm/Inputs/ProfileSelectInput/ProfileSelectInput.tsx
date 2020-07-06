@@ -45,6 +45,10 @@ const ProfileSelectInput: React.FC<Props> = (props) => {
 		input.onChange(e);
 	}, changeDeps);
 
+	React.useEffect(() => {
+		handleChange(value || defaultValue);
+	}, changeDeps);
+
 	return (
 		<div className={styles.input}>
 			<Select

@@ -32,7 +32,7 @@ const ProfileComponent: React.FC<Props> = ({ data }) => {
 				<div className={styles.username}>
 					{data.first_name} {data.last_name}
 				</div>
-				<div className={styles.position}>{startCase(data.position.toString())}</div>
+				<div className={styles.position}>{startCase(data.position?.toString())}</div>
 				<div className={styles.position}>{startCase(data.position2?.toString())}</div>
 			</div>
 			<div className={styles.personalInfo}>
@@ -46,12 +46,12 @@ const ProfileComponent: React.FC<Props> = ({ data }) => {
 				<PlayerAttribute
 					icon={<ThrowsIcon />}
 					name='Throws'
-					value={data.throws_hand.toString().toUpperCase()}
+					value={data.throws_hand?.toString().toUpperCase()}
 				/>
 				<PlayerAttribute
 					icon={<BatsIcon />}
 					name='Bats'
-					value={data.bats_hand.toString().toUpperCase()}
+					value={data.bats_hand?.toString().toUpperCase()}
 				/>
 			</div>
 			<div className={styles.schoolInfo}>
@@ -103,26 +103,26 @@ const Profile: React.FC<Props> = ({ data }) => {
 	const profileForm = React.useMemo(() => {
 		return {
 			id: data.id,
-			avatar: data.avatar,
-			first_name: data.first_name,
-			last_name: data.last_name,
-			position: data.position,
-			position2: data.position2,
+			avatar: data?.avatar,
+			first_name: data?.first_name,
+			last_name: data?.last_name,
+			position: data?.position,
+			position2: data?.position2,
 			throws_hand: data.throws_hand,
-			bats_hand: data.bats_hand,
-			biography: data.biography,
+			bats_hand: data?.bats_hand,
+			biography: data?.biography,
 			school_year: data.school_year,
-			feet: data.feet.toString(),
+			feet: data.feet?.toString(),
 			inches: data.inches?.toString(),
-			weight: data.weight.toString(),
-			age: data.age.toString(),
-			school: data.school,
-			teams: data.teams,
-			facilities: data.facilities,
+			weight: data.weight?.toString(),
+			age: data.age?.toString(),
+			school: data?.school,
+			teams: data?.teams,
+			facilities: data?.facilities,
 		};
 	}, [data]);
 
-	if (edit) {
+	if (edit || !profileForm.first_name) {
 		return (
 			<ProfileForm
 				onCancel={() => setEdit(false)}

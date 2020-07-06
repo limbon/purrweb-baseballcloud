@@ -15,6 +15,7 @@ import {
 	Facility,
 	ProfileForm,
 	Credentials,
+	SignUpFormData,
 } from 'baseballcloud/types';
 
 import {
@@ -59,6 +60,25 @@ export class ApiService {
 	): Promise<{ user: User; credentials: Credentials }> => {
 		const url = `${this.BASE_URL}/auth/sign_in`;
 		const response = await axios.post<{ data: User }>(url, data);
+
+		this.cacheService.set('credentials', {
+			'access-token': response.headers['access-token'],
+			uid: response.headers.uid,
+			client: response.headers.client,
+		});
+
+		return {
+			user: response.data.data,
+			credentials: this.cacheService.get<Credentials>('credentials')!,
+		};
+	};
+
+	requestSignUp = async (
+		data: SignUpFormData,
+	): Promise<{ user: User; credentials: Credentials }> => {
+		const url = `${this.BASE_URL}/auth`;
+
+		const response = await axios.post(url, data);
 
 		this.cacheService.set('credentials', {
 			'access-token': response.headers['access-token'],

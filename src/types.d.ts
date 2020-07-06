@@ -74,6 +74,13 @@ declare module 'baseballcloud/types' {
 		password: string;
 	};
 
+	type SignUpFormData = {
+		role: Role;
+		email: string;
+		password: string;
+		password_confirmation: string;
+	};
+
 	type TeamAvatar = {
 		url: string | null;
 		size_100_100: { url: string | null };

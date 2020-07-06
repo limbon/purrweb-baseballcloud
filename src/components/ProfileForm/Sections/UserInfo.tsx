@@ -46,31 +46,28 @@ const UserInfo: React.FC<Props> = () => {
 				<Field name='position'>
 					{(props) => (
 						<ProfileSelectInput
+							{...props}
 							label='Primary Position'
 							options={positions}
 							searchable={false}
 							getValue={(data) => data.value}
-							defaultValue={
-								positions.find((p) => p.value === props.input.value) || positions[0]
-							}
+							value={positions.find((p) => p.value === props.input.value)}
+							defaultValue={positions[0]}
 							changeDeps={[]}
-							{...props}
-							c
 						/>
 					)}
 				</Field>
 				<Field name='position2'>
 					{(props) => (
 						<ProfileSelectInput
+							{...props}
 							label='Secondary Position'
 							options={nullablePositions}
 							searchable={false}
 							getValue={(data) => data.value || null}
-							defaultValue={
-								nullablePositions.find((p) => p.value === props.input.value) || positions[0]
-							}
+							value={nullablePositions.find((p) => p.value === props.input.value)}
+							defaultValue={nullablePositions[0]}
 							changeDeps={[]}
-							{...props}
 						/>
 					)}
 				</Field>

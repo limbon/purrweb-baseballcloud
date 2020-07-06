@@ -56,26 +56,26 @@ const PersonalInfo: React.FC = () => {
 				<Field name='throws_hand'>
 					{(props) => (
 						<ProfileSelectInput
+							{...props}
 							label='Throws'
 							options={hands}
 							searchable={false}
 							getValue={(data) => data.value}
-							defaultValue={hands.find((h) => h.value === props.input.value) || hands[0]}
+							value={hands.find((h) => h.value === props.input.value) || hands[0]}
 							changeDeps={[]}
-							{...props}
 						/>
 					)}
 				</Field>
 				<Field name='bats_hand'>
 					{(props) => (
 						<ProfileSelectInput
+							{...props}
 							label='Bats'
 							options={hands}
 							searchable={false}
 							getValue={(data) => data.value}
-							defaultValue={hands.find((h) => h.value === props.input.value) || hands[0]}
+							value={hands.find((h) => h.value === props.input.value) || hands[0]}
 							changeDeps={[]}
-							{...props}
 						/>
 					)}
 				</Field>

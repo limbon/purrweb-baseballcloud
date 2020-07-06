@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
 import { upperFirst } from 'lodash';
 import { Form, Field } from 'react-final-form';
 import { Link } from 'react-router-dom';
@@ -7,6 +8,7 @@ import { faUser, faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { Role, Route } from '../../../utils/enums';
 
+import { signUp } from '../../../ducks/user';
 import { minLength, isEmail, equalFields } from '../../../utils/validators';
 
 import Input from '../../UI/Input/Input';
@@ -32,8 +34,9 @@ const roleName: RoleMap = {
 };
 
 const SignUp: React.FC = () => {
+	const dispatch = useDispatch();
 	const handleSubmit = React.useCallback((data: any) => {
-		console.log(data);
+		dispatch(signUp(data));
 	}, []);
 
 	return (

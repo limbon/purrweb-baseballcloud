@@ -30,6 +30,7 @@ const SchoolInfo: React.FC = () => {
 					<Field name='school'>
 						{(props) => (
 							<ProfileSelectInput
+								{...props}
 								label='School'
 								creatable
 								options={schoolOptions}
@@ -39,26 +40,27 @@ const SchoolInfo: React.FC = () => {
 								getValue={(data) => schools[data?.value] || { id: data.value, name: data.value }}
 								value={{ label: props.input.value.name, value: props.input.value.name }}
 								changeDeps={[schools]}
-								{...props}
 							/>
 						)}
 					</Field>
 					<Field name='school_year'>
 						{(props) => (
 							<ProfileSelectInput
+								{...props}
 								label='School Year'
 								options={schoolYears}
 								searchable
 								getValue={(data) => data.value}
-								defaultValue={schoolYears.find((y) => y.value === props.input.value)}
+								value={schoolYears.find((y) => y.value === props.input.value)}
+								defaultValue={schoolYears[0]}
 								changeDeps={[]}
-								{...props}
 							/>
 						)}
 					</Field>
 					<Field name='teams'>
 						{(props) => (
 							<ProfileSelectInput
+								{...props}
 								label='Teams'
 								creatable
 								options={teamOptions}
@@ -74,8 +76,8 @@ const SchoolInfo: React.FC = () => {
 									label: t.name,
 									value: t.name,
 								}))}
+								defaultValue={[]}
 								changeDeps={[teams]}
-								{...props}
 							/>
 						)}
 					</Field>
@@ -89,17 +91,18 @@ const SchoolInfo: React.FC = () => {
 					<Field name='facilities'>
 						{(props) => (
 							<ProfileSelectInput
+								{...props}
 								label='Facilites'
 								options={facilityOptions}
 								multi
 								hideSelected
 								getValue={(data) => data?.map((d: any) => facilities[d.value]) ?? []}
-								value={props.input.value.map((f: any) => ({
+								value={props.input.value?.map((f: any) => ({
 									label: f.u_name,
 									value: f.u_name,
 								}))}
+								defaultValue={[]}
 								changeDeps={[facilities]}
-								{...props}
 							/>
 						)}
 					</Field>
