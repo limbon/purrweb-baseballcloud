@@ -24,7 +24,7 @@ const Header: React.FC = () => {
 
 	return (
 		<header className={styles.header}>
-			<Link className={styles.homeLink} to={Route.Home}>
+			<Link className={styles.homeLink} to='/'>
 				<Logo />
 			</Link>
 			{profile && (
