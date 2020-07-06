@@ -36,9 +36,7 @@ const SchoolInfo: React.FC = () => {
 								searchable
 								onInputChange={requestMoreSchools}
 								loading={schoolLoading}
-								getValue={(data) =>
-									schools[data?.value] || { id: data.value, name: data.value }
-								}
+								getValue={(data) => schools[data?.value] || { id: data.value, name: data.value }}
 								value={{ label: props.input.value.name, value: props.input.value.name }}
 								changeDeps={[schools]}
 								{...props}
@@ -96,11 +94,11 @@ const SchoolInfo: React.FC = () => {
 								multi
 								hideSelected
 								getValue={(data) => data?.map((d: any) => facilities[d.value]) ?? []}
-								defaultValue={props.input.value.map((f: any) => ({
+								value={props.input.value.map((f: any) => ({
 									label: f.u_name,
 									value: f.u_name,
 								}))}
-								changeDeps={[]}
+								changeDeps={[facilities]}
 								{...props}
 							/>
 						)}
