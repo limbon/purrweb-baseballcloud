@@ -1,0 +1,34 @@
+.view {
+	height: 100%;
+	background-color: #fff;
+	padding: 16px;
+
+	.heading {
+		font-size: 24px;
+		line-height: 1.25;
+		font-weight: 400;
+		color: #667784;
+	}
+
+	.tabs {
+		width: max-content;
+		display: grid;
+		grid-auto-flow: column;
+		gap: 12px;
+		padding: 0;
+		list-style: none;
+
+		.tab {
+			background-color: #fff;
+			padding: 8px;
+			border: 2px solid #788b99;
+			border-radius: 40px;
+			cursor: pointer;
+
+			&.selected {
+				background: #788b99;
+				color: #fff;
+			}
+		}
+	}
+}

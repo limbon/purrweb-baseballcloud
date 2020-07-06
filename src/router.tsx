@@ -10,6 +10,7 @@ import PrivacyView from './views/Legal/PrivacyView';
 import HomeView from './views/HomeView/HomeView';
 import ProfileView from './views/ProfileView/ProfileView';
 import MyProfileView from './views/MyProfileView/MyProfileView';
+import Leaderboard from './views/LeaderboardView/LeaderboardView';
 
 export const router: Router = {
 	rootRoute: {
@@ -53,7 +54,7 @@ export const router: Router = {
 		},
 		{
 			path: Route.Leaderboard,
-			component: () => <div>Leaderboard</div>,
+			component: Leaderboard,
 		},
 		{
 			path: Route.Network,
