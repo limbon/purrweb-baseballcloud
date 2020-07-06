@@ -16,13 +16,6 @@ export enum Route {
 	Leaderboard = 'leaderboard',
 }
 
-export enum AuthField {
-	Email = 'email',
-	Password = 'password',
-	ConfirmPassword = 'password_confirmation',
-	Role = 'role',
-}
-
 export enum Position {
 	Catcher = 'catcher',
 	Pitcher = 'pitcher',

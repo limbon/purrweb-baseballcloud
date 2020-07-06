@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 
 import { signIn } from '../../../ducks/user';
-import { AuthField } from '../../../utils/enums';
 import { SignInFormData } from 'baseballcloud/types';
 
 import { isEmail } from '../../../utils/validators';
@@ -24,17 +23,12 @@ const SignIn: React.FC = () => {
 		<Form onSubmit={handleSubmit}>
 			{({ handleSubmit }) => (
 				<form className={styles.form} onSubmit={handleSubmit}>
-					<Field name={AuthField.Email} validate={isEmail}>
+					<Field name='email' validate={isEmail}>
 						{({ input, meta }) => (
 							<div className={styles.field}>
 								<div className={styles.inputContainer}>
 									<FontAwesomeIcon icon={faUser} />
-									<Input
-										{...input}
-										type='email'
-										className={styles.input}
-										placeholder='Email'
-									/>
+									<Input {...input} type='email' className={styles.input} placeholder='Email' />
 								</div>
 								{meta.touched && !meta.pristine && meta.error && (
 									<span className={styles.error}>{meta.error}</span>
@@ -42,7 +36,7 @@ const SignIn: React.FC = () => {
 							</div>
 						)}
 					</Field>
-					<Field name={AuthField.Password}>
+					<Field name='password'>
 						{({ input }) => (
 							<div className={styles.field}>
 								<div className={styles.inputContainer}>
