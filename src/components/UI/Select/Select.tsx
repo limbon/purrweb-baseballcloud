@@ -68,26 +68,7 @@ const optionStyle = (): any => ({
 const Select: React.FC<Props> = (props) => {
 	if (props.creatable) {
 		return (
-			<div>
-				<CreatableSelect
-					styles={{
-						multiValueRemove: removeStyle,
-						multiValue: valueStyle,
-						multiValueLabel: valueLabelStyle,
-						control: controlStyle,
-						singleValue: singleValueStyle,
-						option: optionStyle,
-					}}
-					isClearable={false}
-					{...(props as ReactSelectCreatableProps<OptionsType<{ label: string; value: string }>>)}
-				/>
-			</div>
-		);
-	}
-
-	return (
-		<div>
-			<ReactSelect
+			<CreatableSelect
 				styles={{
 					multiValueRemove: removeStyle,
 					multiValue: valueStyle,
@@ -97,9 +78,24 @@ const Select: React.FC<Props> = (props) => {
 					option: optionStyle,
 				}}
 				isClearable={false}
-				{...(props as ReactSelectProps)}
+				{...(props as ReactSelectCreatableProps<OptionsType<{ label: string; value: string }>>)}
 			/>
-		</div>
+		);
+	}
+
+	return (
+		<ReactSelect
+			styles={{
+				multiValueRemove: removeStyle,
+				multiValue: valueStyle,
+				multiValueLabel: valueLabelStyle,
+				control: controlStyle,
+				singleValue: singleValueStyle,
+				option: optionStyle,
+			}}
+			isClearable={false}
+			{...(props as ReactSelectProps)}
+		/>
 	);
 };
 
