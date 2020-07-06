@@ -25,7 +25,7 @@ const ProfileView: React.FC = () => {
 				}
 			}
 		}
-	}, []);
+	}, [params.id]);
 
 	if (!credentials) {
 		return <Redirect to={Route.Home} />;
