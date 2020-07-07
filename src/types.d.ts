@@ -11,27 +11,6 @@ declare module 'baseballcloud/types' {
 		profileState: ProfileState;
 	};
 
-	type Route = {
-		path: string;
-		component: React.ComponentType;
-		name?: string;
-		subroutes?: Route[];
-		exact?: boolean;
-	};
-
-	type Router = {
-		rootRoute: {
-			component: React.ComponentType;
-			name?: string;
-		};
-		fallbackRoute: {
-			path: string;
-			component: React.ComponentType;
-			name?: string;
-		};
-		routes: Route[];
-	};
-
 	enum Role {
 		Player,
 		Scout,
