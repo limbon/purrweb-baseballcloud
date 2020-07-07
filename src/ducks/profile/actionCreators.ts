@@ -6,9 +6,19 @@ import {
 	FETCH_SCHOOLS,
 	FETCH_FACILITIES,
 	UPDATE_AVATAR,
+	FETCH_LEADERBOARD_BATTING,
 } from './actionTypes';
 
-import { Profile, ProfileForm, Team, School, Facility } from 'baseballcloud/types';
+import {
+	Profile,
+	ProfileForm,
+	Team,
+	School,
+	Facility,
+	LeaderboardFilterOptions,
+	LeaderboardBattingData,
+} from 'baseballcloud/types';
+
 import { createRoutine } from 'redux-saga-routines';
 
 export const fetchProfile = createRoutine(FETCH_PROFILE, {
@@ -30,6 +40,11 @@ export const updateProfile = createRoutine(UPDATE_PROFILE, {
 export const updateAvatar = createRoutine(UPDATE_AVATAR, {
 	trigger: ({ name, data }: { name: string; data: string }) => ({ name, data }),
 	success: (url: string) => url,
+});
+
+export const fetchLeaderboardBatting = createRoutine(FETCH_LEADERBOARD_BATTING, {
+	trigger: (input: LeaderboardFilterOptions) => input,
+	success: (data: LeaderboardBattingData) => data,
 });
 
 export const fetchTeams = createRoutine(FETCH_TEAMS, {
