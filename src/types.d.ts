@@ -46,9 +46,11 @@ declare module 'baseballcloud/types' {
 		key: string | number;
 	};
 
+	type FavoriteFilterOption = 0 | 1;
+
 	type LeaderboardType = 'exit_velocity' | 'carry_distance' | 'pitch_velocity' | 'spin_rate';
 	type LeaderboardDateOption = 'last_month' | 'last_week';
-	type LeaderboardFavoriteOption = 0 | 1;
+
 	type LeaderboardFilterOptions = {
 		type: LeaderboardType;
 		date?: LeaderboardDateOption;
@@ -56,7 +58,7 @@ declare module 'baseballcloud/types' {
 		school?: string;
 		position?: Position;
 		age?: number;
-		favorite?: LeaderboardFavoriteOption;
+		favorite?: FavoriteFilterOption;
 	};
 
 	type LeaderboardBattingData = {
@@ -81,6 +83,32 @@ declare module 'baseballcloud/types' {
 		velocity: number;
 		spin_rate: number;
 		favorite: boolean;
+	};
+
+	type NetworkFilterOptions = {
+		offset: number;
+		profiles_count: number;
+		player_name?: string;
+		school?: string;
+		team?: string;
+		position?: string;
+		age?: number;
+		favorite?: FavoriteFilterOption;
+	};
+
+	type NetworkUserData = {
+		id: string;
+		first_name: string;
+		last_name: string;
+		age: number;
+		events: Event[];
+		school: School;
+		teams: Team[];
+		favorite: boolean;
+	};
+
+	type Event = {
+		id: string;
 	};
 
 	type Credentials = {

@@ -17,14 +17,17 @@
 	}
 
 	.rows {
-		display: grid;
-		gap: 3px;
+		display: flex;
+		flex-direction: column;
 
 		.row {
+			height: max-content;
 			background-color: #f7f8f9;
 			display: flex;
 			padding-top: 12px;
 			padding-bottom: 12px;
+			margin-top: 4px;
+			margin-bottom: 4px;
 			border-radius: 4px;
 
 			&:hover {

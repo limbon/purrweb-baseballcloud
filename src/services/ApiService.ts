@@ -19,6 +19,8 @@ import {
 	LeaderboardBattingData,
 	LeaderboardFilterOptions,
 	LeaderboardPitchingData,
+	NetworkFilterOptions,
+	NetworkUserData,
 } from 'baseballcloud/types';
 
 import {
@@ -30,6 +32,7 @@ import {
 	REQUEST_UPDATE_PROFILE,
 } from '../requests/profile';
 import { REQUEST_LEADERBOARD_BATTING, REQUEST_LEADERBOARD_PITCHING } from '../requests/leaderboard';
+import { REQUEST_NETWORK } from '../requests/network';
 
 @injectable()
 export class ApiService {
@@ -145,6 +148,16 @@ export class ApiService {
 		);
 
 		return response.data.data.leaderboard_pitching.leaderboard_pitching;
+	};
+
+	requestNetwork = async (
+		input: NetworkFilterOptions,
+	): Promise<{ profiles: NetworkUserData[]; total_count: number }> => {
+		const response = await axios.post<{
+			data: { profiles: { profiles: NetworkUserData[]; total_count: number } };
+		}>(this.GRAPHQL, { query: REQUEST_NETWORK, variables: { input } }, { headers: this.Headers });
+
+		return response.data.data.profiles;
 	};
 
 	requestProfileById = async (id: string): Promise<Profile> => {

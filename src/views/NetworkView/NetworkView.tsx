@@ -1,174 +1,14 @@
 import * as React from 'react';
-import { TableColumn } from 'baseballcloud/types';
+
+import { TableColumn, NetworkUserData } from 'baseballcloud/types';
+
+import { useRoutine } from '../../hooks/useRoutine';
+import { fetchNetworkPromise } from '../../ducks/profile';
+
 import Table from '../../components/UI/Table/Table';
 import Pagination from '../../components/UI/Pagination/Pagination';
-const data = {
-	profiles: [
-		{
-			id: '416',
-			first_name: 'Adam',
-			last_name: 'H',
-			position: 'catcher',
-			position2: 'pitcher',
-			school_year: 'freshman',
-			feet: 5,
-			inches: 5,
-			weight: 144,
-			age: 14,
-			events: [{ id: '91' }, { id: '92' }],
-			school: { id: '3', name: 'Rockledge' },
-			teams: [{ id: '6', name: 'Scorps' }],
-			favorite: false,
-		},
-		{
-			id: '413',
-			first_name: 'Jalen',
-			last_name: 'Hairston',
-			position: 'pitcher',
-			position2: 'batter',
-			school_year: 'freshman',
-			feet: 6,
-			inches: 0,
-			weight: 190,
-			age: 19,
-			events: [{ id: '87' }, { id: '88' }, { id: '89' }, { id: '90' }],
-			school: { id: '2', name: 'FSU' },
-			teams: [{ id: '6', name: 'Scorps' }],
-			favorite: true,
-		},
-		{
-			id: '412',
-			first_name: 'Alex',
-			last_name: 'Horne',
-			position: 'outfield',
-			position2: 'batter',
-			school_year: 'freshman',
-			feet: 6,
-			inches: 0,
-			weight: 180,
-			age: 19,
-			events: [{ id: '87' }, { id: '88' }],
-			school: { id: '2', name: 'FSU' },
-			teams: [{ id: '6', name: 'Scorps' }],
-			favorite: false,
-		},
-		{
-			id: '458',
-			first_name: 'IvanovIvan',
-			last_name: 'Ivan',
-			position: 'shortstop',
-			position2: 'third_base',
-			school_year: 'sophomore',
-			feet: 5,
-			inches: 11,
-			weight: 200,
-			age: 11,
-			events: [],
-			school: { id: '3', name: 'Rockledge' },
-			teams: [{ id: '7', name: 'FTB' }],
-			favorite: false,
-		},
-		{
-			id: '476',
-			first_name: 'Kim',
-			last_name: 'Jong-Un',
-			position: null,
-			position2: null,
-			school_year: 'senior',
-			feet: 5,
-			inches: 6,
-			weight: 145,
-			age: 22,
-			events: [],
-			school: { id: '2', name: 'FSU' },
-			teams: [],
-			favorite: false,
-		},
-		{
-			id: '414',
-			first_name: 'Jonathan',
-			last_name: 'Kreis',
-			position: 'pitcher',
-			position2: 'batter',
-			school_year: 'freshman',
-			feet: 6,
-			inches: 0,
-			weight: 190,
-			age: 18,
-			events: [{ id: '87' }, { id: '88' }],
-			school: { id: '2', name: 'FSU' },
-			teams: [{ id: '6', name: 'Scorps' }],
-			favorite: false,
-		},
-		{
-			id: '426',
-			first_name: 'Dmitriy',
-			last_name: 'Kryhtin',
-			position: 'pitcher',
-			position2: 'pitcher',
-			school_year: null,
-			feet: 7,
-			inches: 10,
-			weight: 180,
-			age: 29,
-			events: [],
-			school: null,
-			teams: [],
-			favorite: false,
-		},
-		{
-			id: '479',
-			first_name: 'Martin',
-			last_name: 'Luther',
-			position: 'catcher',
-			position2: null,
-			school_year: 'senior',
-			feet: 5,
-			inches: 6,
-			weight: 245,
-			age: 24,
-			events: [],
-			school: { id: '2', name: 'FSU' },
-			teams: [],
-			favorite: false,
-		},
-		{
-			id: '459',
-			first_name: 'Vasiliy',
-			last_name: 'Petrov',
-			position: 'catcher',
-			position2: 'first_base',
-			school_year: 'freshman',
-			feet: 4,
-			inches: 11,
-			weight: 180,
-			age: 2,
-			events: [],
-			school: { id: '3', name: 'Rockledge' },
-			teams: [
-				{ id: '6', name: 'Scorps' },
-				{ id: '7', name: 'FTB' },
-			],
-			favorite: false,
-		},
-		{
-			id: '480',
-			first_name: 'Vova',
-			last_name: 'Pupkin',
-			position: 'catcher',
-			position2: null,
-			school_year: 'junior',
-			feet: 6,
-			inches: 6,
-			weight: 245,
-			age: 24,
-			events: [],
-			school: { id: '2', name: 'FSU' },
-			teams: [{ id: '6', name: 'Scorps' }],
-			favorite: false,
-		},
-	],
-};
+
+import styles from './NetworkView.scss';
 
 const columns: TableColumn[] = [
 	{ key: 'player_name', title: 'Player Name', dataIndex: 'player_name' },
@@ -180,22 +20,43 @@ const columns: TableColumn[] = [
 ];
 
 const NetworkView: React.FC = () => {
+	const [profiles, setProfiles] = React.useState<NetworkUserData[]>([]);
+	const [toShow, setToShow] = React.useState<number>(10);
+	const [offset, setOffset] = React.useState<number>(0);
+	const [totalCount, setTotalCount] = React.useState<number>(0);
+
+	const [loading, requestProfiles] = useRoutine(fetchNetworkPromise, [toShow, offset]);
+
+	React.useEffect(() => {
+		requestProfiles({ offset, profiles_count: toShow }).then((data) => {
+			setProfiles(data.profiles);
+			setTotalCount(data.total_count);
+		});
+	}, [offset, toShow]);
+
 	return (
-		<div style={{ height: '100%', backgroundColor: '#fff', padding: 16, display: 'grid' }}>
-			<Table
-				data={data.profiles.map((d) => ({
-					key: d.id,
-					player_name: `${d.first_name} ${d.last_name}`,
-					sessions: d.events.length || '-',
-					school: d.school?.name || '-',
-					teams: (d.teams as any).map((t: any) => t.name).join(','),
-					age: d.age,
-					favorite: d.favorite ? '+' : '-',
-				}))}
-				columns={columns}
-			/>
-			<div style={{ justifySelf: 'center' }}>
-				<Pagination max={100} toShow={25} onChange={console.log} />
+		<div className={styles.view}>
+			<div className={styles.heading}>Avaliable players ({totalCount})</div>
+			<div className={styles.table}>
+				<Table
+					data={profiles.map((d) => ({
+						key: d.id,
+						player_name: `${d.first_name} ${d.last_name}`,
+						sessions: d.events.length || '-',
+						school: d.school?.name || '-',
+						teams: d.teams?.map((t: any) => t.name).join(',') || '-',
+						age: d.age,
+						favorite: d.favorite ? '+' : '-',
+					}))}
+					columns={columns}
+				/>
+			</div>
+			<div className={styles.pagination}>
+				<Pagination
+					max={totalCount}
+					toShow={toShow}
+					onChange={(page) => setOffset(toShow * page - toShow)}
+				/>
 			</div>
 		</div>
 	);

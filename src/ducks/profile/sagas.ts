@@ -16,6 +16,7 @@ import {
 	updateAvatar,
 	fetchLeaderboardBatting,
 	fetchLeaderboardPitching,
+	fetchNetwork,
 } from './actionCreators';
 
 const api = IOC.get<ApiService>(ServiceID.ApiService);
@@ -86,6 +87,17 @@ function* fetchLeaderboardPitchingSaga(action: AnyAction) {
 	yield put(fetchLeaderboardPitching.fulfill());
 }
 
+function* fetchNetworkSaga(action: AnyAction) {
+	yield put(fetchNetwork.request());
+	try {
+		const network = yield call(api.requestNetwork, action.payload);
+		yield put(fetchNetwork.success(network));
+	} catch (error) {
+		yield put(fetchNetwork.failure(error));
+	}
+	yield put(fetchNetwork.fulfill());
+}
+
 function* fetchTeamsSaga(action: AnyAction) {
 	yield put(fetchTeams.request());
 	try {
@@ -126,6 +138,7 @@ export function* profileSaga() {
 	yield takeLatest(updateAvatar.TRIGGER, updateAvatarSaga);
 	yield takeLatest(fetchLeaderboardBatting.TRIGGER, fetchLeaderboardBattingSaga);
 	yield takeLatest(fetchLeaderboardPitching.TRIGGER, fetchLeaderboardPitchingSaga);
+	yield takeLatest(fetchNetwork.TRIGGER, fetchNetworkSaga);
 	yield takeEvery(fetchTeams.TRIGGER, fetchTeamsSaga);
 	yield takeEvery(fetchSchools.TRIGGER, fetchSchoolsSaga);
 	yield takeEvery(fetchFacilities.TRIGGER, fetchFacilitiesSaga);

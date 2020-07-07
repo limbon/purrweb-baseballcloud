@@ -8,6 +8,7 @@ import {
 	UPDATE_AVATAR,
 	FETCH_LEADERBOARD_BATTING,
 	FETCH_LEADERBOARD_PITCHING,
+	FETCH_NETWORK,
 } from './actionTypes';
 
 import {
@@ -19,6 +20,8 @@ import {
 	LeaderboardFilterOptions,
 	LeaderboardBattingData,
 	LeaderboardPitchingData,
+	NetworkFilterOptions,
+	NetworkUserData,
 } from 'baseballcloud/types';
 
 import { createRoutine, promisifyRoutine, PromiseCreator } from 'redux-saga-routines';
@@ -65,6 +68,14 @@ export const fetchLeaderboardPitching = createRoutine(FETCH_LEADERBOARD_PITCHING
 });
 export const fetchLeaderboardPitchingPromise: PromiseCreator<LeaderboardFilterOptions> = promisifyRoutine(
 	fetchLeaderboardPitching,
+);
+
+export const fetchNetwork = createRoutine(FETCH_NETWORK, {
+	trigger: (input: NetworkFilterOptions) => input,
+	success: (data: { profiles: NetworkUserData[]; total_count: number }) => data,
+});
+export const fetchNetworkPromise: PromiseCreator<NetworkFilterOptions> = promisifyRoutine(
+	fetchNetwork,
 );
 
 export const fetchTeams = createRoutine(FETCH_TEAMS, {

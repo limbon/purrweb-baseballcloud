@@ -1,0 +1,24 @@
+.view {
+	height: 100%;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	padding: 16px;
+	overflow: auto;
+
+	.heading {
+		font-size: 20px;
+		color: #414f5a;
+		font-weight: 400;
+	}
+
+	.table {
+		margin-top: 16px;
+	}
+
+	.pagination {
+		height: max-content;
+		display: flex;
+		justify-content: center;
+	}
+}
