@@ -7,6 +7,7 @@ import {
 	FETCH_FACILITIES,
 	UPDATE_AVATAR,
 	FETCH_LEADERBOARD_BATTING,
+	FETCH_LEADERBOARD_PITCHING,
 } from './actionTypes';
 
 import {
@@ -17,6 +18,7 @@ import {
 	Facility,
 	LeaderboardFilterOptions,
 	LeaderboardBattingData,
+	LeaderboardPitchingData,
 } from 'baseballcloud/types';
 
 import { createRoutine, promisifyRoutine, PromiseCreator } from 'redux-saga-routines';
@@ -51,10 +53,18 @@ export const updateAvatarPromise: PromiseCreator<{
 
 export const fetchLeaderboardBatting = createRoutine(FETCH_LEADERBOARD_BATTING, {
 	trigger: (input: LeaderboardFilterOptions) => input,
-	success: (data: LeaderboardBattingData) => data,
+	success: (data: LeaderboardBattingData[]) => data,
 });
 export const fetchLeaderboardBattingPromise: PromiseCreator<LeaderboardFilterOptions> = promisifyRoutine(
 	fetchLeaderboardBatting,
+);
+
+export const fetchLeaderboardPitching = createRoutine(FETCH_LEADERBOARD_PITCHING, {
+	trigger: (input: LeaderboardFilterOptions) => input,
+	success: (data: LeaderboardPitchingData[]) => data,
+});
+export const fetchLeaderboardPitchingPromise: PromiseCreator<LeaderboardFilterOptions> = promisifyRoutine(
+	fetchLeaderboardPitching,
 );
 
 export const fetchTeams = createRoutine(FETCH_TEAMS, {

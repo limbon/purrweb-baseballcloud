@@ -18,6 +18,7 @@ import {
 	SignUpFormData,
 	LeaderboardBattingData,
 	LeaderboardFilterOptions,
+	LeaderboardPitchingData,
 } from 'baseballcloud/types';
 
 import {
@@ -28,7 +29,7 @@ import {
 	REQUEST_FACILITIES,
 	REQUEST_UPDATE_PROFILE,
 } from '../requests/profile';
-import { REQUEST_LEADERBOARD_BATTING } from '../requests/leaderboard';
+import { REQUEST_LEADERBOARD_BATTING, REQUEST_LEADERBOARD_PITCHING } from '../requests/leaderboard';
 
 @injectable()
 export class ApiService {
@@ -130,6 +131,20 @@ export class ApiService {
 		);
 
 		return response.data.data.leaderboard_batting.leaderboard_batting;
+	};
+
+	requestPitchingLeaderboard = async (
+		input: LeaderboardFilterOptions,
+	): Promise<LeaderboardPitchingData[]> => {
+		const response = await axios.post<{
+			data: { leaderboard_pitching: { leaderboard_pitching: LeaderboardPitchingData[] } };
+		}>(
+			this.GRAPHQL,
+			{ query: REQUEST_LEADERBOARD_PITCHING, variables: { input } },
+			{ headers: this.Headers },
+		);
+
+		return response.data.data.leaderboard_pitching.leaderboard_pitching;
 	};
 
 	requestProfileById = async (id: string): Promise<Profile> => {

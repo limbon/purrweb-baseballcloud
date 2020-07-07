@@ -4,7 +4,7 @@ import { OptionsType } from 'react-select';
 import { TableColumn, LeaderboardType, LeaderboardPitchingData } from 'baseballcloud/types';
 
 import { useRoutine } from '../../hooks/useRoutine';
-import { fetchLeaderboardBattingPromise } from '../../ducks/profile';
+import { fetchLeaderboardPitchingPromise } from '../../ducks/profile';
 
 import Table from '../UI/Table/Table';
 import Select from '../UI/Select/Select';
@@ -12,24 +12,6 @@ import Select from '../UI/Select/Select';
 import styles from './PitchingLeaderboard.scss';
 
 interface Props {}
-
-const data = {
-	leaderboard_pitching: [
-		{
-			pitcher_name: 'Zach Blankenship',
-			pitch_type: 'Fastball',
-			velocity: 81.72,
-			spin_rate: 2040,
-			vertical_break: null,
-			horizontal_break: null,
-			pitcher_datraks_id: 413,
-			age: 19,
-			school: { id: '2', name: 'FSU' },
-			teams: [{ id: '6', name: 'Scorps' }],
-			favorite: true,
-		},
-	],
-};
 
 const leaderboardTypes: OptionsType<{ label: string; value: LeaderboardType }> = [
 	{
@@ -55,13 +37,13 @@ const columns: TableColumn[] = [
 ];
 
 const PitchingLeaderboard: React.FC<Props> = () => {
-	const [leaderboard, setLeaderboard] = React.useState<LeaderboardPitchingData[]>(
-		data.leaderboard_pitching as any,
-	);
+	const [leaderboard, setLeaderboard] = React.useState<LeaderboardPitchingData[]>([]);
 	const [selectedType, setSelectedType] = React.useState(leaderboardTypes[0].value);
-	const [loading, requestLeaderboard] = useRoutine(fetchLeaderboardBattingPromise, [selectedType]);
+	const [loading, requestLeaderboard] = useRoutine(fetchLeaderboardPitchingPromise, [selectedType]);
 
-	React.useEffect(() => {}, [selectedType]);
+	React.useEffect(() => {
+		requestLeaderboard({ type: selectedType }).then(setLeaderboard);
+	}, [selectedType]);
 
 	return (
 		<div className={styles.leaderboard}>
