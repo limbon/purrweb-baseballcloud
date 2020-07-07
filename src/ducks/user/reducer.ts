@@ -2,12 +2,11 @@ import { Reducer } from 'redux';
 import { UserState, CachedData } from 'baseballcloud/types';
 
 import { IOC } from '../../ioc';
-import { ServiceID } from '../../utils/enums';
 import { CacheService } from '../../services/CacheService';
 
 import { signIn, validateToken, signOut, signUp } from './actionCreators';
 
-const cache = IOC.get<CacheService<CachedData>>(ServiceID.CacheService);
+const cache = IOC.get<CacheService<CachedData>>(CacheService);
 
 const initialState: UserState = {
 	user: null,
@@ -18,54 +17,34 @@ const initialState: UserState = {
 
 export const userReducer: Reducer<UserState> = (state = initialState, action) => {
 	switch (action.type) {
-		case signIn.REQUEST: {
+		case signIn.REQUEST:
+		case signUp.REQUEST:
+		case signOut.REQUEST:
+		case validateToken.REQUEST: {
 			return { ...state, loading: true };
-		}
-		case signIn.SUCCESS: {
-			return { ...state, user: action.payload.user, credentials: action.payload.credentials };
-		}
-		case signIn.FAILURE: {
-			return { ...state, error: action.payload };
-		}
-		case signIn.FULFILL: {
-			return { ...state, loading: false };
 		}
 
-		case signUp.REQUEST: {
-			return { ...state, loading: true };
-		}
+		case signIn.SUCCESS:
 		case signUp.SUCCESS: {
 			return { ...state, user: action.payload.user, credentials: action.payload.credentials };
-		}
-		case signUp.FAILURE: {
-			return { ...state, error: action.payload };
-		}
-		case signUp.FULFILL: {
-			return { ...state, loading: false };
-		}
-
-		case signOut.REQUEST: {
-			return { ...state, loading: true };
 		}
 		case signOut.SUCCESS: {
 			return { ...state, user: null, credentials: null };
 		}
-		case signOut.FAILURE: {
-			return { ...state, error: action.payload };
-		}
-		case signOut.FULFILL: {
-			return { ...state, loading: false };
-		}
-
-		case validateToken.REQUEST: {
-			return { ...state, loading: true };
-		}
 		case validateToken.SUCCESS: {
 			return { ...state, user: action.payload };
 		}
+
+		case signIn.FAILURE:
+		case signUp.FAILURE:
+		case signOut.FAILURE:
 		case validateToken.FAILURE: {
 			return { ...state, error: action.payload };
 		}
+
+		case signIn.FULFILL:
+		case signUp.FULFILL:
+		case signOut.FULFILL:
 		case validateToken.FULFILL: {
 			return { ...state, loading: false };
 		}

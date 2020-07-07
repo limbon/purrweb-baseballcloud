@@ -58,7 +58,12 @@ const ProfileInfoForm: React.FC<Props> = ({ data, onCancel, onSubmit, avatar }) 
 						</div>
 					)}
 					<div className={styles.buttons}>
-						<button disabled={loading} type='button' onClick={onCancel} className={styles.cancel}>
+						<button
+							disabled={loading}
+							type='button'
+							onClick={onCancel}
+							className={styles.cancel}
+						>
 							Cancel
 						</button>
 						<button disabled={loading} className={styles.submit}>

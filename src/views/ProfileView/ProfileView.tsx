@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Redirect } from 'react-router-dom';
 
-import { Route } from '../../utils/enums';
 import { fetchProfileById } from '../../ducks/profile';
 import { selectProfileState, selectCredentials } from '../../utils/selectors';
 

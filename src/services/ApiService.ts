@@ -2,7 +2,6 @@ import { injectable, inject } from 'inversify';
 import axios from 'axios';
 import { keyBy } from 'lodash';
 
-import { ServiceID } from '../utils/enums';
 import { CacheService } from './CacheService';
 
 import {
@@ -31,12 +30,17 @@ import {
 	REQUEST_FACILITIES,
 	REQUEST_UPDATE_PROFILE,
 } from '../requests/profile';
-import { REQUEST_LEADERBOARD_BATTING, REQUEST_LEADERBOARD_PITCHING } from '../requests/leaderboard';
+
+import {
+	REQUEST_LEADERBOARD_BATTING,
+	REQUEST_LEADERBOARD_PITCHING,
+} from '../requests/leaderboard';
+
 import { REQUEST_NETWORK } from '../requests/network';
 
 @injectable()
 export class ApiService {
-	@inject(ServiceID.CacheService) private cacheService: CacheService<CachedData>;
+	@inject(CacheService) private cacheService: CacheService<CachedData>;
 	private BASE_URL = 'https://baseballcloud-back.herokuapp.com/api/v1';
 
 	constructor() {
@@ -55,9 +59,7 @@ export class ApiService {
 		const response = await axios.post<{ data: { current_profile: { id: number } } }>(
 			this.GRAPHQL,
 			{ query: REQUEST_CURRENT_PROFILE_ID },
-			{
-				headers: this.Headers,
-			},
+			{ headers: this.Headers },
 		);
 		return response.data.data.current_profile.id;
 	};
@@ -155,7 +157,11 @@ export class ApiService {
 	): Promise<{ profiles: NetworkUserData[]; total_count: number }> => {
 		const response = await axios.post<{
 			data: { profiles: { profiles: NetworkUserData[]; total_count: number } };
-		}>(this.GRAPHQL, { query: REQUEST_NETWORK, variables: { input } }, { headers: this.Headers });
+		}>(
+			this.GRAPHQL,
+			{ query: REQUEST_NETWORK, variables: { input } },
+			{ headers: this.Headers },
+		);
 
 		return response.data.data.profiles;
 	};
@@ -163,10 +169,7 @@ export class ApiService {
 	requestProfileById = async (id: string): Promise<Profile> => {
 		const response = await axios.post<{ data: { profile: Profile } }>(
 			this.GRAPHQL,
-			{
-				query: REQUEST_PROFILE_BY_ID,
-				variables: { id },
-			},
+			{ query: REQUEST_PROFILE_BY_ID, variables: { id } },
 			{ headers: this.Headers },
 		);
 		return response.data.data.profile;
@@ -176,10 +179,7 @@ export class ApiService {
 		const id = await this.requestCurrentUserId();
 		const response = await axios.post<{ data: { profile: Profile } }>(
 			this.GRAPHQL,
-			{
-				query: REQUEST_PROFILE_BY_ID,
-				variables: { id },
-			},
+			{ query: REQUEST_PROFILE_BY_ID, variables: { id } },
 			{ headers: this.Headers },
 		);
 
@@ -202,10 +202,7 @@ export class ApiService {
 			data: { teams: { teams: { [index: string]: Team } } };
 		}>(
 			this.GRAPHQL,
-			{
-				query: REQUEST_TEAMS,
-				variables: { search },
-			},
+			{ query: REQUEST_TEAMS, variables: { search } },
 			{ headers: this.Headers },
 		);
 
@@ -217,10 +214,7 @@ export class ApiService {
 			data: { schools: { schools: { [index: string]: School } } };
 		}>(
 			this.GRAPHQL,
-			{
-				query: REQUEST_SCHOOLS,
-				variables: { search },
-			},
+			{ query: REQUEST_SCHOOLS, variables: { search } },
 			{ headers: this.Headers },
 		);
 
@@ -232,10 +226,7 @@ export class ApiService {
 			data: { facilities: { facilities: { [index: string]: Facility } } };
 		}>(
 			this.GRAPHQL,
-			{
-				query: REQUEST_FACILITIES,
-				variables: { search },
-			},
+			{ query: REQUEST_FACILITIES, variables: { search } },
 			{ headers: this.Headers },
 		);
 

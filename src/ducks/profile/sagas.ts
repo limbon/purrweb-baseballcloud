@@ -4,7 +4,6 @@ import { AnyAction } from 'redux';
 import { IOC } from '../../ioc';
 
 import { ApiService } from '../../services/ApiService';
-import { ServiceID } from '../../utils/enums';
 
 import {
 	fetchProfile,
@@ -19,7 +18,7 @@ import {
 	fetchNetwork,
 } from './actionCreators';
 
-const api = IOC.get<ApiService>(ServiceID.ApiService);
+const api = IOC.get<ApiService>(ApiService);
 
 function* fetchProfileSaga() {
 	yield put(fetchProfile.request());

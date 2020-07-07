@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { OptionsType } from 'react-select';
+import { Link } from 'react-router-dom';
 
 import { TableColumn, LeaderboardType, LeaderboardPitchingData } from 'baseballcloud/types';
 
@@ -10,19 +11,12 @@ import Table from '../UI/Table/Table';
 import Select from '../UI/Select/Select';
 
 import styles from './PitchingLeaderboard.scss';
-import { Link } from 'react-router-dom';
 
 interface Props {}
 
 const leaderboardTypes: OptionsType<{ label: string; value: LeaderboardType }> = [
-	{
-		label: 'Pitch Velocity',
-		value: 'pitch_velocity',
-	},
-	{
-		label: 'Spin Rate',
-		value: 'spin_rate',
-	},
+	{ label: 'Pitch Velocity', value: 'pitch_velocity' },
+	{ label: 'Spin Rate', value: 'spin_rate' },
 ];
 
 const columns: TableColumn[] = [
@@ -40,7 +34,9 @@ const columns: TableColumn[] = [
 const PitchingLeaderboard: React.FC<Props> = () => {
 	const [leaderboard, setLeaderboard] = React.useState<LeaderboardPitchingData[]>([]);
 	const [selectedType, setSelectedType] = React.useState(leaderboardTypes[0].value);
-	const [loading, requestLeaderboard] = useRoutine(fetchLeaderboardPitchingPromise, [selectedType]);
+	const [loading, requestLeaderboard] = useRoutine(fetchLeaderboardPitchingPromise, [
+		selectedType,
+	]);
 
 	React.useEffect(() => {
 		requestLeaderboard({ type: selectedType }).then(setLeaderboard);
@@ -61,7 +57,9 @@ const PitchingLeaderboard: React.FC<Props> = () => {
 					columns={columns}
 					data={leaderboard.map((p, idx) => ({
 						...p,
-						pitcher_name: <Link to={`/profile/${p.pitcher_datraks_id}`}>{p.pitcher_name}</Link>,
+						pitcher_name: (
+							<Link to={`/profile/${p.pitcher_datraks_id}`}>{p.pitcher_name}</Link>
+						),
 						key: `${p.pitcher_name}_${p.pitcher_datraks_id}`,
 						rank: idx + 1,
 						school: p.school.name,

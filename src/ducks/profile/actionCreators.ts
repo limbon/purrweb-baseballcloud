@@ -94,4 +94,6 @@ export const fetchFacilities = createRoutine(FETCH_FACILITIES, {
 	trigger: (search: string) => search,
 	success: (facilities: { [index: string]: Facility }) => facilities,
 });
-export const fetchFacilitiesPromise: PromiseCreator<string> = promisifyRoutine(fetchFacilities);
+export const fetchFacilitiesPromise: PromiseCreator<string> = promisifyRoutine(
+	fetchFacilities,
+);

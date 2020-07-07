@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Field } from 'react-final-form';
 
-import { SchoolYear } from '../../../utils/enums';
-
 import { useSchools } from '../../../hooks/useSchools';
 import { useTeams } from '../../../hooks/useTeams';
 import { useFacilities } from '../../../hooks/useFacilities';
@@ -11,14 +9,17 @@ import ProfileSelectInput from '../Inputs/ProfileSelectInput/ProfileSelectInput'
 
 import styles from './ProfileFormSection.scss';
 
+const schoolYearsOptions = [
+	{ label: 'Junior', value: 'junior' },
+	{ label: 'Senior', value: 'senior' },
+	{ label: 'Freshman', value: 'freshman' },
+	{ label: 'Sophomore', value: 'sophomore' },
+];
+
 const SchoolInfo: React.FC = () => {
-	const { requestMoreSchools, schoolLoading, schools, schoolOptions } = useSchools();
+	const { requestMoreSchools, schools, schoolOptions, schoolLoading } = useSchools();
 	const { requestMoreTeams, teamOptions, teams, teamsLoading } = useTeams();
 	const { facilities, facilityOptions } = useFacilities();
-
-	const schoolYears = React.useMemo(() => {
-		return Object.entries(SchoolYear).map(([label, value]) => ({ label, value }));
-	}, []);
 
 	return (
 		<div className={styles.schoolInfo}>
@@ -37,7 +38,9 @@ const SchoolInfo: React.FC = () => {
 								searchable
 								onInputChange={requestMoreSchools}
 								loading={schoolLoading}
-								getValue={(data) => schools[data?.value] || { id: data.value, name: data.value }}
+								getValue={(data) =>
+									schools[data?.value] || { id: data.value, name: data.value }
+								}
 								value={{ label: props.input.value.name, value: props.input.value.name }}
 								changeDeps={[schools]}
 							/>
@@ -48,11 +51,11 @@ const SchoolInfo: React.FC = () => {
 							<ProfileSelectInput
 								{...props}
 								label='School Year'
-								options={schoolYears}
+								options={schoolYearsOptions}
 								searchable
 								getValue={(data) => data.value}
-								value={schoolYears.find((y) => y.value === props.input.value)}
-								defaultValue={schoolYears[0]}
+								value={schoolYearsOptions.find((y) => y.value === props.input.value)}
+								defaultValue={schoolYearsOptions[0]}
 								changeDeps={[]}
 							/>
 						)}

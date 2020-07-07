@@ -2,8 +2,6 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { Route } from '../../utils/enums';
-
 import { selectActiveProfile, selectCredentials } from '../../utils/selectors';
 
 import Profile from '../../components/Profile/Profile';

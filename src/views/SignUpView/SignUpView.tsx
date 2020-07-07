@@ -2,8 +2,6 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
-import { Route } from '../../utils/enums';
-
 import { selectUser } from '../../utils/selectors';
 
 import SignUp from '../../components/Auth/SignUp/SignUp';
@@ -14,7 +12,7 @@ const SignUpView: React.FC = () => {
 	const user = useSelector(selectUser);
 
 	if (user) {
-		return <Redirect to={Route.Profile} />;
+		return <Redirect to='/profile' />;
 	}
 
 	return (
@@ -22,7 +20,7 @@ const SignUpView: React.FC = () => {
 			<div className={styles.formContainer}>
 				<SignUp />
 				<div className={styles.signIn}>
-					Already registered? <Link to={Route.SignIn}>Sign In</Link>
+					Already registered? <Link to='/sign-in'>Sign In</Link>
 				</div>
 			</div>
 		</div>

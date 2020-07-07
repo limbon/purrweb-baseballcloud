@@ -78,7 +78,9 @@ const Select: React.FC<Props> = (props) => {
 					option: optionStyle,
 				}}
 				isClearable={false}
-				{...(props as ReactSelectCreatableProps<OptionsType<{ label: string; value: string }>>)}
+				{...(props as ReactSelectCreatableProps<
+					OptionsType<{ label: string; value: string }>
+				>)}
 			/>
 		);
 	}

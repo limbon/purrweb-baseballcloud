@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Route } from '../../utils/enums';
-
 import styles from './Footer.scss';
 
 const Footer: React.FC = () => {
@@ -10,8 +8,8 @@ const Footer: React.FC = () => {
 		<footer className={styles.footer}>
 			<div className={styles.legal}>
 				<span>© 2018 BaseballCloud</span>
-				<Link to={Route.TOS}>Terms of Service</Link>
-				<Link to={Route.Privacy}>Privacy Policy</Link>
+				<Link to='/tos'>Terms of Service</Link>
+				<Link to='/privacy'>Privacy Policy</Link>
 			</div>
 			<div className={styles.socials}>
 				<a href='https://baseballcloud.blog' target='_blank'>

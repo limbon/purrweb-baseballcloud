@@ -15,52 +15,52 @@ type Avatar = {
 };
 
 interface Props {
-	avatar: string | null;
+	avatarUrl: string | null;
 	onUpload: (url: string) => void;
 }
 
 const fileReader = new FileReader();
 
-const AvatarUpload: React.FC<Props> = ({ avatar, onUpload }) => {
-	const [_avatar, setAvatar] = React.useState<Avatar>({
+const AvatarUpload: React.FC<Props> = ({ avatarUrl, onUpload }) => {
+	const [avatar, setAvatar] = React.useState<Avatar>({
 		name: null,
-		url: avatar || DefaultAvatar,
+		url: avatarUrl || DefaultAvatar,
 		file: null,
 	});
 	const [loading, update] = useRoutine(updateAvatarPromise, []);
 
 	React.useEffect(() => {
 		fileReader.onload = (e) => {
-			setAvatar({ ..._avatar, url: e.target?.result as string });
+			setAvatar({ ...avatar, url: e.target?.result as string });
 		};
-	}, [_avatar]);
+	}, [avatar]);
 
 	const prepareAvatarData = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files[0]) {
-			setAvatar({ ..._avatar, file: e.target.files[0], name: e.target.files[0].name });
+			setAvatar({ ...avatar, file: e.target.files[0], name: e.target.files[0].name });
 			fileReader.readAsDataURL(e.target.files[0]);
 		}
 	}, []);
 
 	const handleSubmit = React.useCallback(async () => {
 		try {
-			const url = await update({ name: _avatar.name, data: _avatar.file });
+			const url = await update({ name: avatar.name, data: avatar.file });
 			setAvatar({ name: null, url, file: null });
 			onUpload(url);
 		} catch (error) {
 			throw error;
 		}
-	}, [_avatar]);
+	}, [avatar]);
 
 	const handleCancel = React.useCallback(() => {
-		setAvatar({ name: null, file: null, url: avatar || DefaultAvatar });
+		setAvatar({ name: null, file: null, url: avatarUrl || DefaultAvatar });
 	}, []);
 
 	return (
 		<Form onSubmit={handleSubmit}>
 			{({ handleSubmit }) => (
 				<form className={styles.avatarForm} onSubmit={handleSubmit}>
-					<img className={styles.avatar} src={_avatar.url} />
+					<img className={styles.avatar} src={avatar.url} />
 					{loading ? (
 						<span>Loading...</span>
 					) : (
@@ -68,12 +68,12 @@ const AvatarUpload: React.FC<Props> = ({ avatar, onUpload }) => {
 							{() => (
 								<div className={styles.input}>
 									<input onChange={prepareAvatarData} type='file' />
-									<span>{_avatar.name || 'Choose photo'}</span>
+									<span>{avatar.name || 'Choose photo'}</span>
 								</div>
 							)}
 						</Field>
 					)}
-					{_avatar.file && !loading && (
+					{avatar.file && !loading && (
 						<div className={styles.buttons}>
 							<button className={styles.upload}>Upload photo</button>
 							<button className={styles.cancel} type='button' onClick={handleCancel}>

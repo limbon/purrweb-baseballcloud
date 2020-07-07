@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Field } from 'react-final-form';
 import { startCase } from 'lodash';
 
-import { Position } from '../../../utils/enums';
-
 import { validateAll, notNull } from '../../../utils/validators';
 
 import ProfileFormInput from '../Inputs/ProfileFormInput/ProfileFormInput';
@@ -21,17 +19,19 @@ const validateLastName = (value: string) => {
 	return validateAll(value, notNull('Last Name'));
 };
 
-const UserInfo: React.FC<Props> = () => {
-	const positions = React.useMemo(() => {
-		return Object.entries(Position).map(([label, value]) => ({
-			label: startCase(label),
-			value,
-		}));
-	}, []);
-	const nullablePositions = React.useMemo(() => {
-		return [{ label: '-', value: '' }, ...positions];
-	}, [positions]);
+const positionOptions = [
+	{ label: 'Catcher', value: 'catcher' },
+	{ label: 'Pitcher', value: 'pitcher' },
+	{ label: 'First Base', value: 'first_base' },
+	{ label: 'Second Base', value: 'second_base' },
+	{ label: 'Third Base', value: 'third_base' },
+	{ label: 'Shortstop', value: 'shortstop' },
+	{ label: 'Outfield', value: 'outfield' },
+];
 
+const nullablePositionOptions = [{ label: '-' }, ...positionOptions];
+
+const UserInfo: React.FC<Props> = () => {
 	return (
 		<div className={styles.userInfo}>
 			<div className={styles.name}>
@@ -48,11 +48,11 @@ const UserInfo: React.FC<Props> = () => {
 						<ProfileSelectInput
 							{...props}
 							label='Primary Position'
-							options={positions}
+							options={positionOptions}
 							searchable={false}
 							getValue={(data) => data.value}
-							value={positions.find((p) => p.value === props.input.value)}
-							defaultValue={positions[0]}
+							value={positionOptions.find((p) => p.value === props.input.value)}
+							defaultValue={positionOptions[0]}
 							changeDeps={[]}
 						/>
 					)}
@@ -62,11 +62,13 @@ const UserInfo: React.FC<Props> = () => {
 						<ProfileSelectInput
 							{...props}
 							label='Secondary Position'
-							options={nullablePositions}
+							options={nullablePositionOptions as any}
 							searchable={false}
 							getValue={(data) => data.value || null}
-							value={nullablePositions.find((p) => p.value === props.input.value)}
-							defaultValue={nullablePositions[0]}
+							value={
+								nullablePositionOptions.find((p: any) => p.value === props.input.value) as any
+							}
+							defaultValue={nullablePositionOptions[0] as any}
 							changeDeps={[]}
 						/>
 					)}

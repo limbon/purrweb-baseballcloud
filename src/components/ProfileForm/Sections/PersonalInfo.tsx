@@ -3,8 +3,6 @@ import { Field } from 'react-final-form';
 
 import { numberInRange, validateAll, isNumber, notNull } from '../../../utils/validators';
 
-import { Hand } from '../../../utils/enums';
-
 import ProfileFormInput from '../Inputs/ProfileFormInput/ProfileFormInput';
 import ProfileSelectInput from '../Inputs/ProfileSelectInput/ProfileSelectInput';
 
@@ -28,11 +26,12 @@ const validateWeight = (value: string) => {
 	);
 };
 
-const PersonalInfo: React.FC = () => {
-	const hands = React.useMemo(() => {
-		return Object.values(Hand).map((value) => ({ label: value.toUpperCase(), value }));
-	}, []);
+const handsOptions = [
+	{ label: 'L', value: 'l' },
+	{ label: 'R', value: 'r' },
+];
 
+const PersonalInfo: React.FC = () => {
 	return (
 		<div className={styles.personalInfo}>
 			<div className={styles.heading}>
@@ -58,10 +57,12 @@ const PersonalInfo: React.FC = () => {
 						<ProfileSelectInput
 							{...props}
 							label='Throws'
-							options={hands}
+							options={handsOptions}
 							searchable={false}
 							getValue={(data) => data.value}
-							value={hands.find((h) => h.value === props.input.value) || hands[0]}
+							value={
+								handsOptions.find((h) => h.value === props.input.value) || handsOptions[0]
+							}
 							changeDeps={[]}
 						/>
 					)}
@@ -71,10 +72,12 @@ const PersonalInfo: React.FC = () => {
 						<ProfileSelectInput
 							{...props}
 							label='Bats'
-							options={hands}
+							options={handsOptions}
 							searchable={false}
 							getValue={(data) => data.value}
-							value={hands.find((h) => h.value === props.input.value) || hands[0]}
+							value={
+								handsOptions.find((h) => h.value === props.input.value) || handsOptions[0]
+							}
 							changeDeps={[]}
 						/>
 					)}

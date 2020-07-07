@@ -2,8 +2,6 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import { Route as Routes } from './utils/enums';
-
 import { selectUser, selectCredentials } from './utils/selectors';
 import { validateToken } from './ducks/user';
 import { fetchProfile } from './ducks/profile';
@@ -42,17 +40,17 @@ const App: React.FC = () => {
 			<Header />
 			<div style={{ flex: 1, overflow: 'hidden' }}>
 				<Switch>
-					<Route path={Routes.Home} component={HomeView} />
-					<Route path={Routes.SignIn} component={SignInView} />
-					<Route path={Routes.SignUp} component={SignUpView} />
-					<Route path={Routes.TOS} component={TOSView} />
-					<Route path={Routes.Privacy} component={PrivacyView} />
-					<Route path={Routes.Profile} exact component={MyProfileView} />
-					<Route path={`${Routes.Profile}/:id`} component={ProfileView} />
-					<Route path={Routes.Leaderboard} component={LeaderboardView} />
-					<Route path={Routes.Network} component={NetworkView} />
-					<Route path={Routes.Missing} component={() => <h1>404</h1>} />
-					<Route path='*' component={() => <Redirect to={Routes.Missing} />} />
+					<Route path='//' component={HomeView} />
+					<Route path='/sign-in' component={SignInView} />
+					<Route path='/sign-up' component={SignUpView} />
+					<Route path='/tos' component={TOSView} />
+					<Route path='/privacy' component={PrivacyView} />
+					<Route path='/profile' exact component={MyProfileView} />
+					<Route path='/profile/:id' component={ProfileView} />
+					<Route path='/leaderboard' component={LeaderboardView} />
+					<Route path='/network' component={NetworkView} />
+					<Route path='/404' component={() => <h1>404</h1>} />
+					<Route path='*' component={() => <Redirect to='/404' />} />
 				</Switch>
 			</div>
 			<Footer />

@@ -2,13 +2,12 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
 
 import { ApiService } from '../../services/ApiService';
-import { ServiceID } from '../../utils/enums';
 
 import { IOC } from '../../ioc';
 
 import { signIn, validateToken, signOut, signUp } from './actionCreators';
 
-const api = IOC.get<ApiService>(ServiceID.ApiService);
+const api = IOC.get<ApiService>(ApiService);
 
 function* signInSaga(action: AnyAction) {
 	yield put(signIn.request());

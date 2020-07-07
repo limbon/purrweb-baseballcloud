@@ -2,6 +2,7 @@ import * as React from 'react';
 import { OptionsType } from 'react-select';
 
 import { TableColumn, LeaderboardType, LeaderboardBattingData } from 'baseballcloud/types';
+
 import { useRoutine } from '../../hooks/useRoutine';
 import { fetchLeaderboardBattingPromise } from '../../ducks/profile';
 
@@ -14,14 +15,8 @@ import { Link } from 'react-router-dom';
 interface Props {}
 
 const leaderboardTypes: OptionsType<{ label: string; value: LeaderboardType }> = [
-	{
-		label: 'Exit Velocity',
-		value: 'exit_velocity',
-	},
-	{
-		label: 'Carry Distance',
-		value: 'carry_distance',
-	},
+	{ label: 'Exit Velocity', value: 'exit_velocity' },
+	{ label: 'Carry Distance', value: 'carry_distance' },
 ];
 
 const columns: TableColumn[] = [
@@ -39,7 +34,9 @@ const columns: TableColumn[] = [
 const BattingLeaderboard: React.FC<Props> = () => {
 	const [leaderboard, setLeaderboard] = React.useState<LeaderboardBattingData[]>([]);
 	const [selectedType, setSelectedType] = React.useState(leaderboardTypes[0].value);
-	const [loading, requestLeaderboard] = useRoutine(fetchLeaderboardBattingPromise, [selectedType]);
+	const [loading, requestLeaderboard] = useRoutine(fetchLeaderboardBattingPromise, [
+		selectedType,
+	]);
 
 	React.useEffect(() => {
 		requestLeaderboard({ type: selectedType }).then(setLeaderboard);

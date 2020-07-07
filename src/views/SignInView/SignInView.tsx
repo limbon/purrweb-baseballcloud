@@ -1,19 +1,18 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
-import { Route } from '../../utils/enums';
+import { selectCredentials } from '../../utils/selectors';
 
 import SignIn from '../../components/Auth/SignIn/SignIn';
 
 import styles from './SignInView.scss';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../utils/selectors';
 
 const SignInView: React.FC = () => {
-	const user = useSelector(selectUser);
+	const credentials = useSelector(selectCredentials);
 
-	if (user) {
-		return <Redirect to={Route.Profile} />;
+	if (credentials) {
+		return <Redirect to='/profile' />;
 	}
 
 	return (
@@ -27,10 +26,10 @@ const SignInView: React.FC = () => {
 					<SignIn />
 				</div>
 				<div className={styles.recoverPassword}>
-					<Link to={Route.PasswordRecovery}>Forgotten Password?</Link>
+					<Link to='/recovery'>Forgotten Password?</Link>
 				</div>
 				<div className={styles.signUp}>
-					Don't have an account? <Link to={Route.SignUp}>Sign Up</Link>
+					Don't have an account? <Link to='/sign-up'>Sign Up</Link>
 				</div>
 			</div>
 		</div>

@@ -13,82 +13,50 @@ const initialState: ProfileState = {
 
 export const profileReducer: Reducer<ProfileState> = (state = initialState, action) => {
 	switch (action.type) {
-		case fetchProfile.REQUEST: {
+		case fetchProfile.REQUEST:
+		case updateProfile.REQUEST:
+		case fetchProfileById.REQUEST: {
 			return { ...state, loading: true };
 		}
+
 		case fetchProfile.SUCCESS: {
 			const { id } = action.payload;
 			return {
 				...state,
 				activeProfile: id,
-				profiles: {
-					...state.profiles,
-					[id]: action.payload,
-				},
+				profiles: { ...state.profiles, [id]: action.payload },
 			};
-		}
-		case fetchProfile.FAILURE: {
-			return { ...state, error: action.payload };
-		}
-		case fetchProfile.FULFILL: {
-			return { ...state, loading: false };
-		}
-
-		case fetchProfileById.REQUEST: {
-			return { ...state, loading: true };
 		}
 		case fetchProfileById.SUCCESS: {
 			const { id } = action.payload;
-			return {
-				...state,
-				profiles: {
-					...state.profiles,
-					[id]: action.payload,
-				},
-			};
-		}
-		case fetchProfileById.FAILURE: {
-			return { ...state, error: action.payload };
-		}
-		case fetchProfileById.FULFILL: {
-			return { ...state, loading: false };
-		}
-
-		case updateProfile.REQUEST: {
-			return { ...state, loading: true };
+			return { ...state, profiles: { ...state.profiles, [id]: action.payload } };
 		}
 		case updateProfile.SUCCESS: {
 			const { id } = action.payload;
 			return {
 				...state,
-				profiles: {
-					...state.profiles,
-					[id]: {
-						...state.profiles[id],
-						...action.payload,
-					},
-				},
+				profiles: { ...state.profiles, [id]: { ...state.profiles[id], ...action.payload } },
 			};
 		}
-		case updateProfile.FAILURE: {
-			return { ...state, error: action.payload };
-		}
-		case updateProfile.FULFILL: {
-			return { ...state, loading: false };
-		}
-
 		case signOut.SUCCESS: {
 			const { activeProfile } = state;
 			const {
 				[activeProfile!]: {},
 				...profiles
 			} = state.profiles;
+			return { ...state, activeProfile: null, profiles };
+		}
 
-			return {
-				...state,
-				activeProfile: null,
-				profiles,
-			};
+		case fetchProfile.FAILURE:
+		case fetchProfileById.FAILURE:
+		case updateProfile.FAILURE: {
+			return { ...state, error: action.payload };
+		}
+
+		case fetchProfile.FULFILL:
+		case fetchProfileById.FULFILL:
+		case updateProfile.FULFILL: {
+			return { ...state, loading: false };
 		}
 
 		default: {

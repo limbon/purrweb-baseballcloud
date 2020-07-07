@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { startCase } from 'lodash';
 import { useSelector } from 'react-redux';
 
 import { Profile as ProfileData } from 'baseballcloud/types';
@@ -7,16 +6,15 @@ import { Profile as ProfileData } from 'baseballcloud/types';
 import { selectActiveProfile } from '../../utils/selectors';
 
 import UserInfo from './Sections/UserInfo';
+import PersonalInfo from './Sections/PersonalInfo';
+import SchoolInfo from './Sections/SchoolInfo';
+import BiographyInfo from './Sections/BiographyInfo';
+import ProfileForm from '../ProfileForm/ProfileForm';
 
 import EditIcon from '../../assets/icons/edit.svg';
 import LikeIcon from '../../assets/icons/like.svg';
 
-import ProfileForm from '../ProfileForm/ProfileForm';
-import PersonalInfo from './Sections/PersonalInfo';
-
 import styles from './Profile.scss';
-import SchoolInfo from './Sections/SchoolInfo';
-import BiographyInfo from './Sections/BiographyInfo';
 
 interface Props {
 	data: ProfileData;

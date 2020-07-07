@@ -16,7 +16,7 @@ const ProfileForm: React.FC<Props> = ({ data, onCancel, onSubmit }) => {
 	const [avatar, setAvatar] = React.useState<string | null>(data.avatar);
 	return (
 		<div className={styles.profileForm}>
-			<AvatarUpload onUpload={setAvatar} avatar={avatar} />
+			<AvatarUpload onUpload={setAvatar} avatarUrl={avatar} />
 			<ProfileInfoForm onSubmit={onSubmit} onCancel={onCancel} avatar={avatar} data={data} />
 		</div>
 	);

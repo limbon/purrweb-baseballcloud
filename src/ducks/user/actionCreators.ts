@@ -1,5 +1,7 @@
-import { SignInFormData, User, Credentials, SignUpFormData } from 'baseballcloud/types';
 import { createRoutine } from 'redux-saga-routines';
+
+import { SignInFormData, User, Credentials, SignUpFormData } from 'baseballcloud/types';
+
 import { SIGN_IN, VALIDATE_TOKEN, SIGN_OUT, SIGN_UP } from './actionTypes';
 
 export const signIn = createRoutine(SIGN_IN, {

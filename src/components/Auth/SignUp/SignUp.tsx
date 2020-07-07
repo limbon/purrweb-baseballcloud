@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
 
-import { Role, Route } from '../../../utils/enums';
-
 import { signUp } from '../../../ducks/user';
 import { minLength, isEmail, equalFields } from '../../../utils/validators';
 
@@ -22,15 +20,15 @@ interface RoleMap {
 
 // Maybe it shouldn't be hardcoded?
 const roleText: RoleMap = {
-	[Role.Player]:
+	player:
 		'Players have their own profile within the system and plan on having data collected.',
-	[Role.Scout]:
+	scout:
 		'Coaches and scouts can view players in the system but do not have their own profile.',
 };
 
 const roleName: RoleMap = {
-	[Role.Player]: 'Players',
-	[Role.Scout]: 'Scouts',
+	player: 'Players',
+	scout: 'Scouts',
 };
 
 const SignUp: React.FC = () => {
@@ -43,9 +41,9 @@ const SignUp: React.FC = () => {
 		<Form
 			onSubmit={handleSubmit}
 			validate={equalFields('password', 'password_confirmation', 'Passwords must be equal')}
-			initialValues={{ role: Role.Player }}
+			initialValues={{ role: 'player' }}
 		>
-			{({ handleSubmit, hasValidationErrors, errors }) => (
+			{({ handleSubmit, errors }) => (
 				<form className={styles.form} onSubmit={handleSubmit}>
 					<Field name='role'>
 						{({ input }) => (
@@ -67,7 +65,12 @@ const SignUp: React.FC = () => {
 							<div className={styles.field}>
 								<div className={styles.inputContainer}>
 									<FontAwesomeIcon icon={faUser} />
-									<Input {...input} className={styles.input} type='email' placeholder='Email' />
+									<Input
+										{...input}
+										className={styles.input}
+										type='email'
+										placeholder='Email'
+									/>
 								</div>
 								{meta.touched && !meta.pristine && meta.error && (
 									<span className={styles.error}>{meta.error}</span>
@@ -115,8 +118,8 @@ const SignUp: React.FC = () => {
 						)}
 					</Field>
 					<p className={styles.legal}>
-						By clicking Sign Up, you agree to our <Link to={Route.TOS}>Terms of Service</Link> and{' '}
-						<Link to={Route.Privacy}>Privacy Policy</Link>.
+						By clicking Sign Up, you agree to our <Link to='/tos'>Terms of Service</Link> and{' '}
+						<Link to='/privacy'>Privacy Policy</Link>.
 					</p>
 					<button type='submit' className={styles.submit}>
 						Sign Up
