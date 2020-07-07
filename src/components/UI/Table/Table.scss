@@ -1,6 +1,7 @@
 .table {
 	background-color: #fff;
 	display: grid;
+	grid-template-rows: auto 1fr;
 	gap: 16px;
 
 	.heading {
