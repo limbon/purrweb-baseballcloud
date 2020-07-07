@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Team } from 'baseballcloud/types';
 
-import { fetchTeams } from '../ducks/profile';
+import { fetchTeamsPromise } from '../ducks/profile';
 import { useRoutine } from './useRoutine';
 
 export const useTeams = () => {
@@ -11,18 +11,12 @@ export const useTeams = () => {
 		() => Object.values(teams).map((team) => ({ label: team.name, value: team.name })),
 		[teams],
 	);
-	const [loading, request] = useRoutine(
-		{
-			routine: fetchTeams,
-			onSuccess: (data: any) => setTeams({ ...teams, ...data }),
-		},
-		[teams],
-	);
+	const [loading, request] = useRoutine(fetchTeamsPromise, [teams]);
 
 	const requestMoreTeams = React.useCallback(
 		(value: string) => {
 			if (value) {
-				request(value);
+				request(value).then(setTeams);
 			}
 		},
 		[teams],

@@ -1,36 +1,27 @@
 import * as React from 'react';
-import { Routine, promisifyRoutine } from 'redux-saga-routines';
+import { PromiseCreator } from 'redux-saga-routines';
 import { useDispatch } from 'react-redux';
 
-type Trigger = (args?: any) => void;
+type Trigger<T> = (payload: T) => Promise<any>;
 
-type Props = {
-	routine: Routine;
-	onSuccess?: (data: unknown) => void;
-	onReject?: (error: Error) => void;
-};
-
-export const useRoutine = (props: Props, deps: any[]): [boolean, Trigger] => {
+export function useRoutine<T extends unknown>(
+	promise: PromiseCreator<T>,
+	deps: any[],
+): [boolean, Trigger<T>] {
 	const [loading, setLoading] = React.useState<boolean>(false);
 	const dispatch = useDispatch();
 
-	const trigger = React.useCallback((args?: any) => {
+	const trigger = React.useCallback(async (payload: T) => {
 		setLoading(true);
-		promisifyRoutine(props.routine)(args, dispatch).then(
-			(data) => {
-				setLoading(false);
-				if (props.onSuccess) {
-					props.onSuccess(data);
-				}
-			},
-			(error) => {
-				setLoading(false);
-				if (props.onReject) {
-					props.onReject(error);
-				}
-			},
-		);
+		try {
+			const result = await promise(payload, dispatch);
+			return result;
+		} catch (error) {
+			throw error;
+		} finally {
+			setLoading(false);
+		}
 	}, deps);
 
 	return [loading, trigger];
-};
+}

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Form, Field } from 'react-final-form';
 
 import { useRoutine } from '../../../hooks/useRoutine';
-import { updateAvatar } from '../../../ducks/profile';
+import { updateAvatar, updateAvatarPromise } from '../../../ducks/profile';
 
 import DefaultAvatar from '../../../assets/images/default-avatar.png';
 
@@ -27,16 +27,7 @@ const AvatarUpload: React.FC<Props> = ({ avatar, onUpload }) => {
 		url: avatar || DefaultAvatar,
 		file: null,
 	});
-	const [loading, update] = useRoutine(
-		{
-			routine: updateAvatar,
-			onSuccess: (url: any) => {
-				setAvatar({ name: null, file: null, url });
-				onUpload(url);
-			},
-		},
-		[],
-	);
+	const [loading, update] = useRoutine(updateAvatarPromise, []);
 
 	React.useEffect(() => {
 		fileReader.onload = (e) => {
@@ -51,8 +42,14 @@ const AvatarUpload: React.FC<Props> = ({ avatar, onUpload }) => {
 		}
 	}, []);
 
-	const handleSubmit = React.useCallback(() => {
-		update({ name: _avatar.name, data: _avatar.file });
+	const handleSubmit = React.useCallback(async () => {
+		try {
+			const url = await update({ name: _avatar.name, data: _avatar.file });
+			setAvatar({ name: null, url, file: null });
+			onUpload(url);
+		} catch (error) {
+			throw error;
+		}
 	}, [_avatar]);
 
 	const handleCancel = React.useCallback(() => {

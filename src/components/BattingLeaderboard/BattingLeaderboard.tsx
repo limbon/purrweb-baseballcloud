@@ -3,7 +3,7 @@ import { OptionsType } from 'react-select';
 
 import { TableColumn, LeaderboardType, LeaderboardBattingData } from 'baseballcloud/types';
 import { useRoutine } from '../../hooks/useRoutine';
-import { fetchLeaderboardBatting } from '../../ducks/profile';
+import { fetchLeaderboardBattingPromise } from '../../ducks/profile';
 
 import Table from '../UI/Table/Table';
 import Select from '../UI/Select/Select';
@@ -38,16 +38,10 @@ const columns: TableColumn[] = [
 const BattingLeaderboard: React.FC<Props> = () => {
 	const [leaderboard, setLeaderboard] = React.useState<LeaderboardBattingData[]>([]);
 	const [selectedType, setSelectedType] = React.useState(leaderboardTypes[0].value);
-	const [loading, requestLeaderboard] = useRoutine(
-		{
-			routine: fetchLeaderboardBatting,
-			onSuccess: (data: any) => setLeaderboard(data),
-		},
-		[selectedType],
-	);
+	const [loading, requestLeaderboard] = useRoutine(fetchLeaderboardBattingPromise, [selectedType]);
 
 	React.useEffect(() => {
-		requestLeaderboard({ type: selectedType });
+		requestLeaderboard({ type: selectedType }).then(setLeaderboard);
 	}, [selectedType]);
 
 	return (

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Facility } from 'baseballcloud/types';
 
-import { fetchFacilities } from '../ducks/profile';
+import { fetchFacilitiesPromise } from '../ducks/profile';
 import { useRoutine } from './useRoutine';
 
 export const useFacilities = () => {
@@ -16,16 +16,10 @@ export const useFacilities = () => {
 		[facilities],
 	);
 
-	const [loading, request] = useRoutine(
-		{
-			routine: fetchFacilities,
-			onSuccess: (data: any) => setFacilities(data),
-		},
-		[],
-	);
+	const [loading, request] = useRoutine(fetchFacilitiesPromise, []);
 
 	React.useEffect(() => {
-		request('');
+		request('').then(setFacilities);
 	}, []);
 
 	return { facilities, facilityOptions };

@@ -6,7 +6,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { ProfileForm } from 'baseballcloud/types';
 
 import { useRoutine } from '../../../hooks/useRoutine';
-import { updateProfile } from '../../../ducks/profile';
+import { updateProfilePromise } from '../../../ducks/profile';
 
 import UserInfo from '../Sections/UserInfo';
 import PersonalInfo from '../Sections/PersonalInfo';
@@ -23,7 +23,7 @@ interface Props {
 }
 
 const ProfileInfoForm: React.FC<Props> = ({ data, onCancel, onSubmit, avatar }) => {
-	const [loading, submit] = useRoutine({ routine: updateProfile, onSuccess: onSubmit }, []);
+	const [loading, submit] = useRoutine(updateProfilePromise, []);
 
 	const handleSubmit = React.useCallback(
 		(form) => {
@@ -35,7 +35,7 @@ const ProfileInfoForm: React.FC<Props> = ({ data, onCancel, onSubmit, avatar }) 
 				inches: parseInt(form.inches),
 				weight: parseInt(form.weight),
 			};
-			submit(_form);
+			submit(_form).then(onSubmit);
 		},
 		[avatar],
 	);
@@ -58,12 +58,7 @@ const ProfileInfoForm: React.FC<Props> = ({ data, onCancel, onSubmit, avatar }) 
 						</div>
 					)}
 					<div className={styles.buttons}>
-						<button
-							disabled={loading}
-							type='button'
-							onClick={onCancel}
-							className={styles.cancel}
-						>
+						<button disabled={loading} type='button' onClick={onCancel} className={styles.cancel}>
 							Cancel
 						</button>
 						<button disabled={loading} className={styles.submit}>
