@@ -8,6 +8,7 @@ import Table from '../UI/Table/Table';
 import Select from '../UI/Select/Select';
 
 import styles from './BattingLeaderboard.scss';
+import { TableColumn } from 'baseballcloud/types';
 
 interface Props {}
 
@@ -93,6 +94,18 @@ const data = {
 	],
 };
 
+const columns: TableColumn[] = [
+	{ key: 'rank', title: 'Rank', dataIndex: 'rank' },
+	{ key: 'batter_name', title: 'Batter Name', dataIndex: 'batter_name' },
+	{ key: 'age', title: 'Age', dataIndex: 'age' },
+	{ key: 'school', title: 'School', dataIndex: 'school' },
+	{ key: 'teams', title: 'Teams', dataIndex: 'teams' },
+	{ key: 'exit_velocity', title: 'Exit Velocity', dataIndex: 'exit_velocity' },
+	{ key: 'launch_angle', title: 'Launch Angle', dataIndex: 'launch_angle' },
+	{ key: 'distance', title: 'Distance', dataIndex: 'distance' },
+	{ key: 'favorite', title: 'Favorite', dataIndex: 'favorite' },
+];
+
 const BattingLeaderboard: React.FC<Props> = () => {
 	const [selectedType, setSelectedType] = React.useState(leaderboardTypes[0].value);
 
@@ -107,19 +120,14 @@ const BattingLeaderboard: React.FC<Props> = () => {
 			/>
 			<div className={styles.table}>
 				<Table
-					data={data.leaderboard_batting}
-					render={data.leaderboard_batting.map((player, idx) => ({
+					columns={columns}
+					data={data.leaderboard_batting.map((p, idx) => ({
+						...p,
+						key: `${p.batter_name}_${p.batter_datraks_id}`,
 						rank: idx + 1,
-						batter_name: (
-							<Link to={`${Route.Profile}/${player.batter_datraks_id}`}>{player.batter_name}</Link>
-						),
-						age: player.age,
-						school: player.school.name,
-						teams: player.teams.map((t) => t.name).join(','),
-						exit_velocity: player.exit_velocity,
-						launch_angle: player.launch_angle || '-',
-						distance: player.distance,
-						favorite: player.favorite ? '+' : '-',
+						school: p.school.name,
+						teams: p.teams.map((t) => t.name).join(','),
+						favorite: p.favorite ? '+' : '-',
 					}))}
 				/>
 			</div>

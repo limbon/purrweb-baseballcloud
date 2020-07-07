@@ -38,6 +38,14 @@ declare module 'baseballcloud/types' {
 		Right,
 	}
 
+	type TableData<T> = { key: string | number } & { [K in keyof T]: T[K] };
+
+	type TableColumn = {
+		title: string;
+		dataIndex: string;
+		key: string | number;
+	};
+
 	type Credentials = {
 		'access-token': string;
 		client: string;
