@@ -1,0 +1,99 @@
+.userInfo {
+	display: grid;
+	gap: 1px;
+
+	img {
+		width: 100px;
+		height: 100px;
+		justify-self: center;
+		border-radius: 50%;
+	}
+
+	.username {
+		font-size: 20px;
+		line-height: 24px;
+		color: #414f5a;
+		word-wrap: break-word;
+		word-break: break-all;
+		text-align: center;
+	}
+
+	.position {
+		font-size: 16px;
+		line-height: 19px;
+		color: #788b99;
+		text-align: center;
+	}
+}
+
+.personalInfo {
+	display: grid;
+	gap: 32px;
+	margin-top: 32px;
+
+	.attribute {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.attributeName {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			gap: 8px;
+			align-items: center;
+
+			.icon {
+				width: 24px;
+				height: 24px;
+				display: grid;
+				align-items: center;
+				justify-items: center;
+			}
+
+			span {
+				margin-left: 8px;
+			}
+		}
+	}
+}
+
+.schoolInfo {
+	display: grid;
+	gap: 8px;
+	margin-top: 16px;
+
+	.schoolInfoItem {
+		display: grid;
+		gap: 3px;
+
+		.schoolInfoItemTitle {
+			font-size: 14px;
+			font-weight: 300;
+			color: #667784;
+		}
+
+		.schoolInfoItemValue {
+			font-size: 16px;
+			color: #667784;
+		}
+	}
+}
+
+.bio {
+	margin-top: 16px;
+
+	.bioTitle {
+		font-size: 18px;
+		font-weight: 900;
+		color: #414f5a;
+		display: flex;
+	}
+
+	p {
+		font-size: 16px;
+		line-height: 19px;
+		color: #788b99;
+		line-height: 1.75;
+		white-space: pre-wrap;
+	}
+}
