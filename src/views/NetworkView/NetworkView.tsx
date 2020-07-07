@@ -39,6 +39,7 @@ const NetworkView: React.FC = () => {
 			<div className={styles.heading}>Avaliable players ({totalCount})</div>
 			<div className={styles.table}>
 				<Table
+					loading={loading}
 					data={profiles.map((d) => ({
 						key: d.id,
 						player_name: `${d.first_name} ${d.last_name}`,

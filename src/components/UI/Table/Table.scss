@@ -1,8 +1,17 @@
 .table {
+	min-height: 600px;
 	background-color: #fff;
 	display: grid;
 	grid-template-rows: auto 1fr;
 	gap: 16px;
+
+	.loading {
+		min-height: inherit;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
 	.heading {
 		display: flex;

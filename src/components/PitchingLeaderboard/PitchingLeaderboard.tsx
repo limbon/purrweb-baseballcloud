@@ -56,6 +56,7 @@ const PitchingLeaderboard: React.FC<Props> = () => {
 			/>
 			<div className={styles.table}>
 				<Table
+					loading={loading}
 					columns={columns}
 					data={leaderboard.map((p, idx) => ({
 						...p,
