@@ -23,7 +23,7 @@ export const useTeams = () => {
 	);
 
 	React.useEffect(() => {
-		request('');
+		request('').then(setTeams);
 	}, []);
 
 	return { teams, teamOptions, requestMoreTeams, teamsLoading: loading };

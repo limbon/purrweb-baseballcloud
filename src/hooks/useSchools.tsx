@@ -23,7 +23,7 @@ export const useSchools = () => {
 	);
 
 	React.useEffect(() => {
-		request('');
+		request('').then(setSchools);
 	}, []);
 
 	return {
