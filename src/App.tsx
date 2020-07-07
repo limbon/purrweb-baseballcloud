@@ -18,6 +18,7 @@ import PrivacyView from './views/Legal/PrivacyView';
 import MyProfileView from './views/MyProfileView/MyProfileView';
 import ProfileView from './views/ProfileView/ProfileView';
 import Leaderboard from './views/LeaderboardView/LeaderboardView';
+import Pagination from './components/UI/Pagination/Pagination';
 
 const App: React.FC = () => {
 	const user = useSelector(selectUser);
@@ -53,6 +54,7 @@ const App: React.FC = () => {
 					<Route path='*' component={() => <Redirect to={Routes.Missing} />} />
 				</Switch>
 			</div>
+			<Pagination max={100} toShow={10} onChange={(page) => console.log(page)} />
 			<Footer />
 		</div>
 	);

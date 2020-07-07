@@ -1,0 +1,30 @@
+.pagination {
+	width: max-content;
+	background-color: #fff;
+	display: grid;
+	grid-auto-flow: column;
+	gap: 8px;
+	padding: 8px;
+
+	.item {
+		min-width: 32px;
+		max-width: fit-content;
+		color: #23527c;
+		background-color: #eee;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 4px;
+		padding: 8px;
+		cursor: pointer;
+
+		&:hover {
+			background-color: #ddd;
+		}
+
+		&.active {
+			color: #fff;
+			background-color: #48bbff;
+		}
+	}
+}
