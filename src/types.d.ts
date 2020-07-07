@@ -70,6 +70,18 @@ declare module 'baseballcloud/types' {
 		teams: Team[];
 		favorite: boolean;
 	};
+	type LeaderboardPitchingData = {
+		pitcher_datraks_id: number;
+		rank: string;
+		pitcher_name: string;
+		age: number;
+		school: School;
+		teams: Team[];
+		pitch_type: string;
+		velocity: number;
+		spin_rate: number;
+		favorite: boolean;
+	};
 
 	type Credentials = {
 		'access-token': string;

@@ -1,0 +1,12 @@
+.leaderboard {
+	display: grid;
+
+	.type {
+		width: 200px;
+		justify-self: end;
+	}
+
+	.table {
+		margin-top: 24px;
+	}
+}

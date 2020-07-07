@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import styles from './LeaderboardView.scss';
 import BattingLeaderboard from '../../components/BattingLeaderboard/BattingLeaderboard';
+import PitchingLeaderboard from '../../components/PitchingLeaderboard/PitchingLeaderboard';
+
+import styles from './LeaderboardView.scss';
 
 const Leaderboard: React.FC = () => {
 	return (
@@ -20,7 +22,9 @@ const Leaderboard: React.FC = () => {
 				<TabPanel>
 					<BattingLeaderboard />
 				</TabPanel>
-				<TabPanel></TabPanel>
+				<TabPanel>
+					<PitchingLeaderboard />
+				</TabPanel>
 			</Tabs>
 		</div>
 	);
