@@ -28,11 +28,11 @@ const ProfileView: React.FC = () => {
 	}, [params.id]);
 
 	if (!credentials) {
-		return <Redirect to={Route.Home} />;
+		return <Redirect to='/' />;
 	}
 
 	if (isNaN(parseInt(params.id))) {
-		return <Redirect to={Route.Home} />;
+		return <Redirect to='/' />;
 	}
 
 	if (profiles[params.id]) {

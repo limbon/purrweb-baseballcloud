@@ -16,7 +16,7 @@ const MyProfileView: React.FC = () => {
 	const credentials = useSelector(selectCredentials);
 
 	if (!credentials) {
-		return <Redirect to={Route.Home} />;
+		return <Redirect to='/' />;
 	}
 
 	if (profile) {
