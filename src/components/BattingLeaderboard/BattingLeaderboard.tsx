@@ -9,6 +9,7 @@ import Table from '../UI/Table/Table';
 import Select from '../UI/Select/Select';
 
 import styles from './BattingLeaderboard.scss';
+import { Link } from 'react-router-dom';
 
 interface Props {}
 
@@ -59,6 +60,7 @@ const BattingLeaderboard: React.FC<Props> = () => {
 					columns={columns}
 					data={leaderboard.map((p, idx) => ({
 						...p,
+						batter_name: <Link to={`/profile/${p.batter_datraks_id}`}>{p.batter_name}</Link>,
 						key: `${p.batter_name}_${p.batter_datraks_id}`,
 						rank: idx + 1,
 						school: p.school.name,

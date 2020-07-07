@@ -9,6 +9,7 @@ import Table from '../../components/UI/Table/Table';
 import Pagination from '../../components/UI/Pagination/Pagination';
 
 import styles from './NetworkView.scss';
+import { Link } from 'react-router-dom';
 
 const columns: TableColumn[] = [
 	{ key: 'player_name', title: 'Player Name', dataIndex: 'player_name' },
@@ -40,14 +41,18 @@ const NetworkView: React.FC = () => {
 			<div className={styles.table}>
 				<Table
 					loading={loading}
-					data={profiles.map((d) => ({
-						key: d.id,
-						player_name: `${d.first_name} ${d.last_name}`,
-						sessions: d.events.length || '-',
-						school: d.school?.name || '-',
-						teams: d.teams?.map((t: any) => t.name).join(',') || '-',
-						age: d.age,
-						favorite: d.favorite ? '+' : '-',
+					data={profiles.map((p) => ({
+						key: p.id,
+						player_name: (
+							<Link to={`/profile/${p.id}`}>
+								{p.first_name} {p.last_name}
+							</Link>
+						),
+						sessions: p.events.length || '-',
+						school: p.school?.name || '-',
+						teams: p.teams?.map((t: any) => t.name).join(',') || '-',
+						age: p.age,
+						favorite: p.favorite ? '+' : '-',
 					}))}
 					columns={columns}
 				/>
