@@ -19,6 +19,7 @@ import MyProfileView from './views/MyProfileView/MyProfileView';
 import ProfileView from './views/ProfileView/ProfileView';
 import LeaderboardView from './views/LeaderboardView/LeaderboardView';
 import NetworkView from './views/NetworkView/NetworkView';
+import ProgressBar from './components/ProgressBar/ProgressBar';
 
 const App: React.FC = () => {
 	const user = useSelector(selectUser);
@@ -54,6 +55,9 @@ const App: React.FC = () => {
 					<Route path={Routes.Missing} component={() => <h1>404</h1>} />
 					<Route path='*' component={() => <Redirect to={Routes.Missing} />} />
 				</Switch>
+			</div>
+			<div style={{ backgroundColor: 'white', width: 350 }}>
+				<ProgressBar title='Exit Velocity' min={0} max={185} current={100.5} />
 			</div>
 			<Footer />
 		</div>

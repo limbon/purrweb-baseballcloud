@@ -1,0 +1,20 @@
+.progressBar {
+	display: grid;
+	gap: 8px;
+
+	.values {
+		display: flex;
+		justify-content: space-between;
+
+		.title {
+			color: #667784;
+			font-size: 16px;
+		}
+
+		.value {
+			color: #667784;
+			font-size: 16px;
+			font-weight: 700;
+		}
+	}
+}
