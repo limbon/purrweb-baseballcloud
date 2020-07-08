@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { selectUser, selectCredentials } from './utils/selectors';
+
 import { validateToken } from './ducks/user';
 import { fetchProfile } from './ducks/profile';
 
@@ -17,7 +18,6 @@ import MyProfileView from './views/MyProfileView/MyProfileView';
 import ProfileView from './views/ProfileView/ProfileView';
 import LeaderboardView from './views/LeaderboardView/LeaderboardView';
 import NetworkView from './views/NetworkView/NetworkView';
-import ProgressBar from './components/ProgressBar/ProgressBar';
 
 const App: React.FC = () => {
 	const user = useSelector(selectUser);
@@ -26,13 +26,13 @@ const App: React.FC = () => {
 
 	React.useEffect(() => {
 		if (credentials && !user) {
-			dispatch(validateToken());
+			dispatch(validateToken.request());
 		}
 	}, [credentials, user]);
 
 	React.useEffect(() => {
 		if (user) {
-			dispatch(fetchProfile());
+			dispatch(fetchProfile.request());
 		}
 	}, [user]);
 

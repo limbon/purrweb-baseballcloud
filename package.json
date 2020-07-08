@@ -24,6 +24,7 @@
 		"@types/react-redux": "^7.1.9",
 		"@types/react-router-dom": "^5.1.5",
 		"@types/react-tabs": "^2.3.1",
+		"@types/uuid": "^8.0.0",
 		"babel-loader": "^8.1.0",
 		"babel-polyfill": "^6.26.0",
 		"css-loader": "^3.6.0",
@@ -62,6 +63,8 @@
 		"redux-saga-routines": "^3.2.3",
 		"reflect-metadata": "^0.1.13",
 		"reselect": "^4.0.0",
-		"use-dropdown": "^1.0.0"
+		"typesafe-actions": "^5.1.0",
+		"use-dropdown": "^1.0.0",
+		"uuid": "^8.2.0"
 	}
 }

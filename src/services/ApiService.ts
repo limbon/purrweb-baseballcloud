@@ -186,7 +186,7 @@ export class ApiService {
 		return response.data.data.profile;
 	};
 
-	requestUpdateProfile = async (form: ProfileForm): Promise<Partial<Profile>> => {
+	requestUpdateProfile = async (form: Partial<ProfileForm>): Promise<Partial<Profile>> => {
 		const response = await axios.post<{
 			data: { update_profile: { profile: Partial<Profile> } };
 		}>(

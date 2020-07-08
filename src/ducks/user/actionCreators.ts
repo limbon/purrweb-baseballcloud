@@ -1,21 +1,60 @@
-import { createRoutine } from 'redux-saga-routines';
+import { createAsyncAction } from 'typesafe-actions';
 
 import { SignInFormData, User, Credentials, SignUpFormData } from 'baseballcloud/types';
 
-import { SIGN_IN, VALIDATE_TOKEN, SIGN_OUT, SIGN_UP } from './actionTypes';
+import {
+	SignInActions,
+	SignUpActions,
+	SignOutActions,
+	ValidateTokenActions,
+} from './actionTypes';
 
-export const signIn = createRoutine(SIGN_IN, {
-	trigger: (form: SignInFormData) => form,
-	success: (user: User, credentials: Credentials) => ({ user, credentials }),
-});
+export const signIn = createAsyncAction(
+	SignInActions.request,
+	SignInActions.success,
+	SignInActions.failure,
+	SignInActions.cancel,
+)<
+	[SignInFormData, undefined],
+	[{ user: User; credentials: Credentials }, undefined],
+	[Error, undefined],
+	[undefined, undefined]
+>();
 
-export const signUp = createRoutine(SIGN_UP, {
-	trigger: (form: SignUpFormData) => form,
-	success: (user: User, credentials: Credentials) => ({ user, credentials }),
-});
+export const signUp = createAsyncAction(
+	SignUpActions.request,
+	SignUpActions.success,
+	SignUpActions.failure,
+	SignUpActions.cancel,
+)<
+	[SignUpFormData, undefined],
+	[{ user: User; credentials: Credentials }, undefined],
+	[Error, undefined],
+	[undefined, undefined]
+>();
 
-export const signOut = createRoutine(SIGN_OUT);
+export const signOut = createAsyncAction(
+	SignOutActions.request,
+	SignOutActions.success,
+	SignOutActions.failure,
+	SignOutActions.cancel,
+)<
+	[undefined, undefined],
+	[undefined, undefined],
+	[Error, undefined],
+	[undefined, undefined]
+>();
 
-export const validateToken = createRoutine(VALIDATE_TOKEN, {
-	success: (user: User) => user,
-});
+export const validateToken = createAsyncAction(
+	ValidateTokenActions.request,
+	ValidateTokenActions.success,
+	ValidateTokenActions.failure,
+	ValidateTokenActions.cancel,
+)<[undefined, undefined], [User, undefined], [Error, undefined], [undefined, undefined]>();
+
+export default {
+	signIn,
+	signUp,
+	signOut,
+	validateToken,
+};

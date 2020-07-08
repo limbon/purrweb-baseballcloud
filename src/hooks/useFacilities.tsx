@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { Facility } from 'baseballcloud/types';
 
-import { fetchFacilitiesPromise } from '../ducks/profile';
-import { useRoutine } from './useRoutine';
+import { $fetchFacilities } from '../ducks/profile/promisifiedActions';
+import { useAsyncAction } from './useAsyncAction';
 
 export const useFacilities = () => {
 	const [facilities, setFacilities] = React.useState<{ [index: string]: Facility }>({});
@@ -14,7 +14,7 @@ export const useFacilities = () => {
 		}));
 	}, [facilities]);
 
-	const [loading, request] = useRoutine(fetchFacilitiesPromise, []);
+	const [loading, error, request] = useAsyncAction($fetchFacilities, []);
 
 	React.useEffect(() => {
 		request('').then(setFacilities);

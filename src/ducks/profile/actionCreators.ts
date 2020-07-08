@@ -1,14 +1,17 @@
+import { createRoutine, promisifyRoutine, PromiseCreator } from 'redux-saga-routines';
+import { createAsyncAction } from 'typesafe-actions';
+
 import {
-	FETCH_PROFILE,
-	FETCH_PROFILE_BY_ID,
-	UPDATE_PROFILE,
-	FETCH_TEAMS,
-	FETCH_SCHOOLS,
-	FETCH_FACILITIES,
-	UPDATE_AVATAR,
-	FETCH_LEADERBOARD_BATTING,
-	FETCH_LEADERBOARD_PITCHING,
-	FETCH_NETWORK,
+	FetchProfileActions,
+	FetchProfileByIdActions,
+	UpdateProfileActions,
+	UploadAvatarActions,
+	FetchLeaderboardBattingActions,
+	FetchLeaderboardPitchingActions,
+	FetchNetworkActions,
+	FetchTeamsActions,
+	FetchSchoolsActions,
+	FetchFacilitiesActions,
 } from './actionTypes';
 
 import {
@@ -24,76 +27,125 @@ import {
 	NetworkUserData,
 } from 'baseballcloud/types';
 
-import { createRoutine, promisifyRoutine, PromiseCreator } from 'redux-saga-routines';
+import { PromisifiedActionMeta } from '../../utils/promisifiedActions/PromisifiedActionMeta';
 
-export const fetchProfile = createRoutine(FETCH_PROFILE, {
-	success: (profile: Profile) => profile,
-	failure: (error: Error) => error,
-});
+export const fetchProfile = createAsyncAction(
+	FetchProfileActions.request,
+	FetchProfileActions.success,
+	FetchProfileActions.failure,
+)<[undefined, undefined], [Profile, undefined], [Error, undefined]>();
 
-export const fetchProfileById = createRoutine(FETCH_PROFILE_BY_ID, {
-	trigger: (id: string) => id,
-	success: (profile: Profile) => profile,
-});
+export const fetchProfileById = createAsyncAction(
+	FetchProfileByIdActions.request,
+	FetchProfileByIdActions.success,
+	FetchProfileByIdActions.failure,
+)<[string, undefined], [Profile, undefined], [Error, undefined]>();
 
-export const updateProfile = createRoutine(UPDATE_PROFILE, {
-	trigger: (form: Partial<ProfileForm>) => form,
-	success: (profile: Profile | null) => profile,
-	failure: (error: Error) => error,
-});
-export const updateProfilePromise: PromiseCreator<Partial<ProfileForm>> = promisifyRoutine(
+export const updateProfile = createAsyncAction(
+	UpdateProfileActions.request,
+	UpdateProfileActions.success,
+	UpdateProfileActions.failure,
+	UpdateProfileActions.cancel,
+)<
+	[Partial<ProfileForm>, PromisifiedActionMeta],
+	[Profile, PromisifiedActionMeta],
+	[Error, PromisifiedActionMeta],
+	[undefined, PromisifiedActionMeta]
+>();
+
+export const updateAvatar = createAsyncAction(
+	UploadAvatarActions.request,
+	UploadAvatarActions.success,
+	UploadAvatarActions.failure,
+	UploadAvatarActions.cancel,
+)<
+	[{ name: string; data: File }, PromisifiedActionMeta],
+	[string, PromisifiedActionMeta],
+	[Error, PromisifiedActionMeta],
+	[undefined, PromisifiedActionMeta]
+>();
+
+export const fetchLeaderboardBatting = createAsyncAction(
+	FetchLeaderboardBattingActions.request,
+	FetchLeaderboardBattingActions.success,
+	FetchLeaderboardBattingActions.failure,
+	FetchLeaderboardBattingActions.cancel,
+)<
+	[LeaderboardFilterOptions, PromisifiedActionMeta],
+	[LeaderboardBattingData[], PromisifiedActionMeta],
+	[Error, PromisifiedActionMeta],
+	[undefined, PromisifiedActionMeta]
+>();
+
+export const fetchLeaderboardPitching = createAsyncAction(
+	FetchLeaderboardPitchingActions.request,
+	FetchLeaderboardPitchingActions.success,
+	FetchLeaderboardPitchingActions.failure,
+	FetchLeaderboardPitchingActions.cancel,
+)<
+	[LeaderboardFilterOptions, PromisifiedActionMeta],
+	[LeaderboardPitchingData, PromisifiedActionMeta],
+	[Error, PromisifiedActionMeta],
+	[undefined, PromisifiedActionMeta]
+>();
+
+export const fetchNetwork = createAsyncAction(
+	FetchNetworkActions.request,
+	FetchNetworkActions.success,
+	FetchNetworkActions.failure,
+	FetchNetworkActions.cancel,
+)<
+	[NetworkFilterOptions, PromisifiedActionMeta],
+	[NetworkUserData, PromisifiedActionMeta],
+	[Error, PromisifiedActionMeta],
+	[undefined, PromisifiedActionMeta]
+>();
+
+export const fetchTeams = createAsyncAction(
+	FetchTeamsActions.request,
+	FetchTeamsActions.success,
+	FetchTeamsActions.failure,
+	FetchTeamsActions.cancel,
+)<
+	[string, PromisifiedActionMeta],
+	[{ [index: string]: Team }, PromisifiedActionMeta],
+	[Error, PromisifiedActionMeta],
+	[undefined, PromisifiedActionMeta]
+>();
+
+export const fetchSchools = createAsyncAction(
+	FetchSchoolsActions.request,
+	FetchSchoolsActions.success,
+	FetchSchoolsActions.failure,
+	FetchSchoolsActions.cancel,
+)<
+	[string, PromisifiedActionMeta],
+	[{ [index: string]: School }, PromisifiedActionMeta],
+	[Error, PromisifiedActionMeta],
+	[undefined, PromisifiedActionMeta]
+>();
+
+export const fetchFacilities = createAsyncAction(
+	FetchFacilitiesActions.request,
+	FetchFacilitiesActions.success,
+	FetchFacilitiesActions.failure,
+	FetchFacilitiesActions.cancel,
+)<
+	[string, PromisifiedActionMeta],
+	[{ [index: string]: Facility }, PromisifiedActionMeta],
+	[Error, PromisifiedActionMeta],
+	[undefined, PromisifiedActionMeta]
+>();
+
+export default {
+	fetchProfile,
+	fetchProfileById,
 	updateProfile,
-);
-
-export const updateAvatar = createRoutine(UPDATE_AVATAR, {
-	trigger: ({ name, data }: { name: string | null; data: File | null }) => ({ name, data }),
-	success: (url: string) => url,
-});
-export const updateAvatarPromise: PromiseCreator<{
-	name: string | null;
-	data: File | null;
-}> = promisifyRoutine(updateAvatar);
-
-export const fetchLeaderboardBatting = createRoutine(FETCH_LEADERBOARD_BATTING, {
-	trigger: (input: LeaderboardFilterOptions) => input,
-	success: (data: LeaderboardBattingData[]) => data,
-});
-export const fetchLeaderboardBattingPromise: PromiseCreator<LeaderboardFilterOptions> = promisifyRoutine(
+	updateAvatar,
 	fetchLeaderboardBatting,
-);
-
-export const fetchLeaderboardPitching = createRoutine(FETCH_LEADERBOARD_PITCHING, {
-	trigger: (input: LeaderboardFilterOptions) => input,
-	success: (data: LeaderboardPitchingData[]) => data,
-});
-export const fetchLeaderboardPitchingPromise: PromiseCreator<LeaderboardFilterOptions> = promisifyRoutine(
 	fetchLeaderboardPitching,
-);
-
-export const fetchNetwork = createRoutine(FETCH_NETWORK, {
-	trigger: (input: NetworkFilterOptions) => input,
-	success: (data: { profiles: NetworkUserData[]; total_count: number }) => data,
-});
-export const fetchNetworkPromise: PromiseCreator<NetworkFilterOptions> = promisifyRoutine(
 	fetchNetwork,
-);
-
-export const fetchTeams = createRoutine(FETCH_TEAMS, {
-	trigger: (search: string) => search,
-	success: (teams: { [index: string]: Team }) => teams,
-});
-export const fetchTeamsPromise: PromiseCreator<string> = promisifyRoutine(fetchTeams);
-
-export const fetchSchools = createRoutine(FETCH_SCHOOLS, {
-	trigger: (search: string) => search,
-	success: (schools: { [index: string]: School }) => schools,
-});
-export const fetchSchoolsPromise: PromiseCreator<string> = promisifyRoutine(fetchSchools);
-
-export const fetchFacilities = createRoutine(FETCH_FACILITIES, {
-	trigger: (search: string) => search,
-	success: (facilities: { [index: string]: Facility }) => facilities,
-});
-export const fetchFacilitiesPromise: PromiseCreator<string> = promisifyRoutine(
+	fetchTeams,
+	fetchSchools,
 	fetchFacilities,
-);
+};

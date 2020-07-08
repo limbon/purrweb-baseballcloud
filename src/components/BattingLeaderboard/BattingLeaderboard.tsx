@@ -1,16 +1,16 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { OptionsType } from 'react-select';
 
 import { TableColumn, LeaderboardType, LeaderboardBattingData } from 'baseballcloud/types';
 
-import { useRoutine } from '../../hooks/useRoutine';
-import { fetchLeaderboardBattingPromise } from '../../ducks/profile';
+import { $fetchLeaderboardBatting } from '../../ducks/profile/promisifiedActions';
+import { useAsyncAction } from '../../hooks/useAsyncAction';
 
 import Table from '../UI/Table/Table';
 import Select from '../UI/Select/Select';
 
 import styles from './BattingLeaderboard.scss';
-import { Link } from 'react-router-dom';
 
 interface Props {}
 
@@ -34,7 +34,7 @@ const columns: TableColumn[] = [
 const BattingLeaderboard: React.FC<Props> = () => {
 	const [leaderboard, setLeaderboard] = React.useState<LeaderboardBattingData[]>([]);
 	const [selectedType, setSelectedType] = React.useState(leaderboardTypes[0].value);
-	const [loading, requestLeaderboard] = useRoutine(fetchLeaderboardBattingPromise, [
+	const [loading, error, requestLeaderboard] = useAsyncAction($fetchLeaderboardBatting, [
 		selectedType,
 	]);
 

@@ -20,7 +20,7 @@ const ProfileView: React.FC = () => {
 		if (credentials) {
 			if (!profiles[params.id]) {
 				if (!isNaN(parseInt(params.id))) {
-					dispatch(fetchProfileById(params.id));
+					dispatch(fetchProfileById.request(params.id));
 				}
 			}
 		}

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Form, Field } from 'react-final-form';
 
-import { useRoutine } from '../../../hooks/useRoutine';
-import { updateAvatar, updateAvatarPromise } from '../../../ducks/profile';
+import { $updateAvatar } from '../../../ducks/profile/promisifiedActions';
+import { useAsyncAction } from '../../../hooks/useAsyncAction';
 
 import DefaultAvatar from '../../../assets/images/default-avatar.png';
 
@@ -27,7 +27,7 @@ const AvatarUpload: React.FC<Props> = ({ avatarUrl, onUpload }) => {
 		url: avatarUrl || DefaultAvatar,
 		file: null,
 	});
-	const [loading, update] = useRoutine(updateAvatarPromise, []);
+	const [loading, error, update] = useAsyncAction($updateAvatar, []);
 
 	React.useEffect(() => {
 		fileReader.onload = (e) => {
@@ -44,11 +44,11 @@ const AvatarUpload: React.FC<Props> = ({ avatarUrl, onUpload }) => {
 
 	const handleSubmit = React.useCallback(async () => {
 		try {
-			const url = await update({ name: avatar.name, data: avatar.file });
+			const url = await update({ name: avatar.name!, data: avatar.file! });
 			setAvatar({ name: null, url, file: null });
 			onUpload(url);
 		} catch (error) {
-			throw error;
+			console.error(error);
 		}
 	}, [avatar]);
 

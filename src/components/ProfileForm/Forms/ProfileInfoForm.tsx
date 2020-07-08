@@ -5,8 +5,8 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { ProfileForm } from 'baseballcloud/types';
 
-import { useRoutine } from '../../../hooks/useRoutine';
-import { updateProfilePromise } from '../../../ducks/profile';
+import { $updateProfile } from '../../../ducks/profile/promisifiedActions';
+import { useAsyncAction } from '../../../hooks/useAsyncAction';
 
 import UserInfo from '../Sections/UserInfo';
 import PersonalInfo from '../Sections/PersonalInfo';
@@ -23,7 +23,7 @@ interface Props {
 }
 
 const ProfileInfoForm: React.FC<Props> = ({ data, onCancel, onSubmit, avatar }) => {
-	const [loading, submit] = useRoutine(updateProfilePromise, []);
+	const [loading, error, submit] = useAsyncAction($updateProfile, []);
 
 	const handleSubmit = React.useCallback(
 		(form) => {

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { TableColumn, NetworkUserData } from 'baseballcloud/types';
 
-import { useRoutine } from '../../hooks/useRoutine';
-import { fetchNetworkPromise } from '../../ducks/profile';
+import { $fetchNetwork } from '../../ducks/profile/promisifiedActions';
+import { useAsyncAction } from '../../hooks/useAsyncAction';
 
 import Table from '../../components/UI/Table/Table';
 import Pagination from '../../components/UI/Pagination/Pagination';
@@ -26,13 +26,15 @@ const NetworkView: React.FC = () => {
 	const [offset, setOffset] = React.useState<number>(0);
 	const [totalCount, setTotalCount] = React.useState<number>(0);
 
-	const [loading, requestProfiles] = useRoutine(fetchNetworkPromise, [toShow, offset]);
+	const [loading, error, requestProfiles] = useAsyncAction($fetchNetwork, [toShow, offset]);
+
+	const updateData = React.useCallback((data: any) => {
+		setProfiles(data.profiles);
+		setTotalCount(data.total_count);
+	}, []);
 
 	React.useEffect(() => {
-		requestProfiles({ offset, profiles_count: toShow }).then((data) => {
-			setProfiles(data.profiles);
-			setTotalCount(data.total_count);
-		});
+		requestProfiles({ offset, profiles_count: toShow }).then(updateData);
 	}, [offset, toShow]);
 
 	const tableData = React.useMemo(() => {

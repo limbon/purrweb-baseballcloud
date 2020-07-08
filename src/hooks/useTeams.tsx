@@ -2,8 +2,9 @@ import * as React from 'react';
 
 import { Team } from 'baseballcloud/types';
 
-import { fetchTeamsPromise } from '../ducks/profile';
-import { useRoutine } from './useRoutine';
+import { $fetchTeams } from '../ducks/profile/promisifiedActions';
+
+import { useAsyncAction } from './useAsyncAction';
 
 export const useTeams = () => {
 	const [teams, setTeams] = React.useState<{ [index: string]: Team }>({});
@@ -11,7 +12,7 @@ export const useTeams = () => {
 		() => Object.values(teams).map((team) => ({ label: team.name, value: team.name })),
 		[teams],
 	);
-	const [loading, request] = useRoutine(fetchTeamsPromise, [teams]);
+	const [loading, error, request] = useAsyncAction($fetchTeams, [teams]);
 
 	const requestMoreTeams = React.useCallback(
 		(value: string) => {

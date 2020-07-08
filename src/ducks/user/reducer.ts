@@ -1,4 +1,5 @@
-import { Reducer } from 'redux';
+import { createReducer } from 'typesafe-actions';
+
 import { UserState, CachedData } from 'baseballcloud/types';
 
 import { IOC } from '../../ioc';
@@ -15,42 +16,25 @@ const initialState: UserState = {
 	credentials: cache.get('credentials') || null,
 };
 
-export const userReducer: Reducer<UserState> = (state = initialState, action) => {
-	switch (action.type) {
-		case signIn.REQUEST:
-		case signUp.REQUEST:
-		case signOut.REQUEST:
-		case validateToken.REQUEST: {
+export const userReducer = createReducer(initialState)
+	.handleAction(
+		[signIn.request, signUp.request, signOut.request, validateToken.request],
+		(state) => {
 			return { ...state, loading: true };
-		}
-
-		case signIn.SUCCESS:
-		case signUp.SUCCESS: {
-			return { ...state, user: action.payload.user, credentials: action.payload.credentials };
-		}
-		case signOut.SUCCESS: {
-			return { ...state, user: null, credentials: null };
-		}
-		case validateToken.SUCCESS: {
-			return { ...state, user: action.payload };
-		}
-
-		case signIn.FAILURE:
-		case signUp.FAILURE:
-		case signOut.FAILURE:
-		case validateToken.FAILURE: {
-			return { ...state, error: action.payload };
-		}
-
-		case signIn.FULFILL:
-		case signUp.FULFILL:
-		case signOut.FULFILL:
-		case validateToken.FULFILL: {
-			return { ...state, loading: false };
-		}
-
-		default: {
-			return state;
-		}
-	}
-};
+		},
+	)
+	.handleAction(validateToken.success, (state, action) => {
+		return { ...state, user: action.payload };
+	})
+	.handleAction([signIn.success, signUp.success], (state, action) => {
+		return { ...state, ...action.payload, loading: false };
+	})
+	.handleAction(signOut.success, (state) => {
+		return { ...state, user: null, credentials: null, loading: false };
+	})
+	.handleAction(
+		[signIn.failure, signUp.failure, signOut.failure, validateToken.failure],
+		(state, action) => {
+			return { ...state, error: action.payload, loading: false };
+		},
+	);

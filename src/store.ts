@@ -1,7 +1,9 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { routinePromiseWatcherSaga } from 'redux-saga-routines';
 import { all } from 'redux-saga/effects';
+
+import promiseWatcherSaga2 from './utils/promisifiedActions/promisifyWatcher';
+// import { promiseWatcherSaga } from './utils/promisifiedActions/promiseWatcher';
 
 import { ApplicationStore } from 'baseballcloud/types';
 
@@ -22,7 +24,7 @@ const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)));
 
 function* rootSaga() {
-	yield all([userSaga(), profileSaga(), routinePromiseWatcherSaga()]);
+	yield all([userSaga(), profileSaga(), promiseWatcherSaga2()]);
 }
 sagaMiddleware.run(rootSaga);
 
