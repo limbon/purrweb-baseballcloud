@@ -56,9 +56,6 @@ const App: React.FC = () => {
 					<Route path='*' component={() => <Redirect to={Routes.Missing} />} />
 				</Switch>
 			</div>
-			<div style={{ backgroundColor: 'white', width: 350 }}>
-				<ProgressBar title='Exit Velocity' min={0} max={185} current={100.5} />
-			</div>
 			<Footer />
 		</div>
 	);

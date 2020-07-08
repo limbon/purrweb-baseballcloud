@@ -11,19 +11,19 @@ interface Props {
 	title: string;
 	min: number;
 	max: number;
-	current: number;
+	current: number | null;
 }
 
 const ProgressBar: React.FC<Props> = ({ min, max, current, title }) => {
-	const value = React.useMemo(() => getPercent(min, max, current), []);
+	const value = React.useMemo(() => (current ? getPercent(min, max, current) : null), []);
 
 	return (
 		<div className={styles.progressBar}>
 			<div className={styles.values}>
 				<span className={styles.title}>{title}</span>
-				<span className={styles.value}>{current}</span>
+				<span className={styles.value}>{current || 'N/A'}</span>
 			</div>
-			<Line percent={value} strokeColor='#ffd01a' />
+			<Line percent={value || 0} strokeColor='#ffd01a' />
 		</div>
 	);
 };
