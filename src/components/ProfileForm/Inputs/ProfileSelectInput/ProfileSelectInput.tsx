@@ -53,7 +53,8 @@ const ProfileSelectInput: React.FC<Props> = (props) => {
 		<div className={styles.input}>
 			<Select
 				creatable={creatable}
-				className={`${focus ? styles.select : ''}`}
+				className={styles.select}
+				classNamePrefix='select'
 				onFocus={() => setFocus(true)}
 				onBlur={() => setFocus(false)}
 				maxMenuHeight={128}
