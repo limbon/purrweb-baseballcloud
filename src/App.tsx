@@ -17,7 +17,7 @@ import MyProfileView from './views/MyProfileView/MyProfileView';
 import ProfileView from './views/ProfileView/ProfileView';
 import LeaderboardView from './views/LeaderboardView/LeaderboardView';
 import NetworkView from './views/NetworkView/NetworkView';
-import Select from './components/UI/Select/Select';
+import ProgressBar from './components/ProgressBar/ProgressBar';
 
 const App: React.FC = () => {
 	const user = useSelector(selectUser);
